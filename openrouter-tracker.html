@@ -3175,6 +3175,34 @@
       }
       updateRemovedModelsList();
       updateEventCounter();
+      syncRemoteHistoryFromRepo();
+    }
+
+    async function syncRemoteHistoryFromRepo() {
+      try {
+        const res = await fetch('./change_history.json');
+        if (res.ok) {
+          const remoteEvents = await res.json();
+          if (Array.isArray(remoteEvents) && remoteEvents.length > 0) {
+            const eventMap = new Map();
+            changeEvents.forEach(e => eventMap.set(e.id, e));
+            remoteEvents.forEach(e => {
+              if (!eventMap.has(e.id)) {
+                eventMap.set(e.id, e);
+              }
+            });
+            changeEvents = Array.from(eventMap.values()).sort((a, b) => b.timestamp - a.timestamp);
+            try {
+              localStorage.setItem(STORAGE_KEY_CHANGE_EVENTS, JSON.stringify(changeEvents));
+            } catch(e) {}
+            updateRemovedModelsList();
+            updateEventCounter();
+            renderChangeLog();
+          }
+        }
+      } catch (e) {
+        console.log('[Sync] Cloud change_history.json fetch notice:', e.message);
+      }
     }
 
     function saveChangeEventsToDB() {
