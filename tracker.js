@@ -68,7 +68,39 @@ async function sendDiscordNotification(events) {
   }
 
   if (filteredEvents.length === 0) {
-    console.log('[Notice] No target events (hikes/drops/new models) to notify after filtering.');
+    const isManualRun = process.env.GITHUB_EVENT_NAME === 'workflow_dispatch' || process.env.FORCE_ALERT === 'true';
+    if (isManualRun) {
+      console.log('[Notice] Manual trigger detected. Sending status report embed to Discord...');
+      const payload = {
+        username: "OpenRouter Price Tracker Bot",
+        avatar_url: "https://openrouter.ai/favicon.ico",
+        content: "🤖 **[手動觸發檢查報告] OpenRouter 監控狀態回報**",
+        embeds: [
+          {
+            title: "🔍 雲端排程連線掃描完成",
+            description: `已成功連線 OpenRouter 官方 API 並對比模型價格。`,
+            color: 3900150,
+            fields: [
+              { name: "異動狀態", value: "🟢 目前全站價格平穩 (此時段無新調漲/調降)", inline: true },
+              { name: "掃描時間", value: new Date().toLocaleString('zh-TW', { hour12: false }), inline: true }
+            ],
+            footer: { text: "OpenRouter Tracker Alert Engine • 手動觸發報告" }
+          }
+        ]
+      };
+      try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        console.log('[Success] Manual status report sent to Discord.');
+      } catch(e) {
+        console.error('[Error] Manual status report fetch error:', e.message);
+      }
+    } else {
+      console.log('[Notice] No target events (hikes/drops/new models) to notify after filtering.');
+    }
     return;
   }
 

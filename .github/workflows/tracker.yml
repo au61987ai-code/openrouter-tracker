@@ -26,6 +26,7 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           ONLY_HIKES: ${{ vars.ONLY_HIKES }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
         run: node tracker.js
 
       - name: 💾 Commit & Push Updated Snapshots
