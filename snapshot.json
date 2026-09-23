@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/23 20:55:55",
-  "timestamp": 1790168155064,
+  "savedAt": "2026/9/23 13:05:55",
+  "timestamp": 1790168755842,
   "models": {
     "upstage/solar-mini4": {
       "id": "upstage/solar-mini4",
@@ -2484,14 +2484,14 @@
       "id": "deepseek/deepseek-v4-flash",
       "name": "DeepSeek: DeepSeek V4 Flash 0423",
       "created": 1777000666,
-      "prompt_price": 8.8606e-8,
-      "completion_price": 1.77212e-7,
+      "prompt_price": 8.708e-8,
+      "completion_price": 1.7416e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "tencent/hy3-preview": {

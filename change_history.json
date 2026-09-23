@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_1790168755842_hcyoxu",
+    "timestamp": 1790168755842,
+    "timeStr": "2026/9/23 13:05:55",
+    "modelId": "deepseek/deepseek-v4-flash",
+    "modelName": "DeepSeek: DeepSeek V4 Flash 0423",
+    "provider": "deepseek",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.0886",
+    "newVal": "$0.0871",
+    "diffStr": "$-0.0015",
+    "percentStr": "-1.7%"
+  },
+  {
+    "id": "evt_1790168755842_7n9gy7",
+    "timestamp": 1790168755842,
+    "timeStr": "2026/9/23 13:05:55",
+    "modelId": "deepseek/deepseek-v4-flash",
+    "modelName": "DeepSeek: DeepSeek V4 Flash 0423",
+    "provider": "deepseek",
+    "changeType": "PRICE_DROP",
+    "field": "completion_price",
+    "fieldName": "輸出價格 (Completion)",
+    "oldVal": "$0.1772",
+    "newVal": "$0.1742",
+    "diffStr": "$-0.0031",
+    "percentStr": "-1.7%"
+  },
+  {
     "id": "evt_1790168155064_f4nw0v",
     "timestamp": 1790168155064,
     "timeStr": "2026/9/23 20:55:55",
