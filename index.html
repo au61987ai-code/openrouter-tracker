@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenRouter Tracker & 2026 AI Gateway Hub | 雙功能系統門戶首頁</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #182234;
+      --bg-hover: #1f2d45;
+      --border-color: #24324a;
+      --border-focus: #3b82f6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.6);
+      --header-bg: rgba(17, 24, 39, 0.85);
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    :root[data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-hover: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-focus: #3b82f6;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --accent-blue: #2563eb;
+      --accent-green: #059669;
+      --accent-amber: #d97706;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --header-bg: rgba(255, 255, 255, 0.88);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.25rem 2rem;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .brand-text h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text h1 .highlight {
+      background: linear-gradient(90deg, #60a5fa, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Hero */
+    .portal-hero {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .portal-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      background-color: var(--badge-bg);
+      border: 1px solid var(--border-color);
+      color: var(--accent-blue);
+      margin-bottom: 1.25rem;
+    }
+
+    .portal-hero h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .portal-hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Portal Grid */
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .portal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portal-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.3);
+    }
+
+    .portal-card.card-amber:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.3);
+    }
+
+    .card-icon-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .card-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .card-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .card-features li {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-features li svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent-green);
+      flex-shrink: 0;
+    }
+
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    }
+    .btn-blue:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+    }
+
+    .btn-amber {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+    .btn-amber:hover {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      .portal-hero h2 {
+        font-size: 1.8rem;
+      }
+      .portal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-icon">🚀</div>
+        <div class="brand-text">
+          <h1>AI API <span class="highlight">Gateway & Tracker Portal</span></h1>
+          <p>雙功能獨立入口門戶 • 即時追蹤與同業評測</p>
+        </div>
+      </div>
+      <button id="btn-theme-toggle" style="background-color: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); font-size: 0.85rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;" onclick="toggleTheme()" title="切換亮暗主題 (暗色 / 亮色 / 隨系統)">
+        🌙 暗色
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero -->
+    <div class="portal-hero">
+      <div class="portal-hero-badge">
+        ✨ 2026 全新雙產品架構
+      </div>
+      <h2>選擇您需要使用的 AI API 服務系統</h2>
+      <p>
+        我們將 OpenRouter 模型即時價格監控與 12 大 AI 閘道同業橫向評測獨立分離為兩個專屬系統，提供開箱即用的無伺服器網頁儀表板。
+      </p>
+    </div>
+
+    <!-- Product Cards Grid -->
+    <div class="portal-grid">
+
+      <!-- Product 1: OpenRouter Tracker -->
+      <div class="portal-card">
+        <div>
+          <div class="card-icon-box" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">
+            📊
+          </div>
+          <h3 class="card-title">
+            OpenRouter 價格與異動追蹤器
+          </h3>
+          <p class="card-tagline">
+            專為監控 OpenRouter AI 模型目錄價格變化、新模型上架與歷史降價紀錄設計的雙檢視儀表板。
+          </p>
+
+          <ul class="card-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>直連 OpenRouter API</strong>：即時抓取 440+ 款最新模型
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>差量變動資料庫</strong>：有變動才寫入本地 IndexedDB
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>🔥 限時特價與降價促銷高亮</strong>：顯視折扣幅度與標籤
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>快捷多維度過濾</strong>：免費、推理、視覺、語音、Tools
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>Webhook 自動推播</strong>：同步發送至 GAS / Line Bot / Discord
+            </li>
+          </ul>
+        </div>
+
+        <a href="openrouter-tracker.html" class="btn-launch btn-blue">
+          進入 OpenRouter 追蹤系統 ↗
+        </a>
+      </div>
+
+      <!-- Product 2: AI Gateway Comparison -->
+      <div class="portal-card card-amber">
+        <div>
+          <div class="card-icon-box" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">
+            🌐
+          </div>
+          <h3 class="card-title">
+            2026 AI 閘道同業全面評測與比較
+          </h3>
+          <p class="card-tagline">
+            整合 iThome 與 AIReiter 雙專題評測數據，橫向橫比 12 大 AI 閘道與替代方案全維度比較。
+          </p>
+
+          <ul class="card-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>12 大 AI 閘道生態全收錄</strong>：Crazyrouter, AIReiter, Portkey...
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>💵 2026 旗艦實測費率表</strong>：GPT-5.6 / Claude 5 比價
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>🎬 全模態媒體生成評測</strong>：DALL-E, Flux, Sora 2, Veo 3.1
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>🧮 互動式 TCO 成本試算器</strong>：計算預估每月省下開銷
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <strong>🧭 3 步驟智慧選型決策精靈</strong>：依痛點自動推薦最優組合
+            </li>
+          </ul>
+        </div>
+
+        <a href="comparison.html" class="btn-launch btn-amber">
+          進入同業評測儀表板 ↗
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>OpenRouter Tracker & AI Gateway Comparison Portal | Single-file HTML Architecture</p>
+    <p style="margin-top: 0.35rem; font-size: 0.75rem;">版權所有 © 2026。保留所有權利。</p>
+  </footer>
+
+  <script>
+    const STORAGE_KEY_THEME = 'or_theme_mode';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTheme();
+    });
+
+    function loadTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY_THEME) || 'dark';
+      applyTheme(saved);
+    }
+
+    function applyTheme(theme) {
+      let effective = theme;
+      if (theme === 'system') {
+        effective = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      if (effective === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem(STORAGE_KEY_THEME, theme);
+      updateThemeButtonUI(theme);
+    }
+
+    function toggleTheme() {
+      const current = localStorage.getItem(STORAGE_KEY_THEME) || 'dark';
+      let next = 'dark';
+      if (current === 'dark') next = 'light';
+      else if (current === 'light') next = 'system';
+      else next = 'dark';
+      applyTheme(next);
+    }
+
+    function updateThemeButtonUI(theme) {
+      const btn = document.getElementById('btn-theme-toggle');
+      if (!btn) return;
+      if (theme === 'dark') {
+        btn.innerHTML = '🌙 暗色';
+      } else if (theme === 'light') {
+        btn.innerHTML = '☀️ 亮色';
+      } else {
+        btn.innerHTML = '💻 隨系統';
+      }
+    }
+  </script>
+</body>
+</html>

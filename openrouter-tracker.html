@@ -1,0 +1,4336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenRouter 模型與價格異動追蹤系統 | Model & Price Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #182234;
+      --bg-hover: #1f2d45;
+      --border-color: #24324a;
+      --border-focus: #3b82f6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-blue: #3b82f6;
+      --accent-blue-hover: #2563eb;
+      --accent-green: #10b981;
+      --accent-green-bg: rgba(16, 185, 129, 0.15);
+      --accent-red: #ef4444;
+      --accent-red-bg: rgba(239, 68, 68, 0.15);
+      --accent-purple: #8b5cf6;
+      --accent-purple-bg: rgba(139, 92, 246, 0.15);
+      --accent-amber: #f59e0b;
+      --accent-amber-bg: rgba(245, 158, 11, 0.15);
+      --badge-bg: #223048;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      --header-bg: rgba(17, 24, 39, 0.85);
+      --hero-bg: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(17, 24, 39, 0.85) 100%);
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    :root[data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-hover: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-focus: #3b82f6;
+      --text-main: #0f172a;
+      --text-muted: #334155;
+      --text-dim: #64748b;
+      --accent-blue: #2563eb;
+      --accent-blue-hover: #1d4ed8;
+      --accent-green: #059669;
+      --accent-green-bg: rgba(5, 150, 105, 0.1);
+      --accent-red: #dc2626;
+      --accent-red-bg: rgba(220, 38, 38, 0.1);
+      --accent-purple: #7c3aed;
+      --accent-purple-bg: rgba(124, 58, 237, 0.1);
+      --accent-amber: #d97706;
+      --accent-amber-bg: rgba(217, 119, 6, 0.1);
+      --badge-bg: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --header-bg: rgba(255, 255, 255, 0.92);
+      --hero-bg: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 1.5rem;
+    }
+
+    .header-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .logo-icon svg {
+      width: 22px;
+      height: 22px;
+      color: #fff;
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-text h1 .highlight {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      background-color: var(--badge-bg);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-main);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-blue);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background-color: var(--accent-blue-hover);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      border-color: var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--border-focus);
+    }
+
+    .btn-sm {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.75rem;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 3px;
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s;
+    }
+
+    .tab-btn.active {
+      background-color: var(--accent-blue);
+      color: #fff;
+    }
+
+    .tab-badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      width: 100%;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .metric-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-focus);
+    }
+
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      line-height: 1.2;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Search & Filter Bar */
+    .filter-panel {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.75rem;
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .select-dropdown {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-dropdown:focus {
+      border-color: var(--accent-blue);
+    }
+
+    /* Filter Chips */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .chip-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-right: 0.25rem;
+    }
+
+    .chip {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .chip:hover {
+      background-color: var(--bg-hover);
+      color: var(--text-main);
+      border-color: var(--border-focus);
+    }
+
+    .chip.active {
+      background-color: var(--accent-blue);
+      color: #fff;
+      border-color: var(--accent-blue);
+    }
+
+    /* Advanced controls row */
+    .advanced-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .slider-group input[type="range"] {
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .view-toggle-group {
+      display: flex;
+      gap: 0.35rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2px;
+    }
+
+    .view-btn {
+      background: transparent;
+      border: none;
+      padding: 0.35rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    .view-btn.active {
+      background-color: var(--accent-blue);
+      color: #fff;
+    }
+
+    /* Table View */
+    .table-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    th {
+      background-color: var(--bg-secondary);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 0.5rem 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      font-size: 0.76rem;
+      transition: color 0.15s;
+    }
+
+    th:hover {
+      color: var(--text-main);
+    }
+
+    td {
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+      font-size: 0.78rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: var(--bg-hover);
+    }
+
+    .model-name-cell {
+      min-width: 220px;
+      max-width: 360px;
+    }
+
+    .model-title {
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    .model-title button {
+      flex-shrink: 0 !important;
+      margin-top: 2px;
+    }
+
+    .model-title span {
+      flex: 1;
+      min-width: 0;
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.35;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .model-title span:hover {
+      color: var(--accent-blue);
+      text-decoration: underline;
+    }
+
+    .model-slug {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.3rem;
+      margin-top: 0.25rem;
+      width: 100%;
+    }
+
+    .model-slug span {
+      flex: 1;
+      min-width: 0;
+      white-space: normal;
+      word-break: break-all;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .model-slug span:hover {
+      color: var(--accent-blue);
+      text-decoration: underline;
+    }
+
+    .copy-id-btn {
+      flex-shrink: 0 !important;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    .copy-id-btn:hover {
+      color: var(--accent-blue);
+      background-color: var(--bg-hover);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .badge-provider {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #93c5fd;
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .badge-new {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-reasoning {
+      background-color: rgba(139, 92, 246, 0.15);
+      color: #c4b5fd;
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .badge-free {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      font-weight: 800;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-modality {
+      background-color: var(--badge-bg);
+      color: var(--text-muted);
+      border-color: var(--border-color);
+    }
+
+    .badge-updated {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .badge-drop {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-hike {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-sale {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(245, 158, 11, 0.25) 100%);
+      color: #fcd34d;
+      font-weight: 800;
+      border: 1px solid rgba(245, 158, 11, 0.6);
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.25);
+      animation: pulse-sale 2s infinite;
+    }
+
+    @keyframes pulse-sale {
+      0% { box-shadow: 0 0 4px rgba(245, 158, 11, 0.2); }
+      50% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
+      100% { box-shadow: 0 0 4px rgba(245, 158, 11, 0.2); }
+    }
+
+    .chip-sale {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(245, 158, 11, 0.2) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fcd34d;
+    }
+    .chip-sale:hover {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.35) 0%, rgba(245, 158, 11, 0.35) 100%);
+      color: #fff;
+    }
+    .chip-sale.active {
+      background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+      color: #fff;
+      border-color: #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+    }
+
+    tr.is-sale td {
+      background-color: rgba(245, 158, 11, 0.04);
+    }
+
+    .model-card.is-sale {
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      background: linear-gradient(180deg, var(--bg-card) 0%, rgba(245, 158, 11, 0.06) 100%);
+    }
+
+    /* Price tag styling */
+    .price-cell {
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+
+    .price-value {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .price-diff {
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: block;
+      margin-top: 0.1rem;
+    }
+
+    .diff-down {
+      color: var(--accent-green);
+    }
+
+    .diff-up {
+      color: var(--accent-red);
+    }
+
+    /* Star Watchlist Button */
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-dim);
+      font-size: 1rem;
+      padding: 2px 5px;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+    }
+    .star-btn:hover {
+      color: #fbbf24;
+      transform: scale(1.15);
+    }
+    .star-btn.active {
+      color: #fbbf24;
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+    }
+
+    /* Prompt Cache Badge */
+    .badge-cache {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 0.68rem;
+    }
+
+    /* Blended Price Tag */
+    .price-blended {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      display: block;
+      margin-top: 2px;
+    }
+    .price-blended strong {
+      color: var(--accent-blue);
+    }
+
+    /* Price Drop Leaderboard */
+    .leaderboard-banner {
+      background: var(--hero-bg, linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(17, 24, 39, 0.85) 100%));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px -5px rgba(245, 158, 11, 0.15);
+    }
+
+    .leaderboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .leaderboard-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .leaderboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .leaderboard-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .leaderboard-item:hover {
+      border-color: var(--accent-amber);
+      background-color: var(--bg-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+    }
+
+    .leaderboard-rank {
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.72rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .leaderboard-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .leaderboard-model-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .leaderboard-model-sub {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .leaderboard-pct {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: var(--accent-green);
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 0.5rem;
+    }
+
+    /* Card Grid View */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .model-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .model-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-top: 0.4rem;
+    }
+
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+    }
+
+    .card-pricing-box {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .card-price-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-price-label {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .card-price-num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-top: 0.1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* Change Log Timeline View */
+    .changelog-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .changelog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--border-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2rem;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--bg-card);
+      border: 2px solid var(--accent-blue);
+      z-index: 2;
+    }
+
+    .timeline-dot.dot-price-down {
+      border-color: var(--accent-green);
+      background-color: var(--accent-green-bg);
+    }
+    .timeline-dot.dot-price-up {
+      border-color: var(--accent-red);
+      background-color: var(--accent-red-bg);
+    }
+    .timeline-dot.dot-new {
+      border-color: var(--accent-blue);
+      background-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .timeline-content {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .timeline-model-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .diff-box {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background-color: var(--bg-card);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* Database Settings View */
+    .db-settings-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .settings-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .settings-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .settings-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border-radius: 6px;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .toast {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-blue);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      animation: slideIn 0.3s ease;
+    }
+
+    .toast.toast-success {
+      border-left-color: var(--accent-green);
+    }
+    .toast.toast-error {
+      border-left-color: var(--accent-red);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .db-settings-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Modal & Popover Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-card-box {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .modal-close-btn, .popover-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0.2rem;
+      line-height: 1;
+    }
+
+    .modal-close-btn:hover, .popover-close-btn:hover {
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 1.25rem;
+    }
+
+    .modal-footer {
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      background-color: var(--bg-primary);
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      gap: 0.5rem;
+    }
+
+    .category-item-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .user-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .tag-popover {
+      position: absolute;
+      z-index: 900;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      width: 230px;
+      padding: 0.6rem;
+    }
+
+    .popover-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .popover-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .popover-option-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      user-select: none;
+    }
+
+    .popover-option-item:hover {
+      background-color: var(--bg-hover);
+    }
+
+    /* Light Theme Accessibility & High Contrast Fixes */
+    :root[data-theme="light"] .chip-sale {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+      border: 1px solid #f59e0b;
+      color: #b45309;
+    }
+    :root[data-theme="light"] .chip-sale:hover {
+      background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+      color: #78350f;
+    }
+    :root[data-theme="light"] .chip-sale.active {
+      background: linear-gradient(135deg, #ea580c 0%, #d97706 100%);
+      color: #ffffff;
+      border-color: #b45309;
+      box-shadow: 0 0 10px rgba(217, 119, 6, 0.35);
+    }
+    :root[data-theme="light"] .badge-sale {
+      background: linear-gradient(135deg, #fee2e2 0%, #fef3c7 100%);
+      color: #9a3412;
+      border: 1px solid #f59e0b;
+    }
+    :root[data-theme="light"] .badge-drop {
+      background-color: rgba(5, 150, 105, 0.15);
+      color: #047857;
+      border-color: rgba(5, 150, 105, 0.4);
+    }
+    :root[data-theme="light"] .badge-hike {
+      background-color: rgba(220, 38, 38, 0.15);
+      color: #b91c1c;
+      border-color: rgba(220, 38, 38, 0.4);
+    }
+    :root[data-theme="light"] .badge-new {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #047857;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    :root[data-theme="light"] .badge-today {
+      background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+      color: #15803d;
+      border: 1px solid #22c55e;
+    }
+
+    /* Today Badge & Chip */
+    .badge-today {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(59, 130, 246, 0.25) 100%);
+      color: #34d399;
+      font-weight: 800;
+      border: 1px solid #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    }
+    .chip-today {
+      border-color: rgba(16, 185, 129, 0.5);
+      color: var(--accent-green);
+    }
+    .chip-today.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+    }
+
+    /* Removed Model styling */
+    .chip-removed {
+      border-color: rgba(239, 68, 68, 0.4);
+      color: var(--accent-red);
+    }
+    .chip-removed.active {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+    }
+    .model-archived {
+      opacity: 0.65;
+      background-color: rgba(31, 41, 55, 0.3);
+    }
+    :root[data-theme="light"] .model-archived {
+      background-color: rgba(241, 245, 249, 0.6);
+    }
+    .badge-archived {
+      background-color: rgba(107, 114, 128, 0.2);
+      color: var(--text-dim);
+      border-color: rgba(107, 114, 128, 0.3);
+    }
+
+    /* Price Tier Badges */
+    .badge-tier-ultra {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    :root[data-theme="light"] .badge-tier-ultra {
+      background-color: rgba(16, 185, 129, 0.12);
+      color: #047857;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-tier-budget {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    :root[data-theme="light"] .badge-tier-budget {
+      background-color: rgba(37, 99, 235, 0.12);
+      color: #1d4ed8;
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .badge-tier-mid {
+      background-color: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    :root[data-theme="light"] .badge-tier-mid {
+      background-color: rgba(217, 119, 6, 0.12);
+      color: #b45309;
+      border-color: rgba(217, 119, 6, 0.4);
+    }
+
+    .badge-tier-flagship {
+      background-color: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border: 1px solid rgba(249, 115, 22, 0.35);
+    }
+    :root[data-theme="light"] .badge-tier-flagship {
+      background-color: rgba(234, 88, 12, 0.12);
+      color: #c2410c;
+      border-color: rgba(234, 88, 12, 0.4);
+    }
+
+    .badge-tier-premium {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    :root[data-theme="light"] .badge-tier-premium {
+      background-color: rgba(220, 38, 38, 0.12);
+      color: #b91c1c;
+      border-color: rgba(220, 38, 38, 0.4);
+    }
+
+    /* All-Time Low (ATL) Badge */
+    .badge-atl {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(245, 158, 11, 0.25) 100%);
+      color: #34d399;
+      font-weight: 800;
+      border: 1px solid #10b981;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
+    }
+    :root[data-theme="light"] .badge-atl {
+      background: linear-gradient(135deg, #dcfce7 0%, #fef3c7 100%);
+      color: #047857;
+      border: 1px solid #059669;
+    }
+
+    /* Trend Button */
+    .trend-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--accent-blue);
+      cursor: pointer;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      line-height: 1.2;
+    }
+    .trend-btn:hover {
+      background-color: var(--bg-hover);
+      border-color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>OpenRouter <span class="highlight">Model & Price Tracker</span></h1>
+          <p>價格波動監控 • 新模型上架 • 多模態篩選 • 有變動才寫入資料庫</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="tab-models-btn" onclick="switchMainTab('models')">
+          <span>模型目錄</span>
+          <span class="tab-badge" id="tab-model-count">...</span>
+        </button>
+        <button class="tab-btn" id="tab-changelog-btn" onclick="switchMainTab('changelog')">
+          <span>變動資料庫</span>
+          <span class="tab-badge" id="tab-event-count">0</span>
+        </button>
+        <button class="tab-btn" id="tab-settings-btn" onclick="switchMainTab('settings')">
+          <span>系統設定</span>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button id="btn-theme-toggle" class="btn btn-secondary btn-sm" onclick="toggleTheme()" title="切換亮暗主題 (暗色 / 亮色 / 隨系統)">
+          🌙 暗色
+        </button>
+        <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration:none;" title="返回系統雙產品門戶首頁">
+          🏠 門戶首頁
+        </a>
+        <a href="comparison.html" class="btn btn-secondary btn-sm" style="text-decoration:none; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;" title="前往 2026 年 12 大 AI API 閘道同業評測與比較儀表板">
+          🌐 AI 閘道同業評測
+        </a>
+        <div class="status-pill" id="live-status-pill">
+          <span class="status-dot"></span>
+          <span id="last-update-text">檢查中...</span>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btn-refresh" onclick="fetchModels(true)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          重新擷取
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- TAB 1: MODELS VIEW -->
+    <div id="view-models">
+      <!-- KPI Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">總模型數</span>
+            <div class="metric-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">🤖</div>
+          </div>
+          <div class="metric-value" id="kpi-total-models">0</div>
+          <div class="metric-sub" id="kpi-provider-count">統計 0 個供應商</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">新上架模型</span>
+            <div class="metric-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">✨</div>
+          </div>
+          <div class="metric-value" id="kpi-new-models">0</div>
+          <div class="metric-sub" id="kpi-new-sub">近 30 天內發布</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">價格變動監控</span>
+            <div class="metric-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">📊</div>
+          </div>
+          <div class="metric-value" id="kpi-price-changes">0</div>
+          <div class="metric-sub" id="kpi-price-sub">降價 0 / 漲價 0</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">完全免費模型</span>
+            <div class="metric-icon" style="background: rgba(139, 92, 246, 0.15); color: #c4b5fd;">🎁</div>
+          </div>
+          <div class="metric-value" id="kpi-free-models">0</div>
+          <div class="metric-sub">輸入與輸出均為 $0.00</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">資料庫變更事件</span>
+            <div class="metric-icon" style="background: rgba(239, 68, 68, 0.15); color: #f87171;">💾</div>
+          </div>
+          <div class="metric-value" id="kpi-db-events">0</div>
+          <div class="metric-sub">僅在有實質變更時入庫</div>
+        </div>
+      </div>
+
+      <!-- Price Drop Leaderboard Banner -->
+      <div class="leaderboard-banner" id="leaderboard-container">
+        <div class="leaderboard-header">
+          <div class="leaderboard-title">
+            <span>🔥</span> 近期價格跳水冠軍榜 TOP 5 (降價幅度最高優先)
+          </div>
+          <span style="font-size: 0.72rem; color: var(--text-dim);">點擊任一項目即可在模型清單中精準定位</span>
+        </div>
+        <div class="leaderboard-grid" id="leaderboard-items">
+          <div style="font-size: 0.8rem; color: var(--text-dim); padding: 0.5rem;">資料載入比對中...</div>
+        </div>
+      </div>
+
+      <!-- Filters Panel -->
+      <div class="filter-panel">
+        <!-- Search & Sort Row -->
+        <div class="search-row">
+          <div class="search-box">
+            <span class="search-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" id="filter-search" class="search-input" placeholder="搜尋模型名稱、ID、架構、關鍵字 (例如: sonnet, gpt-4o, deepseek)..." oninput="applyFilters()" />
+          </div>
+
+          <select id="filter-provider" class="select-dropdown" onchange="applyFilters()">
+            <option value="">🏢 所有廠商 (全部 Provider)</option>
+          </select>
+
+          <select id="filter-custom-category" class="select-dropdown" onchange="applyFilters()">
+            <option value="">🏷️ 所有自訂分類</option>
+          </select>
+
+          <select id="filter-sort" class="select-dropdown" onchange="applyFilters()">
+            <option value="price_drop_first">🔥 特價/降價折扣幅度優先</option>
+            <option value="blended_asc">💰 綜合成本 (低到高 / 3:1混合)</option>
+            <option value="blended_desc">💰 綜合成本 (高到低 / 3:1混合)</option>
+            <option value="last_updated_desc">🕒 資料最後更新 (最新異動優先)</option>
+            <option value="last_updated_asc">🕒 資料最後更新 (由舊到新)</option>
+            <option value="created_desc">🕒 發布時間 (最新在上)</option>
+            <option value="prompt_asc">💵 輸入價格 (低到高 / 每百萬字)</option>
+            <option value="prompt_desc">💵 輸入價格 (高到低)</option>
+            <option value="completion_asc">📝 輸出價格 (低到高)</option>
+            <option value="completion_desc">📝 輸出價格 (高到低)</option>
+            <option value="context_desc">📚 上下文視窗 (大到小)</option>
+            <option value="name_asc">🔤 名稱 (A-Z)</option>
+          </select>
+        </div>
+
+        <!-- Quick Filter Chips -->
+        <div class="chip-group">
+          <span class="chip-label">快捷分類:</span>
+          <button class="chip active" data-filter-type="all" onclick="toggleQuickChip(this, 'all')">全部</button>
+          <button class="chip" data-filter-type="watchlist" onclick="toggleQuickChip(this, 'watchlist')">⭐ 我的追蹤 (<span id="count-watchlist">0</span>)</button>
+          <button class="chip chip-sale" data-filter-type="price-drop" onclick="toggleQuickChip(this, 'price-drop')">🔥 限時特價 / 降價促銷</button>
+          <button class="chip chip-today" data-filter-type="new-today" onclick="toggleQuickChip(this, 'new-today')">🔥 今日全新 (<span id="count-new-today">0</span>)</button>
+          <button class="chip" data-filter-type="new" onclick="toggleQuickChip(this, 'new')">✨ 本週新進 (<span id="count-new-week">0</span>)</button>
+          <button class="chip chip-removed" data-filter-type="removed" onclick="toggleQuickChip(this, 'removed')">⚠️ 已下架模型 (<span id="count-removed-models">0</span>)</button>
+          <button class="chip" data-filter-type="tier-ultra" onclick="toggleQuickChip(this, 'tier-ultra')">🟢 極致平價 (<$0.2)</button>
+          <button class="chip" data-filter-type="tier-budget" onclick="toggleQuickChip(this, 'tier-budget')">🔵 實用親民 (<$1.0)</button>
+          <button class="chip" data-filter-type="tier-atl" onclick="toggleQuickChip(this, 'tier-atl')">🏷️ 歷史新低 (ATL)</button>
+          <button class="chip" data-filter-type="price-up" onclick="toggleQuickChip(this, 'price-up')">📈 僅看漲價</button>
+          <button class="chip" data-filter-type="free" onclick="toggleQuickChip(this, 'free')">🎁 完全免費</button>
+          <button class="chip" data-filter-type="reasoning" onclick="toggleQuickChip(this, 'reasoning')">🧠 思考推理 (Reasoning)</button>
+          <button class="chip" data-filter-type="vision" onclick="toggleQuickChip(this, 'vision')">👁️ 視覺識圖 (Vision)</button>
+          <button class="chip" data-filter-type="audio" onclick="toggleQuickChip(this, 'audio')">🎙️ 語音多模態</button>
+          <button class="chip" data-filter-type="tools" onclick="toggleQuickChip(this, 'tools')">🛠️ 工具調用 (Tools)</button>
+          <button class="chip" data-filter-type="json" onclick="toggleQuickChip(this, 'json')">📄 結構化輸出 (JSON)</button>
+          <button class="chip" onclick="openCategoryManagerModal()" style="border-style: dashed; color: var(--accent-purple); border-color: var(--accent-purple);">🏷️ 管理自訂分類</button>
+        </div>
+
+        <!-- Advanced Controls Row -->
+        <div class="advanced-row">
+          <div class="slider-group">
+            <span>最小 Context Window:</span>
+            <input type="range" id="filter-min-context" min="0" max="2000000" step="32000" value="0" oninput="updateContextLabel(this.value); applyFilters();">
+            <span id="label-min-context" style="font-family: var(--font-mono); color: var(--text-main); min-width: 50px;">不限</span>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">
+              符合條件: <strong id="filter-match-count" style="color: var(--text-main);">0</strong> 款
+            </span>
+            <div class="view-toggle-group">
+              <button class="view-btn active" id="view-table-btn" onclick="toggleView('table')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18"/>
+                </svg>
+                表格
+              </button>
+              <button class="view-btn" id="view-cards-btn" onclick="toggleView('cards')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/>
+                  <rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/>
+                  <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                卡片
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div id="table-view-container" class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="setSort('name')">模型名稱 / ID</th>
+              <th onclick="setSort('provider')">廠商</th>
+              <th>特性標籤</th>
+              <th onclick="setSort('context_length')">上下文</th>
+              <th onclick="setSort('prompt')">輸入價 ($/1M)</th>
+              <th onclick="setSort('completion')">輸出價 ($/1M)</th>
+              <th onclick="setSort('last_updated')" title="點擊切換依更新時間排序" style="cursor:pointer;">更新 / 發布 ⥯</th>
+              <th style="text-align: right; min-width: 60px;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="models-table-body">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 3rem;">
+                載入中...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Cards Container -->
+      <div id="cards-view-container" class="cards-grid hidden"></div>
+    </div>
+
+    <!-- TAB 2: CHANGELOG VIEW -->
+    <div id="view-changelog" class="hidden">
+      <div class="changelog-container">
+        <div class="changelog-header">
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.25rem;">
+              異動歷史資料庫 (Change-Driven Log DB)
+            </h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              本系統採用<strong>「有變動才記錄」</strong>機制。僅當模型的價格、上架狀態或規格有實質異動時，才會自動入庫，杜絕重複冗餘資料。
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="exportChangeLogCSV()">
+              📥 匯出 CSV 報表
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="exportChangeLogJSON()">
+              📄 匯出 JSON 備份
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="simulatePriceChangeForDemo()">
+              🧪 模擬價格變動 (體驗測試)
+            </button>
+            <button class="btn btn-secondary btn-sm" style="color: var(--accent-red);" onclick="clearChangeLogConfirm()">
+              🗑️ 清空歷史記錄
+            </button>
+          </div>
+        </div>
+
+        <div class="chip-group" style="margin-bottom: 1.25rem;">
+          <span class="chip-label">異動過濾:</span>
+          <button class="chip active" data-cl-filter="ALL" onclick="filterChangeLog('ALL', this)">全部記錄 (<span id="cl-count-all">0</span>)</button>
+          <button class="chip" data-cl-filter="PRICE_DROP" onclick="filterChangeLog('PRICE_DROP', this)">📉 降價 (<span id="cl-count-drop">0</span>)</button>
+          <button class="chip" data-cl-filter="PRICE_HIKE" onclick="filterChangeLog('PRICE_HIKE', this)">📈 漲價 (<span id="cl-count-hike">0</span>)</button>
+          <button class="chip" data-cl-filter="NEW_MODEL" onclick="filterChangeLog('NEW_MODEL', this)">✨ 新模型 (<span id="cl-count-new">0</span>)</button>
+          <button class="chip" data-cl-filter="REMOVED" onclick="filterChangeLog('REMOVED', this)">⚠️ 下架模型 (<span id="cl-count-removed">0</span>)</button>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline" id="changelog-timeline"></div>
+
+        <div id="changelog-empty" class="empty-state hidden">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">尚未檢測到異動</h3>
+          <p>當 OpenRouter 模型價格或上架名單發生變化時，系統會自動將變動歷史寫入此處。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: SETTINGS VIEW -->
+    <div id="view-settings" class="hidden">
+      <div class="db-settings-container">
+        <!-- Storage Info Card -->
+        <div class="settings-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+            本地資料庫儲存狀態
+          </h3>
+          <p>儲存於瀏覽器 LocalStorage / IndexedDB。自動在背景計算最新模型資料與歷史快照之差量 (Diff)。</p>
+
+          <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem;">
+              <span style="color: var(--text-muted);">最新模型快照總數:</span>
+              <strong id="db-models-cached" style="color: var(--text-main); font-family: var(--font-mono);">0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem;">
+              <span style="color: var(--text-muted);">累積變更事件數量:</span>
+              <strong id="db-events-cached" style="color: var(--text-main); font-family: var(--font-mono);">0 筆</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+              <span style="color: var(--text-muted);">上次資料庫寫入時間:</span>
+              <strong id="db-last-write" style="color: var(--text-muted); font-family: var(--font-mono);">無</strong>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="exportChangeLogJSON()">
+              📄 匯出 JSON 備份檔
+            </button>
+
+            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('import-json-file').click()">
+              📥 匯入 JSON 備份檔
+            </button>
+            <input type="file" id="import-json-file" accept=".json" style="display:none;" onchange="importJSONBackup(event)" />
+
+            <button class="btn btn-secondary btn-sm" onclick="resetDatabaseConfirm()" style="color:var(--accent-red);">
+              ⚠️ 清除所有本地快照與快取
+            </button>
+          </div>
+        </div>
+
+        <!-- Anomaly Filter Card -->
+        <div class="settings-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            數據異常值與雜訊過濾 (Anomaly Filter)
+          </h3>
+          <p>自動攔截 API 錯誤數據（如負數價格 `-100000`、暴走極端值或過大變價差額），防止雜訊干擾歷史變動資料庫。</p>
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <input type="checkbox" id="setting-outlier-active" onchange="saveOutlierSettings()" />
+            <label for="setting-outlier-active" style="font-size: 0.85rem; cursor: pointer; user-select: none; font-weight: 600;">
+              啟用價格異常值防護與過濾 (Enable Outlier Protection)
+            </label>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="setting-outlier-min" style="font-size: 0.8rem; color: var(--text-muted);">最小合理價格 ($/1M):</label>
+              <input type="number" id="setting-outlier-min" class="form-input" placeholder="0" step="0.01" onchange="saveOutlierSettings()" />
+              <span style="font-size: 0.7rem; color: var(--text-dim);">過濾小於此值的異常價 (如 -100000)</span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="setting-outlier-max" style="font-size: 0.8rem; color: var(--text-muted);">最大合理價格 ($/1M):</label>
+              <input type="number" id="setting-outlier-max" class="form-input" placeholder="10000" step="1" onchange="saveOutlierSettings()" />
+              <span style="font-size: 0.7rem; color: var(--text-dim);">過濾大於此值的暴走數值</span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="setting-outlier-diff" style="font-size: 0.8rem; color: var(--text-muted);">最大單次變價門檻 ($/1M):</label>
+              <input type="number" id="setting-outlier-diff" class="form-input" placeholder="1000" step="1" onchange="saveOutlierSettings()" />
+              <span style="font-size: 0.7rem; color: var(--text-dim);">過濾單次波動超標事件</span>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.85rem;">
+            <span style="color: var(--text-muted);">已攔截防護的異常資料筆數:</span>
+            <strong id="db-outliers-count" style="color: var(--accent-amber); font-family: var(--font-mono); font-size: 1rem;">0 筆</strong>
+          </div>
+        </div>
+
+        <!-- Automation & Webhook Card -->
+        <div class="settings-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            👾 Discord Webhook & 外部推播設定 (Instant Notifications)
+          </h3>
+          <p>當系統自動檢測到模型異動時，可即時將精美的 **Discord 嵌入式卡片 (Embeds)** 發送至您的 Discord 頻道或指定 Webhook。</p>
+
+          <div class="form-group">
+            <label for="setting-webhook-url">Discord Webhook / 外部 Webhook 網址:</label>
+            <input type="text" id="setting-webhook-url" class="form-input" placeholder="https://discord.com/api/webhooks/123456789/abcxyz..." onchange="saveWebhookSetting()" />
+            <span style="font-size:0.72rem; color:var(--text-dim); margin-top:2px; display:block;">💡 支援 Discord 頻道 Webhook，格式將自動轉為彩色警報 Embeds</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.6rem; margin-bottom: 1.25rem; background:var(--bg-secondary); padding:0.75rem; border-radius:8px; border:1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <input type="checkbox" id="setting-webhook-active" onchange="saveWebhookSetting()" />
+              <label for="setting-webhook-active" style="font-size: 0.85rem; cursor: pointer; user-select: none; font-weight:600;">
+                🔔 啟用自動 Webhook 即時推播 (Enable Notifications)
+              </label>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem;">
+              <input type="checkbox" id="setting-webhook-hikes-only" onchange="saveWebhookSetting()" />
+              <label for="setting-webhook-hikes-only" style="font-size: 0.82rem; cursor: pointer; user-select: none; color:var(--accent-red);">
+                📈 僅在模型「價格調漲 (PRICE_HIKE)」時發送警報 (防洗版)
+              </label>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem;">
+              <input type="checkbox" id="setting-webhook-watchlist-only" onchange="saveWebhookSetting()" />
+              <label for="setting-webhook-watchlist-only" style="font-size: 0.82rem; cursor: pointer; user-select: none; color:var(--accent-amber);">
+                ⭐ 僅限發送「我的追蹤清單 (Watchlist)」中的模型
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm" onclick="testWebhook()">
+            🚀 發送 Discord 測試卡片訊息
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Modal: Category Manager -->
+  <div class="modal-overlay hidden" id="modal-category-manager" onclick="if(event.target===this) closeCategoryManagerModal()">
+    <div class="modal-card-box">
+      <div class="modal-header">
+        <h3>🏷️ 自訂分類與標籤管理</h3>
+        <button class="modal-close-btn" onclick="closeCategoryManagerModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+          建立您的專屬模型分類（如：寫程式專用、翻譯專案、便宜優選等），分類將同步顯示於模型卡片與篩選器中。
+        </p>
+
+        <!-- Form to add category -->
+        <div style="display:flex; gap:0.5rem; margin-bottom:1.25rem;">
+          <input type="text" id="new-cat-name" class="search-input" style="flex:1;" placeholder="分類名稱 (例如: 💻 程式生成)..." />
+          <input type="color" id="new-cat-color" value="#3b82f6" style="width:40px; height:38px; padding:2px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer; background:var(--bg-card);" title="挑選標籤顏色" />
+          <button class="btn btn-primary btn-sm" onclick="createCategoryFromInput()">＋ 新增分類</button>
+        </div>
+
+        <!-- Category List -->
+        <div id="category-list-container" style="display:flex; flex-direction:column; gap:0.5rem; max-height:280px; overflow-y:auto; padding-right:0.25rem;">
+          <!-- Category items rendered dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" onclick="closeCategoryManagerModal()">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popover: Model Tagging -->
+  <div class="tag-popover hidden" id="tag-popover">
+    <div class="popover-header">
+      <span>指派分類標籤</span>
+      <button class="popover-close-btn" onclick="closeTagPopover()">✕</button>
+    </div>
+    <div id="tag-popover-options" class="popover-options-list">
+      <!-- Options rendered dynamically -->
+    </div>
+  </div>
+
+  <!-- Modal: Price Trend & History Chart -->
+  <div class="modal-overlay hidden" id="modal-price-trend" onclick="if(event.target===this) closePriceTrendModal()">
+    <div class="modal-card-box" style="max-width: 680px;">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:1.2rem;">📈</span>
+          <div>
+            <h3 id="trend-modal-title" style="margin:0; font-size:1rem;">模型價格走勢與市場定位</h3>
+            <span id="trend-modal-subtitle" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">id</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closePriceTrendModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 1rem;">
+        <!-- Stat badges bar -->
+        <div id="trend-modal-stats" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:0.5rem; margin-bottom:1rem; text-align:center; background:var(--bg-primary); padding:0.6rem; border-radius:8px; border:1px solid var(--border-color);">
+          <!-- Filled dynamically -->
+        </div>
+
+        <!-- SVG Chart Container -->
+        <div id="trend-chart-container" style="background:var(--bg-primary); border:1px solid var(--border-color); border-radius:8px; padding:0.75rem; min-height:220px; display:flex; align-items:center; justify-content:center;">
+          <!-- SVG rendered dynamically -->
+        </div>
+
+        <!-- Dynamic Hover Info Bar -->
+        <div id="trend-hover-info" style="font-size:0.78rem; font-family:var(--font-mono); color:var(--text-main); background:var(--bg-primary); border:1px solid var(--border-color); border-radius:8px; padding:0.5rem 0.75rem; margin-top:0.75rem; text-align:center; min-height:38px; display:flex; align-items:center; justify-content:center; gap:0.5rem; flex-wrap:wrap;">
+          <span style="color:var(--text-muted);">💡 移動游標至圖表上記錄點，將即時切換顯示該時間點的精確時間與報價</span>
+        </div>
+      </div>
+      <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:0.72rem; color:var(--text-dim);">💡 數據來自 OpenRouter 歷史 API 快照與變更記錄 DB</span>
+        <button class="btn btn-secondary btn-sm" onclick="closePriceTrendModal()">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    /**
+     * OpenRouter Model & Price Tracker
+     * Core Data Structures & Database Management
+     */
+    const STORAGE_KEY_MODELS_SNAPSHOT = 'or_models_latest_snapshot';
+    const STORAGE_KEY_CHANGE_EVENTS = 'or_change_events';
+    const STORAGE_KEY_WEBHOOK = 'or_webhook_config';
+    const STORAGE_KEY_WATCHLIST = 'or_watchlist_models';
+    const STORAGE_KEY_THEME = 'or_theme_mode';
+    const STORAGE_KEY_OUTLIER_SETTINGS = 'or_outlier_settings';
+    const STORAGE_KEY_CUSTOM_CATEGORIES = 'or_custom_categories';
+    const STORAGE_KEY_MODEL_TAGS = 'or_model_custom_tags';
+
+    let rawModels = [];
+    let displayedModels = [];
+    let changeEvents = [];
+    let watchlist = [];
+    let customCategories = [];
+    let modelCustomTags = {};
+    let removedModelsList = [];
+    let activeTagModelId = null;
+
+    let activeQuickFilter = 'all';
+    let currentSortField = 'created_desc';
+    let currentViewMode = 'table';
+    let changelogActiveFilter = 'ALL';
+
+    let outlierSettings = {
+      enabled: true,
+      minPrice: 0,
+      maxPrice: 10000,
+      maxDiff: 1000
+    };
+    let filteredOutlierCount = 0;
+
+    let marketMedianPrice = 0;
+
+    function getPriceTier(blendedPerM) {
+      if (blendedPerM === 0) {
+        return { key: 'free', label: '🎁 完全免費', css: 'badge-free', code: 'L0' };
+      }
+      if (blendedPerM < 0.20) {
+        return { key: 'ultra', label: '🟢 極致平價', css: 'badge-tier-ultra', code: 'L1' };
+      }
+      if (blendedPerM < 1.00) {
+        return { key: 'budget', label: '🔵 實用親民', css: 'badge-tier-budget', code: 'L2' };
+      }
+      if (blendedPerM < 3.00) {
+        return { key: 'mid', label: '🟡 中階主力', css: 'badge-tier-mid', code: 'L3' };
+      }
+      if (blendedPerM < 10.00) {
+        return { key: 'flagship', label: '🟠 高階旗艦', css: 'badge-tier-flagship', code: 'L4' };
+      }
+      return { key: 'premium', label: '🔴 超奢推理', css: 'badge-tier-premium', code: 'L5' };
+    }
+
+    function calculateMarketStats() {
+      const validModels = rawModels.filter(m => {
+        const promptPerM = parseFloat(m.pricing?.prompt || '0') * 1000000;
+        const compPerM = parseFloat(m.pricing?.completion || '0') * 1000000;
+        return !isAnomaly(promptPerM, compPerM);
+      });
+      const paidBlended = validModels
+        .map(m => getBlendedPricePerM(m))
+        .filter(p => p > 0)
+        .sort((a, b) => a - b);
+
+      if (paidBlended.length > 0) {
+        const mid = Math.floor(paidBlended.length / 2);
+        marketMedianPrice = paidBlended.length % 2 !== 0 ? paidBlended[mid] : (paidBlended[mid - 1] + paidBlended[mid]) / 2;
+      } else {
+        marketMedianPrice = 0;
+      }
+    }
+
+    function getMarketPercentile(blendedPerM) {
+      if (blendedPerM === 0) return 100;
+      const validModels = rawModels.filter(m => {
+        const promptPerM = parseFloat(m.pricing?.prompt || '0') * 1000000;
+        const compPerM = parseFloat(m.pricing?.completion || '0') * 1000000;
+        return !isAnomaly(promptPerM, compPerM);
+      });
+      const paidModels = validModels.filter(m => getBlendedPricePerM(m) > 0);
+      if (paidModels.length === 0) return 50;
+
+      const cheaperCount = paidModels.filter(m => getBlendedPricePerM(m) > blendedPerM).length;
+      return Math.round((cheaperCount / paidModels.length) * 100);
+    }
+
+    function isAllTimeLow(modelId, currentBlended) {
+      if (!modelId || currentBlended === 0) return false;
+      const events = changeEvents.filter(e => e.modelId === modelId);
+      if (events.length === 0) return false;
+
+      let minHistPrice = currentBlended;
+      events.forEach(e => {
+        if (e.newPromptM !== undefined && e.newCompM !== undefined) {
+          const b = e.newPromptM * 0.75 + e.newCompM * 0.25;
+          if (b < minHistPrice) minHistPrice = b;
+        }
+      });
+      return currentBlended <= minHistPrice + 0.0001;
+    }
+
+    function openPriceTrendModal(modelId) {
+      const model = rawModels.find(m => m.id === modelId) || removedModelsList.find(m => m.id === modelId);
+      if (!model) return;
+
+      document.getElementById('trend-modal-title').textContent = model.name || model.id;
+      document.getElementById('trend-modal-subtitle').textContent = model.id;
+
+      const currentBlended = getBlendedPricePerM(model);
+      const tier = getPriceTier(currentBlended);
+      const pctRank = getMarketPercentile(currentBlended);
+      const isAtl = isAllTimeLow(model.id, currentBlended);
+
+      const statsEl = document.getElementById('trend-modal-stats');
+      statsEl.innerHTML = `
+        <div>
+          <span style="font-size:0.7rem; color:var(--text-dim); display:block;">當前綜合價</span>
+          <strong style="font-size:0.88rem; color:var(--text-main); font-family:var(--font-mono);">$${currentBlended.toFixed(3)}</strong>
+        </div>
+        <div>
+          <span style="font-size:0.7rem; color:var(--text-dim); display:block;">價格階層</span>
+          <span class="badge ${tier.css}" style="font-size:0.72rem; padding:0.1rem 0.35rem;">${tier.label}</span>
+        </div>
+        <div>
+          <span style="font-size:0.7rem; color:var(--text-dim); display:block;">市場勝率</span>
+          <strong style="font-size:0.85rem; color:var(--accent-blue);">勝過 ${pctRank}% 模型</strong>
+        </div>
+        <div>
+          <span style="font-size:0.7rem; color:var(--text-dim); display:block;">歷史最低點</span>
+          <strong style="font-size:0.85rem;">${isAtl ? '<span class="badge badge-atl" style="font-size:0.72rem;">🏷️ 歷史新低</span>' : '<span style="color:var(--text-dim);">一般位階</span>'}</strong>
+        </div>
+      `;
+
+      renderPriceTrendSVGChart(model);
+      document.getElementById('modal-price-trend').classList.remove('hidden');
+    }
+
+    function closePriceTrendModal() {
+      document.getElementById('modal-price-trend').classList.add('hidden');
+    }
+
+    function updateTrendHoverInfo(timeStr, blended, prompt, comp, reason, xPos) {
+      const infoEl = document.getElementById('trend-hover-info');
+      if (infoEl) {
+        const reasonHtml = reason ? `<span class="badge ${reason.includes('降價') ? 'badge-drop' : 'badge-hike'}" style="font-size:0.68rem; margin-left:0.2rem;">${reason}</span>` : '';
+        infoEl.innerHTML = `
+          <span>🕒 <strong>${escapeHtml(timeStr)}</strong></span>
+          <span style="color:var(--border-color); opacity:0.5;">|</span>
+          <span>綜合: <strong style="color:var(--accent-amber);">$${blended}</strong></span>
+          <span style="color:var(--border-color); opacity:0.5;">|</span>
+          <span>輸入: <strong style="color:var(--accent-green);">$${prompt}</strong></span>
+          <span style="color:var(--border-color); opacity:0.5;">|</span>
+          <span>輸出: <strong style="color:var(--accent-blue);">$${comp}</strong></span>
+          ${reasonHtml}
+        `;
+      }
+
+      const crosshair = document.getElementById('svg-hover-crosshair');
+      const badgeG = document.getElementById('svg-hover-badge-group');
+      const badgeText = document.getElementById('svg-hover-badge-text');
+
+      if (crosshair) {
+        crosshair.setAttribute('x1', xPos);
+        crosshair.setAttribute('x2', xPos);
+        crosshair.style.display = 'block';
+      }
+      if (badgeG && badgeText) {
+        const shortDate = timeStr.length > 10 ? timeStr.substring(5, 16) : timeStr;
+        badgeText.textContent = shortDate;
+        badgeG.setAttribute('transform', `translate(${xPos}, 198)`);
+        badgeG.style.display = 'block';
+      }
+    }
+
+    function resetTrendHoverInfo() {
+      const infoEl = document.getElementById('trend-hover-info');
+      if (infoEl) {
+        infoEl.innerHTML = `<span style="color:var(--text-muted);">💡 移動游標至圖表上記錄點，將即時切換顯示該時間點的精確時間與報價</span>`;
+      }
+      const crosshair = document.getElementById('svg-hover-crosshair');
+      const badgeG = document.getElementById('svg-hover-badge-group');
+      if (crosshair) crosshair.style.display = 'none';
+      if (badgeG) badgeG.style.display = 'none';
+    }
+
+    function renderPriceTrendSVGChart(model) {
+      const container = document.getElementById('trend-chart-container');
+      if (!container) return;
+
+      const events = changeEvents.filter(e => e.modelId === model.id).sort((a, b) => a.timestamp - b.timestamp);
+      const currentBlended = getBlendedPricePerM(model);
+      const promptPerM = parseFloat(model.pricing?.prompt || '0') * 1000000;
+      const compPerM = parseFloat(model.pricing?.completion || '0') * 1000000;
+
+      const points = [];
+      events.forEach(e => {
+        if (e.newPromptM !== undefined && e.newCompM !== undefined) {
+          const shortDate = e.timeStr ? (e.timeStr.length > 10 ? e.timeStr.substring(5, 16) : e.timeStr) : '歷史調價';
+          points.push({
+            timeStr: e.timeStr || '',
+            dateLabel: shortDate,
+            prompt: e.newPromptM,
+            comp: e.newCompM,
+            blended: e.newPromptM * 0.75 + e.newCompM * 0.25,
+            reason: e.diffStr ? `${e.changeType === 'PRICE_DROP' ? '📉 降價' : '📈 漲價'} (${e.percentStr})` : ''
+          });
+        }
+      });
+
+      points.push({
+        timeStr: '當前即時 API 報價',
+        dateLabel: '即時最新',
+        prompt: promptPerM,
+        comp: compPerM,
+        blended: currentBlended,
+        reason: '最新即時 API 報價'
+      });
+
+      if (points.length === 1 || events.length === 0) {
+        const pct = getMarketPercentile(currentBlended);
+        container.innerHTML = `
+          <div style="width:100%; padding:0.75rem;">
+            <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem; text-align:center;">
+              該模型目前僅有最新報價（尚無多次調價歷史），以下為全市場價格定位與時間軸狀態：
+            </div>
+            <div style="margin-bottom:0.5rem; display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
+              <span>$0.00 (免費)</span>
+              <span style="color:var(--accent-blue); font-weight:700;">當前綜合價: $${currentBlended.toFixed(3)} (市場中位數: $${marketMedianPrice.toFixed(2)})</span>
+              <span>$10.00+ (高價)</span>
+            </div>
+            <div style="height:14px; background:linear-gradient(90deg, #10b981 0%, #3b82f6 30%, #f59e0b 60%, #ef4444 100%); border-radius:7px; position:relative;">
+              <div style="position:absolute; top:-4px; left:${Math.min(95, Math.max(2, 100 - pct))}%; width:10px; height:22px; background:#fff; border:2px solid #3b82f6; border-radius:4px; transform:translateX(-50%); box-shadow:0 2px 5px rgba(0,0,0,0.5);" title="當前模型市場位置"></div>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.85rem; text-align:center;">
+              🟢 綜合成本勝過全市場 <strong>${pct}%</strong> 的模型！
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const width = 640;
+      const height = 230;
+      const padLeft = 55;
+      const padRight = 35;
+      const padTop = 35;
+      const padBottom = 40;
+
+      const allVals = points.flatMap(p => [p.prompt, p.comp, p.blended]);
+      let maxVal = Math.max(...allVals, 0.01);
+      let minVal = Math.min(...allVals, 0);
+      if (maxVal === minVal) maxVal += 0.01;
+
+      const getX = (idx) => padLeft + (idx / (points.length - 1)) * (width - padLeft - padRight);
+      const getY = (val) => height - padBottom - ((val - minVal) / (maxVal - minVal)) * (height - padTop - padBottom);
+
+      let promptPath = '';
+      let compPath = '';
+      let blendedPath = '';
+      let guidesHtml = '';
+      let circlesHtml = '';
+      let ticksHtml = '';
+      let hoverRegionsHtml = '';
+
+      const segW = (width - padLeft - padRight) / (points.length - 1 || 1);
+
+      points.forEach((p, i) => {
+        const x = getX(i);
+        const yP = getY(p.prompt);
+        const yC = getY(p.comp);
+        const yB = getY(p.blended);
+
+        promptPath += i === 0 ? `M ${x} ${yP}` : ` L ${x} ${yP}`;
+        compPath += i === 0 ? `M ${x} ${yC}` : ` L ${x} ${yC}`;
+        blendedPath += i === 0 ? `M ${x} ${yB}` : ` L ${x} ${yB}`;
+
+        // Vertical timeline guide line
+        guidesHtml += `<line x1="${x}" y1="${padTop}" x2="${x}" y2="${height - padBottom}" stroke="var(--border-color)" stroke-dasharray="3,3" opacity="0.4"/>`;
+        ticksHtml += `<circle cx="${x}" cy="${height - padBottom}" r="2.5" fill="var(--border-color)"/>`;
+
+        // Data point circles
+        circlesHtml += `
+          <circle cx="${x}" cy="${yP}" r="3.5" fill="#10b981" opacity="0.8" />
+          <circle cx="${x}" cy="${yC}" r="3.5" fill="#3b82f6" opacity="0.8" />
+          <circle cx="${x}" cy="${yB}" r="5.5" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+        `;
+
+        // Generous hover target hit-area for mouse position
+        const rectX = Math.max(padLeft, x - segW / 2);
+        const rectW = segW;
+
+        hoverRegionsHtml += `
+          <rect x="${rectX}" y="${padTop}" width="${rectW}" height="${height - padTop - padBottom + 20}" fill="transparent" style="cursor:pointer;"
+                onmouseenter="updateTrendHoverInfo('${escapeHtml(p.timeStr)}', '${p.blended.toFixed(3)}', '${p.prompt.toFixed(3)}', '${p.comp.toFixed(3)}', '${escapeHtml(p.reason)}', ${x})"
+                onmouseleave="resetTrendHoverInfo()" />
+        `;
+      });
+
+      const firstDateStr = points[0].dateLabel;
+      const lastDateStr = points[points.length - 1].dateLabel;
+
+      container.innerHTML = `
+        <svg viewBox="0 0 ${width} ${height}" style="width:100%; height:auto;" onmouseleave="resetTrendHoverInfo()">
+          <!-- Header Legend -->
+          <g transform="translate(${padLeft}, 16)">
+            <circle cx="5" cy="0" r="4" fill="#10b981" />
+            <text x="14" y="3" font-size="10" fill="var(--text-muted)">Prompt (綠虛線)</text>
+
+            <circle cx="120" cy="0" r="4" fill="#3b82f6" />
+            <text x="129" y="3" font-size="10" fill="var(--text-muted)">Completion (藍虛線)</text>
+
+            <circle cx="250" cy="0" r="4" fill="#f59e0b" />
+            <text x="259" y="3" font-size="10" font-weight="700" fill="#f59e0b">3:1 綜合價 (金實線)</text>
+          </g>
+
+          <!-- Y-axis Lines & Text -->
+          <line x1="${padLeft}" y1="${getY(maxVal)}" x2="${width - padRight}" y2="${getY(maxVal)}" stroke="var(--border-color)" stroke-dasharray="3,3" opacity="0.5"/>
+          <line x1="${padLeft}" y1="${getY(minVal)}" x2="${width - padRight}" y2="${getY(minVal)}" stroke="var(--border-color)" stroke-dasharray="3,3" opacity="0.5"/>
+          <text x="${padLeft - 6}" y="${getY(maxVal) + 4}" fill="var(--text-dim)" font-size="9.5" font-family="var(--font-mono)" text-anchor="end">$${maxVal.toFixed(2)}</text>
+          <text x="${padLeft - 6}" y="${getY(minVal)}" fill="var(--text-dim)" font-size="9.5" font-family="var(--font-mono)" text-anchor="end">$${minVal.toFixed(2)}</text>
+
+          <!-- X-axis Timeline Baseline -->
+          <line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" stroke="var(--border-color)" stroke-width="1.5"/>
+
+          <!-- Clean Start & End Date Labels on X-axis -->
+          <text x="${padLeft}" y="${height - padBottom + 16}" text-anchor="start" font-size="9.5" font-weight="600" fill="var(--text-dim)" font-family="var(--font-mono)">${escapeHtml(firstDateStr)}</text>
+          <text x="${width - padRight}" y="${height - padBottom + 16}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--text-dim)" font-family="var(--font-mono)">${escapeHtml(lastDateStr)}</text>
+
+          <!-- Vertical Guides & Tick Dots -->
+          ${guidesHtml}
+          ${ticksHtml}
+
+          <!-- Dynamic Hover Crosshair Line -->
+          <line id="svg-hover-crosshair" x1="0" y1="${padTop}" x2="0" y2="${height - padBottom}" stroke="var(--accent-blue)" stroke-width="1.5" stroke-dasharray="3,3" style="display:none; pointer-events:none;" />
+
+          <!-- Dynamic Hover Date Badge Group -->
+          <g id="svg-hover-badge-group" style="display:none; pointer-events:none;">
+            <rect x="-35" y="-12" width="70" height="18" rx="4" fill="var(--accent-blue)" />
+            <text id="svg-hover-badge-text" text-anchor="middle" y="0" font-size="9" fill="#ffffff" font-weight="700" font-family="var(--font-mono)"></text>
+          </g>
+
+          <!-- Trend Lines -->
+          <path d="${promptPath}" fill="none" stroke="#10b981" stroke-width="1.8" stroke-dasharray="4,4" />
+          <path d="${compPath}" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-dasharray="4,4" />
+          <path d="${blendedPath}" fill="none" stroke="#f59e0b" stroke-width="2.8" />
+
+          <!-- Points -->
+          ${circlesHtml}
+
+          <!-- Transparent Hover Trigger Regions -->
+          ${hoverRegionsHtml}
+        </svg>
+      `;
+    }
+
+    const PROVIDER_COLORS = {
+      'openai': '#10a37f',
+      'anthropic': '#d97706',
+      'google': '#4285f4',
+      'meta-llama': '#0668e1',
+      'mistralai': '#ff7000',
+      'deepseek': '#4f46e5',
+      'qwen': '#7c3aed',
+      'x-ai': '#ffffff',
+      'cohere': '#3949ab',
+      'microsoft': '#00a4ef'
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTheme();
+      loadOutlierSettings();
+      loadWatchlist();
+      loadCustomCategories();
+      loadModelCustomTags();
+      loadChangeEventsFromDB();
+      loadWebhookSettings();
+      fetchModels(false);
+
+      document.addEventListener('click', (e) => {
+        const popover = document.getElementById('tag-popover');
+        if (popover && !popover.classList.contains('hidden')) {
+          if (!popover.contains(e.target) && !e.target.closest('[data-tag-btn]')) {
+            closeTagPopover();
+          }
+        }
+      });
+    });
+
+    function formatRelativeTime(createdSec) {
+      if (!createdSec) return '-';
+      const nowSec = Math.floor(Date.now() / 1000);
+      const diff = nowSec - createdSec;
+      if (diff < 0) return '剛剛';
+      if (diff < 3600) return `${Math.floor(diff / 60)} 分鐘前`;
+      if (diff < 86400) return `${Math.floor(diff / 3600)} 小時前`;
+      if (diff < 7 * 86400) return `${Math.floor(diff / 86400)} 天前`;
+      return new Date(createdSec * 1000).toLocaleDateString('zh-TW');
+    }
+
+    function loadCustomCategories() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_CUSTOM_CATEGORIES);
+        if (stored) {
+          customCategories = JSON.parse(stored);
+        } else {
+          customCategories = [
+            { id: 'cat_code', name: '💻 寫程式專用', color: '#3b82f6' },
+            { id: 'cat_cheap', name: '💰 平價實惠', color: '#10b981' },
+            { id: 'cat_test', name: '🧪 測試中', color: '#f59e0b' }
+          ];
+          saveCustomCategories();
+        }
+      } catch (e) {
+        customCategories = [];
+      }
+      renderCategoryDropdown();
+    }
+
+    function saveCustomCategories() {
+      localStorage.setItem(STORAGE_KEY_CUSTOM_CATEGORIES, JSON.stringify(customCategories));
+      renderCategoryDropdown();
+    }
+
+    function loadModelCustomTags() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_MODEL_TAGS);
+        modelCustomTags = stored ? JSON.parse(stored) : {};
+      } catch (e) {
+        modelCustomTags = {};
+      }
+    }
+
+    function saveModelCustomTags() {
+      localStorage.setItem(STORAGE_KEY_MODEL_TAGS, JSON.stringify(modelCustomTags));
+    }
+
+    function renderCategoryDropdown() {
+      const select = document.getElementById('filter-custom-category');
+      if (!select) return;
+      const currentVal = select.value;
+      let html = '<option value="">🏷️ 所有自訂分類</option>';
+      customCategories.forEach(cat => {
+        let count = 0;
+        Object.values(modelCustomTags).forEach(tags => {
+          if (Array.isArray(tags) && tags.includes(cat.id)) count++;
+        });
+        html += `<option value="${cat.id}">${escapeHtml(cat.name)} (${count})</option>`;
+      });
+      select.innerHTML = html;
+      select.value = currentVal;
+    }
+
+    function openCategoryManagerModal() {
+      renderCategoryListInModal();
+      document.getElementById('modal-category-manager').classList.remove('hidden');
+    }
+
+    function closeCategoryManagerModal() {
+      document.getElementById('modal-category-manager').classList.add('hidden');
+    }
+
+    function renderCategoryListInModal() {
+      const container = document.getElementById('category-list-container');
+      if (!container) return;
+      if (customCategories.length === 0) {
+        container.innerHTML = '<div style="color:var(--text-dim); text-align:center; padding:1rem;">尚無自訂分類，請在上方新增。</div>';
+        return;
+      }
+      let html = '';
+      customCategories.forEach(cat => {
+        let count = 0;
+        Object.values(modelCustomTags).forEach(tags => {
+          if (Array.isArray(tags) && tags.includes(cat.id)) count++;
+        });
+        html += `
+          <div class="category-item">
+            <div class="category-item-info">
+              <span class="user-tag" style="background:${cat.color}25; color:${cat.color}; border:1px solid ${cat.color}66; font-size:0.82rem; padding:0.2rem 0.5rem;">
+                ${escapeHtml(cat.name)}
+              </span>
+              <span style="font-size:0.75rem; color:var(--text-muted);">(${count} 款模型)</span>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="color:var(--accent-red); padding:0.15rem 0.4rem; font-size:0.72rem;" onclick="deleteCategory('${cat.id}')">
+              刪除
+            </button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function createCategoryFromInput() {
+      const input = document.getElementById('new-cat-name');
+      const colorInput = document.getElementById('new-cat-color');
+      const name = input ? input.value.trim() : '';
+      const color = colorInput ? colorInput.value : '#3b82f6';
+      if (!name) {
+        showToast('請輸入分類名稱！', 'warning');
+        return;
+      }
+      const newCat = {
+        id: 'cat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        name: name,
+        color: color
+      };
+      customCategories.push(newCat);
+      saveCustomCategories();
+      input.value = '';
+      renderCategoryListInModal();
+      applyFilters();
+      showToast(`已新增分類: ${name}`, 'success');
+    }
+
+    function deleteCategory(catId) {
+      if (!confirm('確定要刪除此分類嗎？模型身上的該標籤也將一併移除。')) return;
+      customCategories = customCategories.filter(c => c.id !== catId);
+      Object.keys(modelCustomTags).forEach(mId => {
+        if (Array.isArray(modelCustomTags[mId])) {
+          modelCustomTags[mId] = modelCustomTags[mId].filter(id => id !== catId);
+        }
+      });
+      saveCustomCategories();
+      saveModelCustomTags();
+      renderCategoryListInModal();
+      applyFilters();
+      showToast('已刪除分類', 'info');
+    }
+
+    function openTagPopover(modelId, btnEl, event) {
+      if (event) event.stopPropagation();
+      activeTagModelId = modelId;
+      const popover = document.getElementById('tag-popover');
+      const container = document.getElementById('tag-popover-options');
+      if (!popover || !container) return;
+
+      const rect = btnEl.getBoundingClientRect();
+      popover.style.top = `${window.scrollY + rect.bottom + 6}px`;
+      popover.style.left = `${Math.min(window.scrollX + rect.left, window.innerWidth - 245)}px`;
+
+      const currentTags = modelCustomTags[modelId] || [];
+
+      if (customCategories.length === 0) {
+        container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-dim); padding:0.4rem;">尚未建立自訂分類。<br><a href="javascript:void(0)" onclick="closeTagPopover();openCategoryManagerModal();" style="color:var(--accent-blue);">前往建立 ↗</a></div>';
+      } else {
+        let html = '';
+        customCategories.forEach(cat => {
+          const checked = currentTags.includes(cat.id);
+          html += `
+            <div class="popover-option-item" onclick="toggleModelTag('${escapeHtml(modelId)}', '${cat.id}')">
+              <input type="checkbox" ${checked ? 'checked' : ''} style="pointer-events:none;" />
+              <span class="user-tag" style="background:${cat.color}25; color:${cat.color}; border:1px solid ${cat.color}66;">
+                ${escapeHtml(cat.name)}
+              </span>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+
+      popover.classList.remove('hidden');
+      popover.style.display = 'block';
+    }
+
+    function closeTagPopover() {
+      const popover = document.getElementById('tag-popover');
+      if (popover) {
+        popover.classList.add('hidden');
+        popover.style.display = 'none';
+      }
+      activeTagModelId = null;
+    }
+
+    function toggleModelTag(modelId, catId) {
+      if (!modelCustomTags[modelId]) modelCustomTags[modelId] = [];
+      const index = modelCustomTags[modelId].indexOf(catId);
+      if (index > -1) {
+        modelCustomTags[modelId].splice(index, 1);
+      } else {
+        modelCustomTags[modelId].push(catId);
+      }
+      saveModelCustomTags();
+      renderCategoryDropdown();
+      applyFilters();
+      const btn = document.querySelector(`[data-tag-btn="${modelId}"]`);
+      if (btn) openTagPopover(modelId, btn);
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY_THEME) || 'dark';
+      applyTheme(saved);
+    }
+
+    function applyTheme(theme) {
+      let effective = theme;
+      if (theme === 'system') {
+        effective = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      if (effective === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem(STORAGE_KEY_THEME, theme);
+      updateThemeButtonUI(theme);
+    }
+
+    function toggleTheme() {
+      const current = localStorage.getItem(STORAGE_KEY_THEME) || 'dark';
+      let next = 'dark';
+      if (current === 'dark') next = 'light';
+      else if (current === 'light') next = 'system';
+      else next = 'dark';
+      applyTheme(next);
+      showToast(`已切換主題: ${next === 'dark' ? '🌙 暗色' : next === 'light' ? '☀️ 亮色' : '💻 隨系統'}`, 'info');
+    }
+
+    function updateThemeButtonUI(theme) {
+      const btn = document.getElementById('btn-theme-toggle');
+      if (!btn) return;
+      if (theme === 'dark') {
+        btn.innerHTML = '🌙 暗色';
+      } else if (theme === 'light') {
+        btn.innerHTML = '☀️ 亮色';
+      } else {
+        btn.innerHTML = '💻 隨系統';
+      }
+    }
+
+    function loadOutlierSettings() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_OUTLIER_SETTINGS);
+        if (stored) {
+          outlierSettings = Object.assign(outlierSettings, JSON.parse(stored));
+        }
+      } catch(e) {}
+
+      const elActive = document.getElementById('setting-outlier-active');
+      const elMin = document.getElementById('setting-outlier-min');
+      const elMax = document.getElementById('setting-outlier-max');
+      const elDiff = document.getElementById('setting-outlier-diff');
+
+      if (elActive) elActive.checked = outlierSettings.enabled;
+      if (elMin) elMin.value = outlierSettings.minPrice;
+      if (elMax) elMax.value = outlierSettings.maxPrice;
+      if (elDiff) elDiff.value = outlierSettings.maxDiff;
+    }
+
+    function saveOutlierSettings() {
+      const elActive = document.getElementById('setting-outlier-active');
+      const elMin = document.getElementById('setting-outlier-min');
+      const elMax = document.getElementById('setting-outlier-max');
+      const elDiff = document.getElementById('setting-outlier-diff');
+
+      if (elActive) outlierSettings.enabled = elActive.checked;
+      if (elMin) outlierSettings.minPrice = parseFloat(elMin.value) || 0;
+      if (elMax) outlierSettings.maxPrice = parseFloat(elMax.value) || 10000;
+      if (elDiff) outlierSettings.maxDiff = parseFloat(elDiff.value) || 1000;
+
+      localStorage.setItem(STORAGE_KEY_OUTLIER_SETTINGS, JSON.stringify(outlierSettings));
+      showToast('異常值防護設定已儲存', 'success');
+      applyFilters();
+      calculateKpis();
+      renderChangeLog();
+      updateSettingsInfo();
+    }
+
+    function isAnomaly(promptPerM, compPerM, diff = 0) {
+      if (isNaN(promptPerM) || isNaN(compPerM)) return true;
+      if (promptPerM < 0 || compPerM < 0) return true;
+      if (!outlierSettings.enabled) return false;
+      if (promptPerM < outlierSettings.minPrice || promptPerM > outlierSettings.maxPrice) return true;
+      if (compPerM < outlierSettings.minPrice || compPerM > outlierSettings.maxPrice) return true;
+      if (Math.abs(diff) > outlierSettings.maxDiff) return true;
+      return false;
+    }
+
+    function loadWatchlist() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_WATCHLIST);
+        watchlist = stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        watchlist = [];
+      }
+      updateWatchlistCounter();
+    }
+
+    function saveWatchlist() {
+      try {
+        localStorage.setItem(STORAGE_KEY_WATCHLIST, JSON.stringify(watchlist));
+      } catch (e) {
+        console.error('Failed to save watchlist', e);
+      }
+      updateWatchlistCounter();
+    }
+
+    function toggleWatchlist(modelId, e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      const index = watchlist.indexOf(modelId);
+      if (index > -1) {
+        watchlist.splice(index, 1);
+        showToast(`已自關注清單移除 ${modelId}`, 'info');
+      } else {
+        watchlist.push(modelId);
+        showToast(`已加入關注清單 ⭐ ${modelId}`, 'success');
+      }
+      saveWatchlist();
+      applyFilters();
+    }
+
+    function isWatchlisted(modelId) {
+      return watchlist.includes(modelId);
+    }
+
+    function updateWatchlistCounter() {
+      const badge = document.getElementById('count-watchlist');
+      if (badge) badge.textContent = watchlist.length;
+    }
+
+    function getBlendedPricePerM(m) {
+      const prompt = parseFloat(m.pricing?.prompt || '0') * 1000000;
+      const comp = parseFloat(m.pricing?.completion || '0') * 1000000;
+      return (prompt * 0.75 + comp * 0.25);
+    }
+
+    function checkPromptCacheSupport(m) {
+      const id = (m.id || '').toLowerCase();
+      if (id.includes('claude') || id.includes('gpt-4o') || id.includes('gpt-5') || id.includes('deepseek')) {
+        return true;
+      }
+      if (m.pricing && (m.pricing.prompt_cache || m.pricing.cache_read || m.pricing.cache_write)) {
+        return true;
+      }
+      const desc = (m.description || '').toLowerCase();
+      if (desc.includes('prompt cache') || desc.includes('prompt caching')) {
+        return true;
+      }
+      return false;
+    }
+
+    function renderLeaderboard() {
+      const container = document.getElementById('leaderboard-items');
+      if (!container) return;
+
+      const dropMap = new Map();
+      changeEvents.filter(e => {
+        if (e.changeType !== 'PRICE_DROP') return false;
+        if (e.oldVal && String(e.oldVal).includes('-')) return false;
+        if (e.newVal && String(e.newVal).includes('-')) return false;
+        if (e.newPromptM !== undefined && e.newCompM !== undefined) {
+          if (isAnomaly(e.newPromptM, e.newCompM, e.diff || 0)) return false;
+        }
+        return true;
+      }).forEach(e => {
+        if (!dropMap.has(e.modelId)) {
+          dropMap.set(e.modelId, e);
+        }
+      });
+
+      const dropList = Array.from(dropMap.values());
+      
+      if (dropList.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; font-size: 0.8rem; color: var(--text-dim); padding: 0.4rem 0.2rem;">
+            💡 當 OpenRouter API 偵測到價格調降時，降價幅度最大的前 5 款模型將自動在此呈現！
+          </div>
+        `;
+        return;
+      }
+
+      dropList.sort((a, b) => {
+        const aPct = Math.abs(parseFloat((a.percentStr || '0').replace('%', '').replace('+', '')));
+        const bPct = Math.abs(parseFloat((b.percentStr || '0').replace('%', '').replace('+', '')));
+        return bPct - aPct;
+      });
+
+      const top5 = dropList.slice(0, 5);
+      let html = '';
+      top5.forEach((item, idx) => {
+        html += `
+          <div class="leaderboard-item" onclick="jumpToModel('${escapeHtml(item.modelId)}')" title="點擊搜尋此模型">
+            <span class="leaderboard-rank">${idx + 1}</span>
+            <div class="leaderboard-info">
+              <div class="leaderboard-model-name">${escapeHtml(item.modelName || item.modelId)}</div>
+              <div class="leaderboard-model-sub">${escapeHtml(item.modelId.split('/')[0] || '')} • ${escapeHtml(item.newVal)}</div>
+            </div>
+            <div class="leaderboard-pct">${item.percentStr || '-'}</div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function jumpToModel(modelId) {
+      const searchInput = document.getElementById('filter-search');
+      if (searchInput) {
+        searchInput.value = modelId;
+        applyFilters();
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function switchMainTab(tab) {
+      document.getElementById('view-models').classList.add('hidden');
+      document.getElementById('view-changelog').classList.add('hidden');
+      document.getElementById('view-settings').classList.add('hidden');
+
+      document.getElementById('tab-models-btn').classList.remove('active');
+      document.getElementById('tab-changelog-btn').classList.remove('active');
+      document.getElementById('tab-settings-btn').classList.remove('active');
+
+      if (tab === 'models') {
+        document.getElementById('view-models').classList.remove('hidden');
+        document.getElementById('tab-models-btn').classList.add('active');
+      } else if (tab === 'changelog') {
+        document.getElementById('view-changelog').classList.remove('hidden');
+        document.getElementById('tab-changelog-btn').classList.add('active');
+        renderChangeLog();
+      } else if (tab === 'settings') {
+        document.getElementById('view-settings').classList.remove('hidden');
+        document.getElementById('tab-settings-btn').classList.add('active');
+        updateSettingsInfo();
+      }
+    }
+
+    
+    /**
+     * Generate clean, valid OpenRouter official model page URL
+     * Handles:
+     * - Path slashes (no raw encodeURIComponent breaking slashes)
+     * - Stripping routing tags (:free, :batch, :floor, :nitro, :extended)
+     * - Using canonical_slug if preferred
+     */
+    function getModelWebUrl(m) {
+      if (!m) return 'https://openrouter.ai/models';
+      const rawId = typeof m === 'string' ? m : (m.id || m.canonical_slug || '');
+      if (!rawId) return 'https://openrouter.ai/models';
+
+      // Strip routing suffixes (e.g. "openai/gpt-4o-mini:free" -> "openai/gpt-4o-mini")
+      const cleanId = rawId.split(':')[0].trim();
+      const path = cleanId.replace(/^\/+/, '');
+      return `https://openrouter.ai/${path}`;
+    }
+
+    async function fetchModels(isManualRefresh = false) {
+      const btn = document.getElementById('btn-refresh');
+      const statusText = document.getElementById('last-update-text');
+
+      if (btn) btn.disabled = true;
+      statusText.textContent = '連線抓取中...';
+
+      try {
+        const response = await fetch('https://openrouter.ai/api/v1/models');
+        if (!response.ok) throw new Error(`HTTP 錯誤碼: ${response.status}`);
+        const data = await response.json();
+
+        if (!data || !Array.isArray(data.data)) {
+          throw new Error('回傳資料格式不符合預期');
+        }
+
+        const newModelsList = data.data;
+        statusText.textContent = `即時更新: ${new Date().toLocaleTimeString('zh-TW', { hour12: false })}`;
+
+        // Process change detection against previous snapshot
+        processDeltaAndStore(newModelsList);
+
+        // Populate UI
+        rawModels = newModelsList;
+        document.getElementById('tab-model-count').textContent = rawModels.length;
+        populateProviderDropdown();
+        calculateKpis();
+        applyFilters();
+
+        if (isManualRefresh) {
+          showToast(`成功取得 ${rawModels.length} 款模型最新資訊！`, 'success');
+        }
+      } catch (err) {
+        console.error('Fetch OpenRouter failed:', err);
+        statusText.textContent = 'API 連線失敗，使用離線快取';
+        showToast(`讀取 API 失敗: ${err.message}。嘗試載入歷史快取...`, 'error');
+
+        const cached = localStorage.getItem(STORAGE_KEY_MODELS_SNAPSHOT);
+        if (cached) {
+          try {
+            const parsed = JSON.parse(cached);
+            rawModels = Object.values(parsed.models || {});
+            document.getElementById('tab-model-count').textContent = rawModels.length;
+            populateProviderDropdown();
+            calculateKpis();
+            applyFilters();
+          } catch(e) {
+            console.error('Cache parse failed', e);
+          }
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    function processDeltaAndStore(newModelsList) {
+      const previousSnapshotRaw = localStorage.getItem(STORAGE_KEY_MODELS_SNAPSHOT);
+      const now = new Date();
+      const timestamp = now.getTime();
+      const timeStr = now.toLocaleString('zh-TW', { hour12: false });
+
+      let prevSnapshot = { models: {} };
+      if (previousSnapshotRaw) {
+        try {
+          prevSnapshot = JSON.parse(previousSnapshotRaw);
+        } catch (e) {
+          prevSnapshot = { models: {} };
+        }
+      }
+      const prevModelsMap = prevSnapshot.models || {};
+      const newEvents = [];
+      const currentModelsMap = {};
+
+      newModelsList.forEach(m => {
+        const prev = prevModelsMap[m.id];
+        const promptPrice = parseFloat(m.pricing?.prompt || '0');
+        const compPrice = parseFloat(m.pricing?.completion || '0');
+        const promptPerM = promptPrice * 1000000;
+        const compPerM = compPrice * 1000000;
+
+        let lastUpdated = timestamp;
+        let lastUpdatedStr = timeStr;
+        let lastChangeReason = '初次收錄';
+        let firstSeen = timestamp;
+        let isPriceChanged = false;
+
+        if (!prev) {
+          lastChangeReason = '新模型上架';
+          if (previousSnapshotRaw) {
+            newEvents.push({
+              id: `evt_${timestamp}_${Math.random().toString(36).substr(2, 6)}`,
+              timestamp: timestamp,
+              timeStr: timeStr,
+              modelId: m.id,
+              modelName: m.name || m.id,
+              provider: m.id.split('/')[0] || 'other',
+              changeType: 'NEW_MODEL',
+              field: 'status',
+              oldVal: '未收錄',
+              newVal: '新上架',
+              diffStr: '全新發布',
+              percentStr: ''
+            });
+          }
+        } else {
+          firstSeen = prev.first_seen || prev.last_updated || timestamp;
+          lastUpdated = prev.last_updated || timestamp;
+          lastUpdatedStr = prev.last_updated_str || timeStr;
+          lastChangeReason = prev.last_change_reason || '已確認最新';
+
+          const prevPromptPerM = prev.prompt_price * 1000000;
+          const prevCompPerM = prev.completion_price * 1000000;
+
+          // Check Prompt Price
+          if (Math.abs(promptPerM - prevPromptPerM) > 0.0001) {
+            const diff = promptPerM - prevPromptPerM;
+            if (isAnomaly(promptPerM, compPerM, diff)) {
+              filteredOutlierCount++;
+              console.warn(`[Outlier Filter] Intercepted prompt price anomaly for ${m.id}: prompt=${promptPerM}, diff=${diff}`);
+            } else {
+              isPriceChanged = true;
+              const pct = prevPromptPerM > 0 ? ((diff / prevPromptPerM) * 100).toFixed(1) : 0;
+              const isDrop = diff < 0;
+              lastChangeReason = isDrop ? '價格調降 📉' : '價格調漲 📈';
+
+              newEvents.push({
+                id: `evt_${timestamp}_${Math.random().toString(36).substr(2, 6)}`,
+                timestamp: timestamp,
+                timeStr: timeStr,
+                modelId: m.id,
+                modelName: m.name || m.id,
+                provider: m.id.split('/')[0] || 'other',
+                changeType: isDrop ? 'PRICE_DROP' : 'PRICE_HIKE',
+                field: 'prompt_price',
+                fieldName: '輸入價格 (Prompt)',
+                oldVal: `$${prevPromptPerM.toFixed(4)}`,
+                newVal: `$${promptPerM.toFixed(4)}`,
+                diffStr: `${diff > 0 ? '+' : ''}$${diff.toFixed(4)}`,
+                percentStr: `${pct > 0 ? '+' : ''}${pct}%`,
+                newPromptM: promptPerM,
+                newCompM: compPerM,
+                diff: diff
+              });
+            }
+          }
+
+          // Check Completion Price
+          if (Math.abs(compPerM - prevCompPerM) > 0.0001) {
+            const diff = compPerM - prevCompPerM;
+            if (isAnomaly(promptPerM, compPerM, diff)) {
+              filteredOutlierCount++;
+              console.warn(`[Outlier Filter] Intercepted comp price anomaly for ${m.id}: comp=${compPerM}, diff=${diff}`);
+            } else {
+              isPriceChanged = true;
+              const pct = prevCompPerM > 0 ? ((diff / prevCompPerM) * 100).toFixed(1) : 0;
+              const isDrop = diff < 0;
+              lastChangeReason = isDrop ? '價格調降 📉' : '價格調漲 📈';
+
+              newEvents.push({
+                id: `evt_${timestamp}_${Math.random().toString(36).substr(2, 6)}`,
+                timestamp: timestamp,
+                timeStr: timeStr,
+                modelId: m.id,
+                modelName: m.name || m.id,
+                provider: m.id.split('/')[0] || 'other',
+                changeType: isDrop ? 'PRICE_DROP' : 'PRICE_HIKE',
+                field: 'completion_price',
+                fieldName: '輸出價格 (Completion)',
+                oldVal: `$${prevCompPerM.toFixed(4)}`,
+                newVal: `$${compPerM.toFixed(4)}`,
+                diffStr: `${diff > 0 ? '+' : ''}$${diff.toFixed(4)}`,
+                percentStr: `${pct > 0 ? '+' : ''}${pct}%`,
+                newPromptM: promptPerM,
+                newCompM: compPerM,
+                diff: diff
+              });
+            }
+          }
+
+          if (isPriceChanged) {
+            lastUpdated = timestamp;
+            lastUpdatedStr = timeStr;
+          }
+        }
+
+        // Attach snapshot data
+        currentModelsMap[m.id] = {
+          id: m.id,
+          name: m.name,
+          created: m.created,
+          prompt_price: promptPrice,
+          completion_price: compPrice,
+          context_length: m.context_length || 0,
+          modalities: m.architecture?.modality || '',
+          description: m.description || '',
+          last_updated: lastUpdated,
+          last_updated_str: lastUpdatedStr,
+          last_change_reason: lastChangeReason,
+          first_seen: firstSeen
+        };
+
+        // Attach runtime annotations to model
+        m._last_updated = lastUpdated;
+        m._last_updated_str = lastUpdatedStr;
+        m._last_change_reason = lastChangeReason;
+        m._first_seen = firstSeen;
+      });
+
+      // Check removed models
+      for (const [id, prev] of Object.entries(prevModelsMap)) {
+        if (!currentModelsMap[id]) {
+          newEvents.push({
+            id: `evt_${timestamp}_${Math.random().toString(36).substr(2, 6)}`,
+            timestamp: timestamp,
+            timeStr: timeStr,
+            modelId: id,
+            modelName: prev.name || id,
+            provider: id.split('/')[0] || 'other',
+            changeType: 'REMOVED',
+            field: 'status',
+            oldVal: '上線中',
+            newVal: '已下架',
+            diffStr: '已移出目錄',
+            percentStr: ''
+          });
+        }
+      }
+
+      // Always save updated mapping to preserve last_updated timestamps
+      localStorage.setItem(STORAGE_KEY_MODELS_SNAPSHOT, JSON.stringify({
+        savedAt: timeStr,
+        timestamp: timestamp,
+        models: currentModelsMap
+      }));
+
+      // ONLY record events into DB if there are real changes
+      if (newEvents.length > 0) {
+        console.log(`[Database] Detected ${newEvents.length} changes! Writing to Change DB...`);
+        changeEvents.unshift(...newEvents);
+        saveChangeEventsToDB();
+        showToast(`⚡ 檢測到 ${newEvents.length} 筆實質變更，已自動記錄至資料庫！`, 'success');
+        triggerWebhookIfEnabled(newEvents);
+      } else {
+        console.log('[Database] No price or model changes detected. Database write skipped.');
+      }
+
+      updateEventCounter();
+    }
+
+    function updateRemovedModelsList() {
+      const removedMap = {};
+      changeEvents.forEach(evt => {
+        if (evt.changeType === 'REMOVED' && evt.modelId) {
+          if (!removedMap[evt.modelId]) {
+            removedMap[evt.modelId] = {
+              id: evt.modelId,
+              name: evt.modelName || evt.modelId,
+              provider: evt.provider || evt.modelId.split('/')[0] || 'other',
+              context_length: evt.context_length || 0,
+              pricing: evt.pricing || { prompt: '0', completion: '0' },
+              removed_time: evt.timestamp,
+              removed_time_str: evt.timeStr || new Date(evt.timestamp).toLocaleDateString('zh-TW'),
+              _is_removed: true
+            };
+          }
+        }
+      });
+      removedModelsList = Object.values(removedMap);
+    }
+
+    function loadChangeEventsFromDB() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_CHANGE_EVENTS);
+        if (stored) {
+          changeEvents = JSON.parse(stored);
+        }
+      } catch (e) {
+        console.error('Failed to load change events', e);
+        changeEvents = [];
+      }
+      updateRemovedModelsList();
+      updateEventCounter();
+    }
+
+    function saveChangeEventsToDB() {
+      try {
+        localStorage.setItem(STORAGE_KEY_CHANGE_EVENTS, JSON.stringify(changeEvents));
+      } catch (e) {
+        console.error('Failed to save change events', e);
+      }
+      updateRemovedModelsList();
+      updateEventCounter();
+    }
+
+    function updateEventCounter() {
+      const badge = document.getElementById('tab-event-count');
+      const kpi = document.getElementById('kpi-db-events');
+      if (badge) badge.textContent = changeEvents.length;
+      if (kpi) kpi.textContent = changeEvents.length;
+    }
+
+    function populateProviderDropdown() {
+      const providerSelect = document.getElementById('filter-provider');
+      const counts = {};
+      rawModels.forEach(m => {
+        const p = m.id.split('/')[0] || 'other';
+        counts[p] = (counts[p] || 0) + 1;
+      });
+
+      const sortedProviders = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+
+      let html = '<option value="">🏢 所有廠商 (全部 Provider)</option>';
+      sortedProviders.forEach(p => {
+        html += `<option value="${p}">${p} (${counts[p]})</option>`;
+      });
+      providerSelect.innerHTML = html;
+      document.getElementById('kpi-provider-count').textContent = `統計 ${sortedProviders.length} 個供應商`;
+    }
+
+    function calculateKpis() {
+      const validModels = rawModels.filter(m => {
+        const promptPerM = parseFloat(m.pricing?.prompt || '0') * 1000000;
+        const compPerM = parseFloat(m.pricing?.completion || '0') * 1000000;
+        return !isAnomaly(promptPerM, compPerM);
+      });
+
+      filteredOutlierCount = rawModels.length - validModels.length;
+      document.getElementById('kpi-total-models').textContent = validModels.length;
+
+      calculateMarketStats();
+
+      const freeCount = validModels.filter(m => {
+        const p = parseFloat(m.pricing?.prompt || '0');
+        const c = parseFloat(m.pricing?.completion || '0');
+        return p === 0 && c === 0;
+      }).length;
+      document.getElementById('kpi-free-models').textContent = freeCount;
+
+      const nowSec = Math.floor(Date.now() / 1000);
+      const oneDaySec = 24 * 3600;
+      const sevenDaysSec = 7 * 24 * 3600;
+      const thirtyDaysSec = 30 * 24 * 3600;
+
+      const todayNewCount = validModels.filter(m => m.created && (nowSec - m.created < oneDaySec)).length;
+      const weekNewCount = validModels.filter(m => m.created && (nowSec - m.created < sevenDaysSec)).length;
+      const monthNewCount = validModels.filter(m => m.created && (nowSec - m.created < thirtyDaysSec)).length;
+
+      const kpiNewEl = document.getElementById('kpi-new-models');
+      if (kpiNewEl) {
+        kpiNewEl.textContent = todayNewCount > 0 ? `🔥 今日 +${todayNewCount}` : weekNewCount;
+      }
+      const kpiNewSubEl = document.getElementById('kpi-new-sub');
+      if (kpiNewSubEl) {
+        kpiNewSubEl.textContent = `今日 +${todayNewCount} 款 · 7天內 ${weekNewCount} 款 · 30天內 ${monthNewCount} 款`;
+      }
+
+      const countTodayEl = document.getElementById('count-new-today');
+      if (countTodayEl) countTodayEl.textContent = todayNewCount;
+      const countWeekEl = document.getElementById('count-new-week');
+      if (countWeekEl) countWeekEl.textContent = weekNewCount;
+
+      updateRemovedModelsList();
+      const removedEvents = changeEvents.filter(e => e.changeType === 'REMOVED');
+      const totalRemovedCount = removedModelsList.length || removedEvents.length;
+
+      const providerSelect = document.getElementById('filter-provider');
+      const providerCount = providerSelect ? (providerSelect.options.length - 1) : 0;
+      const providerSubEl = document.getElementById('kpi-provider-count');
+      if (providerSubEl) {
+        providerSubEl.textContent = `線上 ${validModels.length} 款 (統計 ${providerCount > 0 ? providerCount : 0} 個供應商 · 累計下架 ${totalRemovedCount} 款)`;
+      }
+
+      const countRemovedEl = document.getElementById('count-removed-models');
+      if (countRemovedEl) countRemovedEl.textContent = totalRemovedCount;
+
+      const validEvents = changeEvents.filter(e => {
+        if (e.oldVal && String(e.oldVal).includes('-')) return false;
+        if (e.newVal && String(e.newVal).includes('-')) return false;
+        if (e.newPromptM !== undefined && e.newCompM !== undefined) {
+          if (isAnomaly(e.newPromptM, e.newCompM, e.diff || 0)) return false;
+        }
+        return true;
+      });
+
+      const priceDrops = validEvents.filter(e => e.changeType === 'PRICE_DROP').length;
+      const priceHikes = validEvents.filter(e => e.changeType === 'PRICE_HIKE').length;
+      document.getElementById('kpi-price-changes').textContent = priceDrops + priceHikes;
+      
+      const medianText = marketMedianPrice > 0 ? ` · 市場中位數: $${marketMedianPrice.toFixed(2)}/1M` : '';
+      document.getElementById('kpi-price-sub').textContent = `降價 ${priceDrops} / 漲價 ${priceHikes}${medianText}`;
+      renderLeaderboard();
+      updateSettingsInfo();
+    }
+
+    function applyFilters() {
+      const searchQuery = document.getElementById('filter-search').value.trim().toLowerCase();
+      const selectedProvider = document.getElementById('filter-provider').value;
+      const selectedCategory = document.getElementById('filter-custom-category')?.value;
+      const minContext = parseInt(document.getElementById('filter-min-context').value, 10) || 0;
+      const sortMode = document.getElementById('filter-sort').value;
+
+      const nowSec = Math.floor(Date.now() / 1000);
+      const oneDaySec = 24 * 3600;
+      const sevenDaysSec = 7 * 24 * 3600;
+      const thirtyDaysSec = 30 * 24 * 3600;
+
+      const sourceArray = (activeQuickFilter === 'removed') ? removedModelsList : rawModels;
+
+      displayedModels = sourceArray.filter(model => {
+        if (!model._is_removed) {
+          const promptPrice = parseFloat(model.pricing?.prompt || '0');
+          const completionPrice = parseFloat(model.pricing?.completion || '0');
+          const promptPerM = promptPrice * 1000000;
+          const compPerM = completionPrice * 1000000;
+          if (isAnomaly(promptPerM, compPerM)) return false;
+        }
+
+        if (searchQuery) {
+          const matchId = (model.id || '').toLowerCase().includes(searchQuery);
+          const matchName = (model.name || '').toLowerCase().includes(searchQuery);
+          const matchDesc = (model.description || '').toLowerCase().includes(searchQuery);
+          if (!matchId && !matchName && !matchDesc) return false;
+        }
+
+        if (selectedProvider) {
+          const p = model.id.split('/')[0] || '';
+          if (p !== selectedProvider) return false;
+        }
+
+        if (selectedCategory) {
+          const tags = modelCustomTags[model.id] || [];
+          if (!tags.includes(selectedCategory)) return false;
+        }
+
+        if (minContext > 0 && (model.context_length || 0) < minContext) {
+          return false;
+        }
+
+        const params = model.supported_parameters || [];
+        const modality = (model.architecture?.modality || '').toLowerCase();
+        const promptPrice = parseFloat(model.pricing?.prompt || '0');
+        const completionPrice = parseFloat(model.pricing?.completion || '0');
+
+        if (activeQuickFilter === 'watchlist') {
+          if (!isWatchlisted(model.id)) return false;
+        } else if (activeQuickFilter === 'free') {
+          if (promptPrice !== 0 || completionPrice !== 0) return false;
+        } else if (activeQuickFilter === 'tier-ultra') {
+          const blended = getBlendedPricePerM(model);
+          if (blended === 0 || blended >= 0.20) return false;
+        } else if (activeQuickFilter === 'tier-budget') {
+          const blended = getBlendedPricePerM(model);
+          if (blended < 0.20 || blended >= 1.00) return false;
+        } else if (activeQuickFilter === 'tier-atl') {
+          const blended = getBlendedPricePerM(model);
+          if (!isAllTimeLow(model.id, blended)) return false;
+        } else if (activeQuickFilter === 'new-today') {
+          if (!model.created || (nowSec - model.created > oneDaySec)) return false;
+        } else if (activeQuickFilter === 'new') {
+          if (!model.created || (nowSec - model.created > sevenDaysSec)) return false;
+        } else if (activeQuickFilter === 'new-month') {
+          if (!model.created || (nowSec - model.created > thirtyDaysSec)) return false;
+        } else if (activeQuickFilter === 'reasoning') {
+          const hasReasoningParam = params.includes('reasoning') || params.includes('include_reasoning');
+          const hasReasoningObj = model.reasoning !== null && model.reasoning !== undefined;
+          if (!hasReasoningParam && !hasReasoningObj) return false;
+        } else if (activeQuickFilter === 'vision') {
+          if (!modality.includes('image')) return false;
+        } else if (activeQuickFilter === 'audio') {
+          if (!modality.includes('audio')) return false;
+        } else if (activeQuickFilter === 'tools') {
+          if (!params.includes('tools') && !params.includes('tool_choice')) return false;
+        } else if (activeQuickFilter === 'json') {
+          if (!params.includes('structured_outputs') && !params.includes('response_format')) return false;
+        } else if (activeQuickFilter === 'price-drop') {
+          const latestPriceEvt = changeEvents.find(e => e.modelId === model.id && (e.changeType === 'PRICE_DROP' || e.changeType === 'PRICE_HIKE'));
+          if (!latestPriceEvt || latestPriceEvt.changeType !== 'PRICE_DROP') return false;
+        } else if (activeQuickFilter === 'price-up') {
+          const latestPriceEvt = changeEvents.find(e => e.modelId === model.id && (e.changeType === 'PRICE_DROP' || e.changeType === 'PRICE_HIKE'));
+          if (!latestPriceEvt || latestPriceEvt.changeType !== 'PRICE_HIKE') return false;
+        }
+
+        return true;
+      });
+
+      displayedModels.sort((a, b) => {
+        const aPrompt = parseFloat(a.pricing?.prompt || '0');
+        const bPrompt = parseFloat(b.pricing?.prompt || '0');
+        const aComp = parseFloat(a.pricing?.completion || '0');
+        const bComp = parseFloat(b.pricing?.completion || '0');
+        const aContext = a.context_length || 0;
+        const bContext = b.context_length || 0;
+        const aCreated = a.created || 0;
+        const bCreated = b.created || 0;
+
+        switch (sortMode) {
+          case 'blended_asc':
+            return getBlendedPricePerM(a) - getBlendedPricePerM(b);
+          case 'blended_desc':
+            return getBlendedPricePerM(b) - getBlendedPricePerM(a);
+          case 'created_desc':
+            return bCreated - aCreated;
+          case 'prompt_asc':
+            return aPrompt - bPrompt;
+          case 'prompt_desc':
+            return bPrompt - aPrompt;
+          case 'completion_asc':
+            return aComp - bComp;
+          case 'completion_desc':
+            return bComp - aComp;
+          case 'context_desc':
+            return bContext - aContext;
+          case 'name_asc':
+            return (a.name || a.id).localeCompare(b.name || b.id);
+          case 'price_drop_first': {
+            const aHasDrop = changeEvents.some(e => e.modelId === a.id && e.changeType === 'PRICE_DROP') ? 1 : 0;
+            const bHasDrop = changeEvents.some(e => e.modelId === b.id && e.changeType === 'PRICE_DROP') ? 1 : 0;
+            return bHasDrop - aHasDrop;
+          }
+          default:
+            return bCreated - aCreated;
+        }
+      });
+
+      document.getElementById('filter-match-count').textContent = displayedModels.length;
+
+      if (currentViewMode === 'table') {
+        renderTableView();
+      } else {
+        renderCardsView();
+      }
+    }
+
+    function renderTableView() {
+      const tbody = document.getElementById('models-table-body');
+      if (displayedModels.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <h3>沒有符合條件的模型</h3>
+              <p>請嘗試調整搜尋關鍵字或清除篩選條件。</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      const nowSec = Math.floor(Date.now() / 1000);
+      const oneDaySec = 24 * 3600;
+      const sevenDaysSec = 7 * 24 * 3600;
+
+      let html = '';
+      displayedModels.forEach(m => {
+        const provider = m.id.split('/')[0] || 'other';
+        const promptPerM = (parseFloat(m.pricing?.prompt || '0') * 1000000).toFixed(3);
+        const compPerM = (parseFloat(m.pricing?.completion || '0') * 1000000).toFixed(3);
+        const blendedPerM = getBlendedPricePerM(m);
+        const isFree = parseFloat(promptPerM) === 0 && parseFloat(compPerM) === 0;
+
+        const isToday = m.created && (nowSec - m.created < oneDaySec);
+        const isWeek = m.created && (nowSec - m.created < sevenDaysSec);
+        const relTime = formatRelativeTime(m.created);
+
+        const promptChange = changeEvents.find(e => e.modelId === m.id && e.field === 'prompt_price');
+        const compChange = changeEvents.find(e => e.modelId === m.id && e.field === 'completion_price');
+        const latestPriceEvt = changeEvents.find(e => e.modelId === m.id && (e.changeType === 'PRICE_DROP' || e.changeType === 'PRICE_HIKE'));
+        const isCurrentlyOnSale = latestPriceEvt && latestPriceEvt.changeType === 'PRICE_DROP';
+        const isCurrentlyPriceHiked = latestPriceEvt && latestPriceEvt.changeType === 'PRICE_HIKE';
+
+        let tagsHtml = '';
+
+        const userTagIds = modelCustomTags[m.id] || [];
+        userTagIds.forEach(catId => {
+          const cat = customCategories.find(c => c.id === catId);
+          if (cat) {
+            tagsHtml += `<span class="user-tag" style="background:${cat.color}25; color:${cat.color}; border:1px solid ${cat.color}66;">${escapeHtml(cat.name)}</span> `;
+          }
+        });
+
+        if (m._is_removed) {
+          tagsHtml += `<span class="badge badge-archived" title="已下架">⚠️ 已下架 (${m.removed_time_str || '-'})</span> `;
+        } else if (isCurrentlyOnSale) {
+          const pct = latestPriceEvt && latestPriceEvt.percentStr ? ` ${latestPriceEvt.percentStr}` : '';
+          tagsHtml += `<span class="badge badge-sale" title="該模型最近發生價格調降優惠！">🔥 特價促銷${pct}</span> `;
+        } else if (isCurrentlyPriceHiked) {
+          const pct = latestPriceEvt && latestPriceEvt.percentStr ? ` ${latestPriceEvt.percentStr}` : '';
+          tagsHtml += `<span class="badge badge-hike" title="該模型最近調漲價格">📈 價格調漲${pct}</span> `;
+        }
+
+        if (checkPromptCacheSupport(m)) {
+          tagsHtml += '<span class="badge badge-cache" title="支援 Prompt Caching，快取讀取可省高達 75%~90% 輸入費">⚡ 快取折讓</span> ';
+        }
+
+        const modality = (m.architecture?.modality || '').toLowerCase();
+        if (modality.includes('image')) tagsHtml += '<span class="badge badge-modality">👁️ 視覺</span> ';
+        if (modality.includes('audio')) tagsHtml += '<span class="badge badge-modality">🎙️ 音訊</span> ';
+        if (modality.includes('video')) tagsHtml += '<span class="badge badge-modality">🎬 影片</span> ';
+
+        const params = m.supported_parameters || [];
+        if (params.includes('reasoning') || params.includes('include_reasoning') || m.reasoning) {
+          tagsHtml += '<span class="badge badge-reasoning">🧠 推理</span> ';
+        }
+        if (params.includes('tools') || params.includes('tool_choice')) {
+          tagsHtml += '<span class="badge badge-modality">🛠️ Tools</span> ';
+        }
+        if (isFree) {
+          tagsHtml += '<span class="badge badge-free">🎁 免費</span> ';
+        }
+
+        if (!m._is_removed) {
+          if (isToday) {
+            tagsHtml += `<span class="badge badge-today" title="${relTime}發布">🔥 TODAY (${relTime})</span> `;
+          } else if (isWeek) {
+            tagsHtml += `<span class="badge badge-new" title="${relTime}發布">✨ NEW (${relTime})</span> `;
+          }
+        }
+
+        let promptDiffHtml = '';
+        if (promptChange) {
+          const isDrop = promptChange.changeType === 'PRICE_DROP';
+          promptDiffHtml = `<span class="price-diff ${isDrop ? 'diff-down' : 'diff-up'}">${promptChange.diffStr} (${promptChange.percentStr})</span>`;
+        }
+
+        let compDiffHtml = '';
+        if (compChange) {
+          const isDrop = compChange.changeType === 'PRICE_DROP';
+          compDiffHtml = `<span class="price-diff ${isDrop ? 'diff-down' : 'diff-up'}">${compChange.diffStr} (${compChange.percentStr})</span>`;
+        }
+
+        const dateStr = m.created ? new Date(m.created * 1000).toLocaleDateString('zh-TW') : '-';
+        const contextStr = m.context_length ? (m.context_length >= 1000 ? `${Math.round(m.context_length / 1024)}k` : m.context_length) : '-';
+        const isWatched = isWatchlisted(m.id);
+
+        const tier = getPriceTier(blendedPerM);
+        const isAtl = isAllTimeLow(m.id, blendedPerM);
+        const tierBadgeHtml = `<span class="badge ${tier.css}" style="font-size:0.65rem; padding:0.08rem 0.3rem;" title="價格定位階層">${tier.label}</span>`;
+        const atlBadgeHtml = isAtl ? `<span class="badge badge-atl" style="font-size:0.65rem; padding:0.08rem 0.3rem;" title="當前價格為有紀錄以來最低價">🏷️ 歷史新低</span> ` : '';
+        const trendBtnHtml = `<button class="trend-btn" onclick="openPriceTrendModal('${escapeHtml(m.id)}')" title="查看歷史價格走勢與全市場定位曲線">📈 走勢</button>`;
+
+        html += `
+          <tr class="${isCurrentlyOnSale ? 'is-sale' : ''} ${m._is_removed ? 'model-archived' : ''}">
+            <td class="model-name-cell">
+              <div class="model-title">
+                <button class="star-btn ${isWatched ? 'active' : ''}" style="flex-shrink:0;" title="${isWatched ? '取消關注' : '加入我的追蹤清單'}" onclick="toggleWatchlist('${escapeHtml(m.id)}', event)">
+                  ${isWatched ? '★' : '☆'}
+                </button>
+                <button class="btn btn-secondary btn-sm" style="padding:0.05rem 0.3rem; font-size:0.7rem; line-height:1; flex-shrink:0;" data-tag-btn="${escapeHtml(m.id)}" title="指派自訂分類標籤" onclick="openTagPopover('${escapeHtml(m.id)}', this, event)">
+                  🏷️
+                </button>
+                <span title="點擊一鍵複製模型名稱: ${escapeHtml(m.name || m.id)}" onclick="copyText('${escapeHtml(m.name || m.id)}', '模型名稱')">${escapeHtml(m.name || m.id)}</span>
+                <button class="copy-id-btn" title="複製模型名稱" onclick="copyText('${escapeHtml(m.name || m.id)}', '模型名稱')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="model-slug">
+                <span title="點擊一鍵複製 Model ID: ${escapeHtml(m.id)}" onclick="copyText('${escapeHtml(m.id)}', 'Model ID')">${escapeHtml(m.id)}</span>
+                <button class="copy-id-btn" title="複製 Model ID" onclick="copyText('${escapeHtml(m.id)}', 'Model ID')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+            <td>
+              <span class="badge badge-provider" style="border-left: 3px solid ${PROVIDER_COLORS[provider] || '#3b82f6'};">
+                ${escapeHtml(provider)}
+              </span>
+            </td>
+            <td>${tagsHtml || '<span style="color:var(--text-dim);">-</span>'}</td>
+            <td style="font-family: var(--font-mono); font-weight:600;">${contextStr}</td>
+            <td class="price-cell">
+              <div style="display:flex; align-items:center; gap:0.3rem; flex-wrap:wrap;">
+                <span class="price-value ${isFree ? 'diff-down' : ''}">$${promptPerM}</span>
+                ${promptDiffHtml}
+                ${trendBtnHtml}
+              </div>
+              <div style="display:flex; align-items:center; gap:0.25rem; margin-top:0.15rem; flex-wrap:wrap;">
+                <span class="price-blended">綜合: <strong>$${blendedPerM.toFixed(3)}</strong></span>
+                ${tierBadgeHtml}
+                ${atlBadgeHtml}
+              </div>
+            </td>
+            <td class="price-cell">
+              <span class="price-value ${isFree ? 'diff-down' : ''}">$${compPerM}</span>
+              ${compDiffHtml}
+            </td>
+            <td style="font-size: 0.78rem; white-space: nowrap;">
+              <div style="display: flex; align-items: center; gap: 0.35rem; color: var(--text-main); font-weight: 600;">
+                <span style="color: var(--accent-blue);">🕒</span>
+                <span title="資料最後更新時間">${m._last_updated_str || dateStr}</span>
+                <span class="badge ${m._last_change_reason && m._last_change_reason.includes('降價') ? 'badge-drop' : (m._last_change_reason && m._last_change_reason.includes('漲價') ? 'badge-hike' : 'badge-updated')}" style="font-size: 0.65rem; padding: 0.1rem 0.35rem;">
+                  ${m._last_change_reason || '已確認'}
+                </span>
+              </div>
+              <div style="color: var(--text-dim); font-size: 0.72rem; margin-top: 0.15rem;">
+                📅 發布: ${relTime} (${dateStr})
+              </div>
+            </td>
+            <td style="text-align: right; white-space: nowrap; min-width: 80px;">
+              <a href="${getModelWebUrl(m)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-decoration:none; white-space:nowrap;" title="查看 OpenRouter 官方模型頁面">
+                官網 ↗
+              </a>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function renderCardsView() {
+      const container = document.getElementById('cards-view-container');
+      if (displayedModels.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <h3>沒有符合條件的模型</h3>
+          </div>
+        `;
+        return;
+      }
+
+      const nowSec = Math.floor(Date.now() / 1000);
+      const oneDaySec = 24 * 3600;
+      const sevenDaysSec = 7 * 24 * 3600;
+
+      let html = '';
+      displayedModels.forEach(m => {
+        const provider = m.id.split('/')[0] || 'other';
+        const promptPerM = (parseFloat(m.pricing?.prompt || '0') * 1000000).toFixed(3);
+        const compPerM = (parseFloat(m.pricing?.completion || '0') * 1000000).toFixed(3);
+        const blendedPerM = getBlendedPricePerM(m);
+        const isFree = parseFloat(promptPerM) === 0 && parseFloat(compPerM) === 0;
+
+        const isToday = m.created && (nowSec - m.created < oneDaySec);
+        const isWeek = m.created && (nowSec - m.created < sevenDaysSec);
+        const relTime = formatRelativeTime(m.created);
+
+        const promptChange = changeEvents.find(e => e.modelId === m.id && e.field === 'prompt_price');
+        const compChange = changeEvents.find(e => e.modelId === m.id && e.field === 'completion_price');
+        const latestPriceEvt = changeEvents.find(e => e.modelId === m.id && (e.changeType === 'PRICE_DROP' || e.changeType === 'PRICE_HIKE'));
+        const isCurrentlyOnSale = latestPriceEvt && latestPriceEvt.changeType === 'PRICE_DROP';
+        const isCurrentlyPriceHiked = latestPriceEvt && latestPriceEvt.changeType === 'PRICE_HIKE';
+
+        let tagsHtml = '';
+
+        const userTagIds = modelCustomTags[m.id] || [];
+        userTagIds.forEach(catId => {
+          const cat = customCategories.find(c => c.id === catId);
+          if (cat) {
+            tagsHtml += `<span class="user-tag" style="background:${cat.color}25; color:${cat.color}; border:1px solid ${cat.color}66;">${escapeHtml(cat.name)}</span> `;
+          }
+        });
+
+        if (m._is_removed) {
+          tagsHtml += `<span class="badge badge-archived" title="已下架">⚠️ 已下架 (${m.removed_time_str || '-'})</span> `;
+        } else if (isCurrentlyOnSale) {
+          const pct = latestPriceEvt && latestPriceEvt.percentStr ? ` ${latestPriceEvt.percentStr}` : '';
+          tagsHtml += `<span class="badge badge-sale" title="該模型最近發生價格調降優惠！">🔥 特價促銷${pct}</span> `;
+        } else if (isCurrentlyPriceHiked) {
+          const pct = latestPriceEvt && latestPriceEvt.percentStr ? ` ${latestPriceEvt.percentStr}` : '';
+          tagsHtml += `<span class="badge badge-hike" title="該模型最近調漲價格">📈 價格調漲${pct}</span> `;
+        }
+
+        if (checkPromptCacheSupport(m)) {
+          tagsHtml += '<span class="badge badge-cache" title="支援 Prompt Caching，快取讀取可省高達 75%~90% 輸入費">⚡ 快取折讓</span>';
+        }
+
+        const modality = (m.architecture?.modality || '').toLowerCase();
+        if (modality.includes('image')) tagsHtml += '<span class="badge badge-modality">👁️ 視覺</span>';
+        if (modality.includes('audio')) tagsHtml += '<span class="badge badge-modality">🎙️ 音訊</span>';
+        if (modality.includes('video')) tagsHtml += '<span class="badge badge-modality">🎬 影片</span>';
+
+        const params = m.supported_parameters || [];
+        if (params.includes('reasoning') || params.includes('include_reasoning') || m.reasoning) {
+          tagsHtml += '<span class="badge badge-reasoning">🧠 推理</span>';
+        }
+        if (isFree) tagsHtml += '<span class="badge badge-free">🎁 免費</span>';
+
+        if (!m._is_removed) {
+          if (isToday) tagsHtml += `<span class="badge badge-today" title="${relTime}發布">🔥 TODAY (${relTime})</span>`;
+          else if (isWeek) tagsHtml += `<span class="badge badge-new" title="${relTime}發布">✨ NEW (${relTime})</span>`;
+        }
+
+        const dateStr = m.created ? new Date(m.created * 1000).toLocaleDateString('zh-TW') : '-';
+        const contextStr = m.context_length ? (m.context_length >= 1000 ? `${Math.round(m.context_length / 1024)}k tokens` : `${m.context_length} tokens`) : '-';
+        const isWatched = isWatchlisted(m.id);
+
+        const tier = getPriceTier(blendedPerM);
+        const isAtl = isAllTimeLow(m.id, blendedPerM);
+        const tierBadgeHtml = `<span class="badge ${tier.css}" style="font-size:0.65rem; padding:0.08rem 0.3rem;" title="價格定位階層">${tier.label}</span>`;
+        const atlBadgeHtml = isAtl ? `<span class="badge badge-atl" style="font-size:0.65rem; padding:0.08rem 0.3rem;" title="當前價格為有紀錄以來最低價">🏷️ 歷史新低</span> ` : '';
+        const trendBtnHtml = `<button class="trend-btn" onclick="openPriceTrendModal('${escapeHtml(m.id)}')" title="查看歷史價格走勢與全市場定位曲線">📈 走勢</button>`;
+
+        html += `
+          <div class="model-card ${isCurrentlyOnSale ? 'is-sale' : ''} ${m._is_removed ? 'model-archived' : ''}">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-provider" style="border-left: 3px solid ${PROVIDER_COLORS[provider] || '#3b82f6'};">
+                  ${escapeHtml(provider)}
+                </span>
+                <div style="text-align: right;">
+                  <span class="badge ${m._last_change_reason && m._last_change_reason.includes('降價') ? 'badge-drop' : (m._last_change_reason && m._last_change_reason.includes('漲價') ? 'badge-hike' : 'badge-updated')}" style="font-size: 0.66rem; padding: 0.1rem 0.4rem; display: inline-block;">
+                    🕒 更新: ${m._last_updated_str || dateStr}
+                  </span>
+                  <div style="font-size: 0.68rem; color: var(--text-dim); margin-top: 2px;">發布: ${relTime} (${dateStr})</div>
+                </div>
+              </div>
+              <h3 class="card-title" style="display:flex; align-items:flex-start; gap:0.4rem;">
+                <button class="star-btn ${isWatched ? 'active' : ''}" style="margin-top:2px;" title="${isWatched ? '取消關注' : '加入我的追蹤清單'}" onclick="toggleWatchlist('${escapeHtml(m.id)}', event)">
+                  ${isWatched ? '★' : '☆'}
+                </button>
+                <button class="btn btn-secondary btn-sm" style="padding:0.05rem 0.3rem; font-size:0.7rem; line-height:1; margin-top:2px;" data-tag-btn="${escapeHtml(m.id)}" title="指派自訂分類標籤" onclick="openTagPopover('${escapeHtml(m.id)}', this, event)">
+                  🏷️
+                </button>
+                <span title="點擊一鍵複製模型名稱: ${escapeHtml(m.name || m.id)}" onclick="copyText('${escapeHtml(m.name || m.id)}', '模型名稱')">${escapeHtml(m.name || m.id)}</span>
+                <button class="copy-id-btn" style="margin-top:2px;" title="複製模型名稱" onclick="copyText('${escapeHtml(m.name || m.id)}', '模型名稱')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </h3>
+              <div class="model-slug">
+                <span title="點擊一鍵複製 Model ID: ${escapeHtml(m.id)}" onclick="copyText('${escapeHtml(m.id)}', 'Model ID')">${escapeHtml(m.id)}</span>
+                <button class="copy-id-btn" title="複製 Model ID" onclick="copyText('${escapeHtml(m.id)}', 'Model ID')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+              <p class="card-desc">${escapeHtml(m.description || '無詳細描述。')}</p>
+              <div class="card-badges">${tagsHtml}</div>
+            </div>
+
+            <div class="card-pricing-box">
+              <div class="card-price-col">
+                <span class="card-price-label">輸入 (Prompt)</span>
+                <span class="card-price-num">$${promptPerM}</span>
+                ${promptChange ? `<span class="price-diff ${promptChange.changeType === 'PRICE_DROP' ? 'diff-down' : 'diff-up'}">${promptChange.diffStr} (${promptChange.percentStr})</span>` : ''}
+                <span style="font-size:0.65rem; color:var(--text-dim);">/ 1M tokens</span>
+              </div>
+              <div class="card-price-col">
+                <span class="card-price-label">輸出 (Completion)</span>
+                <span class="card-price-num">$${compPerM}</span>
+                ${compChange ? `<span class="price-diff ${compChange.changeType === 'PRICE_DROP' ? 'diff-down' : 'diff-up'}">${compChange.diffStr} (${compChange.percentStr})</span>` : ''}
+                <span style="font-size:0.65rem; color:var(--text-dim);">/ 1M tokens</span>
+              </div>
+              <div class="price-blended" style="grid-column: 1 / -1; display:flex; align-items:center; justify-content:center; gap:0.4rem; flex-wrap:wrap; margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--border-color);">
+                <span>綜合成本 (3:1 混合): <strong>$${blendedPerM.toFixed(3)}</strong> / 1M</span>
+                ${tierBadgeHtml}
+                ${atlBadgeHtml}
+                ${trendBtnHtml}
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <span>上下文: <strong>${contextStr}</strong></span>
+              <a href="${getModelWebUrl(m)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-decoration:none;" title="查看 OpenRouter 官方模型頁面">
+                詳細規格 ↗
+              </a>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderChangeLog() {
+      const container = document.getElementById('changelog-timeline');
+      const emptyState = document.getElementById('changelog-empty');
+
+      const validEvents = changeEvents.filter(e => {
+        if (e.oldVal && String(e.oldVal).includes('-')) return false;
+        if (e.newVal && String(e.newVal).includes('-')) return false;
+        if (e.newPromptM !== undefined && e.newCompM !== undefined) {
+          if (isAnomaly(e.newPromptM, e.newCompM, e.diff || 0)) return false;
+        }
+        return true;
+      });
+
+      const drops = validEvents.filter(e => e.changeType === 'PRICE_DROP').length;
+      const hikes = validEvents.filter(e => e.changeType === 'PRICE_HIKE').length;
+      const news = validEvents.filter(e => e.changeType === 'NEW_MODEL').length;
+      const removeds = validEvents.filter(e => e.changeType === 'REMOVED').length;
+
+      document.getElementById('cl-count-all').textContent = validEvents.length;
+      document.getElementById('cl-count-drop').textContent = drops;
+      document.getElementById('cl-count-hike').textContent = hikes;
+      document.getElementById('cl-count-new').textContent = news;
+      document.getElementById('cl-count-removed').textContent = removeds;
+
+      const filtered = validEvents.filter(e => {
+        if (changelogActiveFilter === 'ALL') return true;
+        return e.changeType === changelogActiveFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      let html = '';
+
+      filtered.forEach(item => {
+        let dotClass = 'dot-new';
+        let typeBadge = '<span class="badge badge-new">✨ 新模型上架</span>';
+
+        if (item.changeType === 'PRICE_DROP') {
+          dotClass = 'dot-price-down';
+          typeBadge = '<span class="badge" style="background:var(--accent-green-bg);color:var(--accent-green);">📉 價格下調 (降價)</span>';
+        } else if (item.changeType === 'PRICE_HIKE') {
+          dotClass = 'dot-price-up';
+          typeBadge = '<span class="badge" style="background:var(--accent-red-bg);color:var(--accent-red);">📈 價格調漲</span>';
+        } else if (item.changeType === 'REMOVED') {
+          dotClass = 'dot-price-up';
+          typeBadge = '<span class="badge" style="background:rgba(107,114,128,0.2);color:var(--text-muted);">⚠️ 模型下架</span>';
+        }
+
+        html += `
+          <div class="timeline-item">
+            <div class="timeline-dot ${dotClass}"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  ${typeBadge}
+                  <span class="badge badge-provider">${escapeHtml(item.provider || 'Provider')}</span>
+                </div>
+                <span style="color: var(--text-dim); font-family: var(--font-mono);">${escapeHtml(item.timeStr || '')}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                <div class="timeline-model-name" style="cursor:pointer;" title="點擊一鍵複製模型名稱: ${escapeHtml(item.modelName || item.modelId)}" onclick="copyText('${escapeHtml(item.modelName || item.modelId)}', '模型名稱')">${escapeHtml(item.modelName || item.modelId)}</div>
+                <a href="${getModelWebUrl(item.modelId)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-decoration:none; font-size: 0.72rem; padding: 0.15rem 0.5rem;" title="前往官方模型頁">官網 ↗</a>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; font-family: var(--font-mono); display: flex; align-items: center; gap: 0.3rem;">
+                <span>ID:</span>
+                <span style="cursor:pointer; text-decoration:underline;" title="點擊一鍵複製 Model ID: ${escapeHtml(item.modelId)}" onclick="copyText('${escapeHtml(item.modelId)}', 'Model ID')">${escapeHtml(item.modelId)}</span>
+                <button class="copy-id-btn" title="複製 Model ID" onclick="copyText('${escapeHtml(item.modelId)}', 'Model ID')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="diff-box">
+                <span style="color: var(--text-muted);">${escapeHtml(item.fieldName || item.field || '狀態')}:</span>
+                <span style="color: var(--text-dim); text-decoration: line-through;">${escapeHtml(String(item.oldVal))}</span>
+                <span style="color: var(--text-muted);">➔</span>
+                <span style="font-weight: 700; color: var(--text-main);">${escapeHtml(String(item.newVal))}</span>
+                ${item.diffStr ? `<span class="badge ${item.changeType === 'PRICE_DROP' ? 'badge-new' : ''}" style="margin-left:auto;">${escapeHtml(item.diffStr)} (${escapeHtml(item.percentStr)})</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterChangeLog(type, el) {
+      changelogActiveFilter = type;
+      document.querySelectorAll('[data-cl-filter]').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      renderChangeLog();
+    }
+
+    function toggleQuickChip(el, filterType) {
+      document.querySelectorAll('[data-filter-type]').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      activeQuickFilter = filterType;
+      applyFilters();
+    }
+
+    function toggleView(mode) {
+      currentViewMode = mode;
+      const tableContainer = document.getElementById('table-view-container');
+      const cardsContainer = document.getElementById('cards-view-container');
+      const tableBtn = document.getElementById('view-table-btn');
+      const cardsBtn = document.getElementById('view-cards-btn');
+
+      if (mode === 'table') {
+        tableContainer.classList.remove('hidden');
+        cardsContainer.classList.add('hidden');
+        tableBtn.classList.add('active');
+        cardsBtn.classList.remove('active');
+        renderTableView();
+      } else {
+        tableContainer.classList.add('hidden');
+        cardsContainer.classList.remove('hidden');
+        tableBtn.classList.remove('active');
+        cardsBtn.classList.add('active');
+        renderCardsView();
+      }
+    }
+
+    function setSort(field) {
+      const select = document.getElementById('filter-sort');
+      if (field === 'last_updated') {
+        select.value = select.value === 'last_updated_desc' ? 'last_updated_asc' : 'last_updated_desc';
+        applyFilters();
+        return;
+      }
+      if (field === 'created') select.value = 'created_desc';
+      else if (field === 'prompt') select.value = select.value === 'prompt_asc' ? 'prompt_desc' : 'prompt_asc';
+      else if (field === 'completion') select.value = select.value === 'completion_asc' ? 'completion_desc' : 'completion_asc';
+      else if (field === 'context_length') select.value = 'context_desc';
+      else if (field === 'name') select.value = 'name_asc';
+      applyFilters();
+    }
+
+    function updateContextLabel(val) {
+      const label = document.getElementById('label-min-context');
+      if (val == 0) label.textContent = '不限';
+      else if (val >= 1000000) label.textContent = `≥ ${(val/1000000).toFixed(1)}M`;
+      else label.textContent = `≥ ${Math.round(val/1000)}k`;
+    }
+
+    function copyText(text, label = 'Model ID') {
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`📋 已複製 ${label}: ${text}`, 'success');
+      }).catch(err => {
+        // Fallback method for non-HTTPS or iframe security contexts
+        try {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          textarea.style.top = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textarea);
+          if (successful) {
+            showToast(`📋 已複製 ${label}: ${text}`, 'success');
+          } else {
+            showToast('複製失敗', 'error');
+          }
+        } catch (e) {
+          showToast('複製失敗', 'error');
+        }
+      });
+    }
+
+    function showToast(msg, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type === 'success' ? 'toast-success' : type === 'error' ? 'toast-error' : ''}`;
+      toast.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          ${type === 'success'
+            ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>'
+            : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+          }
+        </svg>
+        <span>${escapeHtml(msg)}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function updateSettingsInfo() {
+      const snap = localStorage.getItem(STORAGE_KEY_MODELS_SNAPSHOT);
+      if (snap) {
+        try {
+          const parsed = JSON.parse(snap);
+          document.getElementById('db-models-cached').textContent = Object.keys(parsed.models || {}).length;
+          document.getElementById('db-last-write').textContent = parsed.savedAt || '未知';
+        } catch(e) {}
+      }
+      document.getElementById('db-events-cached').textContent = `${changeEvents.length} 筆`;
+    }
+
+    function exportChangeLogCSV() {
+      if (changeEvents.length === 0) {
+        showToast('目前尚無任何異動紀錄可匯出', 'error');
+        return;
+      }
+      let csv = '\uFEFF時間,模型ID,模型名稱,廠商,異動類型,欄位,原數值,新數值,變動額,百分比\n';
+      changeEvents.forEach(e => {
+        csv += `"${e.timeStr}","${e.modelId}","${e.modelName}","${e.provider}","${e.changeType}","${e.fieldName || e.field}","${e.oldVal}","${e.newVal}","${e.diffStr}","${e.percentStr}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `openrouter_changes_${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      showToast('已下載 CSV 變更報表', 'success');
+    }
+
+    function exportChangeLogJSON() {
+      const backupData = {
+        version: '2.0',
+        exportedAt: new Date().toISOString(),
+        changeEvents: changeEvents,
+        customCategories: customCategories,
+        modelCustomTags: modelCustomTags
+      };
+      const dataStr = JSON.stringify(backupData, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `openrouter_backup_${new Date().toISOString().slice(0, 10)}.json`;
+      link.click();
+      showToast('已下載備份檔 (含變動歷史與自訂分類)', 'success');
+    }
+
+    function importJSONBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            changeEvents = parsed;
+            saveChangeEventsToDB();
+            showToast('成功匯入變動歷史資料庫！', 'success');
+          } else if (typeof parsed === 'object') {
+            if (Array.isArray(parsed.changeEvents)) {
+              changeEvents = parsed.changeEvents;
+              saveChangeEventsToDB();
+            }
+            if (Array.isArray(parsed.customCategories)) {
+              customCategories = parsed.customCategories;
+              saveCustomCategories();
+            }
+            if (parsed.modelCustomTags && typeof parsed.modelCustomTags === 'object') {
+              modelCustomTags = parsed.modelCustomTags;
+              saveModelCustomTags();
+            }
+            showToast('成功匯入完整備份檔 (含變動歷史與自訂分類)！', 'success');
+          }
+          calculateKpis();
+          renderChangeLog();
+          applyFilters();
+        } catch(err) {
+          showToast('JSON 格式解析錯誤，請確認檔案格式', 'error');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function clearChangeLogConfirm() {
+      if (confirm('確定要清空所有已記錄的歷史變動事件嗎？此操作無法還原。')) {
+        changeEvents = [];
+        saveChangeEventsToDB();
+        renderChangeLog();
+        calculateKpis();
+        showToast('已清空變動資料庫', 'success');
+      }
+    }
+
+    function resetDatabaseConfirm() {
+      if (confirm('確定要重置本地快照嗎？下次擷取將重新建立最新基線。')) {
+        localStorage.removeItem(STORAGE_KEY_MODELS_SNAPSHOT);
+        showToast('本地快照已清除，請點擊「重新擷取」以建立最新基準', 'info');
+        updateSettingsInfo();
+      }
+    }
+
+    function updateSettingsInfo() {
+      const cachedSnap = localStorage.getItem(STORAGE_KEY_MODELS_SNAPSHOT);
+      let modelsCount = 0;
+      if (cachedSnap) {
+        try {
+          modelsCount = Object.keys(JSON.parse(cachedSnap).models || {}).length;
+        } catch(e) {}
+      }
+
+      const elModels = document.getElementById('db-models-cached');
+      const elEvents = document.getElementById('db-events-cached');
+      const elLastWrite = document.getElementById('db-last-write');
+      const elOutliers = document.getElementById('db-outliers-count');
+
+      if (elModels) elModels.textContent = `${modelsCount} 款`;
+      if (elEvents) elEvents.textContent = `${changeEvents.length} 筆`;
+      if (elOutliers) elOutliers.textContent = `${filteredOutlierCount} 筆`;
+
+      if (elLastWrite) {
+        if (changeEvents.length > 0) {
+          elLastWrite.textContent = changeEvents[0].timeStr || '未知';
+        } else {
+          elLastWrite.textContent = '尚無紀錄';
+        }
+      }
+    }
+
+    function simulatePriceChangeForDemo() {
+      const targetModel = rawModels.find(m => m.id.includes('claude') || m.id.includes('gpt')) || rawModels[0];
+      if (!targetModel) return;
+
+      const now = new Date();
+      const timeStr = now.toLocaleString('zh-TW', { hour12: false });
+      const timestamp = now.getTime();
+
+      const currentPromptM = parseFloat(targetModel.pricing?.prompt || '0.000003') * 1000000;
+      const newPromptM = Math.max(0.01, currentPromptM * 0.75);
+      const diff = newPromptM - currentPromptM;
+
+      const demoEvent = {
+        id: `evt_demo_${timestamp}`,
+        timestamp: timestamp,
+        timeStr: timeStr,
+        modelId: targetModel.id,
+        modelName: targetModel.name,
+        provider: targetModel.id.split('/')[0] || 'provider',
+        changeType: 'PRICE_DROP',
+        field: 'prompt_price',
+        fieldName: '輸入價格 (Prompt)',
+        oldVal: `$${currentPromptM.toFixed(3)}`,
+        newVal: `$${newPromptM.toFixed(3)}`,
+        diffStr: `-$${Math.abs(diff).toFixed(3)}`,
+        percentStr: '-25.0%'
+      };
+
+      // Update model runtime and snapshot last_updated
+      targetModel._last_updated = timestamp;
+      targetModel._last_updated_str = timeStr;
+      targetModel._last_change_reason = '價格調降 📉 (-25%)';
+
+      const snapCached = localStorage.getItem(STORAGE_KEY_MODELS_SNAPSHOT);
+      if (snapCached) {
+        try {
+          const parsed = JSON.parse(snapCached);
+          if (parsed.models && parsed.models[targetModel.id]) {
+            parsed.models[targetModel.id].prompt_price = (newPromptM / 1000000);
+            parsed.models[targetModel.id].last_updated = timestamp;
+            parsed.models[targetModel.id].last_updated_str = timeStr;
+            parsed.models[targetModel.id].last_change_reason = '價格調降 📉 (-25%)';
+            localStorage.setItem(STORAGE_KEY_MODELS_SNAPSHOT, JSON.stringify(parsed));
+          }
+        } catch(e) {}
+      }
+
+      changeEvents.unshift(demoEvent);
+      saveChangeEventsToDB();
+      calculateKpis();
+      renderChangeLog();
+      applyFilters();
+      showToast(`🧪 成功模擬一筆價格調降事件 (${targetModel.name}) 並入庫！`, 'success');
+    }
+
+    function loadWebhookSettings() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_WEBHOOK);
+        if (stored) {
+          const conf = JSON.parse(stored);
+          const elUrl = document.getElementById('setting-webhook-url');
+          const elActive = document.getElementById('setting-webhook-active');
+          const elHikes = document.getElementById('setting-webhook-hikes-only');
+          const elWatch = document.getElementById('setting-webhook-watchlist-only');
+
+          if (elUrl) elUrl.value = conf.url || '';
+          if (elActive) elActive.checked = !!conf.active;
+          if (elHikes) elHikes.checked = !!conf.hikesOnly;
+          if (elWatch) elWatch.checked = !!conf.watchlistOnly;
+        }
+      } catch(e) {}
+    }
+
+    function saveWebhookSetting() {
+      const url = document.getElementById('setting-webhook-url').value.trim();
+      const active = document.getElementById('setting-webhook-active').checked;
+      const hikesOnly = document.getElementById('setting-webhook-hikes-only').checked;
+      const watchlistOnly = document.getElementById('setting-webhook-watchlist-only').checked;
+
+      localStorage.setItem(STORAGE_KEY_WEBHOOK, JSON.stringify({ url, active, hikesOnly, watchlistOnly }));
+      showToast('Discord Webhook 設定已儲存', 'success');
+    }
+
+    function buildDiscordPayload(events, isTest = false) {
+      if (isTest) {
+        return {
+          username: "OpenRouter Price Tracker",
+          avatar_url: "https://openrouter.ai/favicon.ico",
+          content: "🤖 **[測試訊息] OpenRouter 異動追蹤系統與 Discord Webhook 連線成功！**",
+          embeds: [
+            {
+              title: "✅ Webhook 連線測試正常",
+              description: "當系統檢測到 OpenRouter 模型價格調漲、調降或新模型上架時，將自動發送彩色警報卡片至此頻道。",
+              color: 3900150,
+              fields: [
+                { name: "監控狀態", value: "🟢 運作中 (Live Monitoring)", inline: true },
+                { name: "測試時間", value: new Date().toLocaleString('zh-TW', { hour12: false }), inline: true }
+              ],
+              footer: { text: "OpenRouter Tracker Alert Engine" }
+            }
+          ]
+        };
+      }
+
+      const embeds = events.slice(0, 10).map(evt => {
+        let color = 3900150; // Blue
+        let emoji = '⚡';
+        let typeName = '異動通知';
+
+        if (evt.changeType === 'PRICE_HIKE') {
+          color = 15685220; // Red #ef4444
+          emoji = '📈';
+          typeName = '價格調漲警告 (PRICE HIKE)';
+        } else if (evt.changeType === 'PRICE_DROP') {
+          color = 1095941; // Green #10b981
+          emoji = '📉';
+          typeName = '價格調降優惠 (PRICE DROP)';
+        } else if (evt.changeType === 'NEW_MODEL') {
+          color = 3900150; // Blue #3b82f6
+          emoji = '✨';
+          typeName = '新模型發布上架 (NEW MODEL)';
+        } else if (evt.changeType === 'REMOVED') {
+          color = 7041664; // Gray #6b7280
+          emoji = '⚠️';
+          typeName = '模型下架通知 (REMOVED)';
+        }
+
+        return {
+          title: `${emoji} ${typeName} - ${evt.modelName || evt.modelId}`,
+          url: getModelWebUrl(evt.modelId),
+          color: color,
+          description: `**${evt.fieldName || evt.field || '狀態'}**: \`${evt.oldVal}\` ➔ **\`${evt.newVal}\`** (${evt.diffStr || ''} ${evt.percentStr || ''})`,
+          fields: [
+            { name: "Model ID", value: `\`${evt.modelId}\``, inline: true },
+            { name: "供應商 Provider", value: evt.provider || 'Other', inline: true },
+            { name: "檢測時間", value: evt.timeStr || new Date().toLocaleString('zh-TW'), inline: true }
+          ],
+          footer: { text: "OpenRouter Tracker 即時推播" }
+        };
+      });
+
+      return {
+        username: "OpenRouter Price Tracker",
+        avatar_url: "https://openrouter.ai/favicon.ico",
+        content: `🚨 **檢測到 ${events.length} 筆 OpenRouter 模型異動事件！**`,
+        embeds: embeds
+      };
+    }
+
+    async function testWebhook() {
+      const url = document.getElementById('setting-webhook-url').value.trim();
+      if (!url) {
+        showToast('請先輸入 Discord Webhook 網址', 'error');
+        return;
+      }
+      showToast('發送 Discord 測試卡片請求中...', 'info');
+      try {
+        const payload = buildDiscordPayload([], true);
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        showToast('🚀 Discord 測試卡片訊息已成功送出！請至 Discord 頻道查看', 'success');
+      } catch (err) {
+        console.warn('Fetch with standard mode failed, trying fallback mode:', err);
+        try {
+          const payload = buildDiscordPayload([], true);
+          await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'no-cors'
+          });
+          showToast('🚀 測試請求已經由相容模式送出！請檢查 Discord 頻道', 'success');
+        } catch(e) {
+          showToast(`Webhook 測試失敗: ${e.message}`, 'error');
+        }
+      }
+    }
+
+    function triggerWebhookIfEnabled(events) {
+      try {
+        const confStr = localStorage.getItem(STORAGE_KEY_WEBHOOK);
+        if (!confStr) return;
+        const conf = JSON.parse(confStr);
+        if (!conf.active || !conf.url) return;
+
+        let targetEvents = events;
+
+        if (conf.hikesOnly) {
+          targetEvents = targetEvents.filter(e => e.changeType === 'PRICE_HIKE');
+        }
+        if (conf.watchlistOnly) {
+          targetEvents = targetEvents.filter(e => isWatchlisted(e.modelId));
+        }
+
+        if (targetEvents.length === 0) {
+          console.log('[Webhook] Filtered out all events according to settings (hikesOnly / watchlistOnly). Notification skipped.');
+          return;
+        }
+
+        const payload = buildDiscordPayload(targetEvents, false);
+
+        fetch(conf.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          console.log(`[Webhook] Discord notification posted successfully (${targetEvents.length} events).`);
+        }).catch(err => {
+          fetch(conf.url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'no-cors'
+          }).catch(e => console.error('[Webhook] Fallback failed:', e));
+        });
+      } catch (e) {
+        console.error('[Webhook] Trigger exception', e);
+      }
+    }
+  </script>
+</body>
+</html>
