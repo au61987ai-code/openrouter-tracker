@@ -55,14 +55,20 @@ async function sendDiscordNotification(events) {
     return;
   }
 
-  let filteredEvents = events;
+  // Default target events: PRICE_HIKE (調漲), PRICE_DROP (調降), NEW_MODEL (新模型上架)
+  let filteredEvents = events.filter(e => 
+    e.changeType === 'PRICE_HIKE' || 
+    e.changeType === 'PRICE_DROP' || 
+    e.changeType === 'NEW_MODEL'
+  );
+
   if (ONLY_HIKES) {
-    filteredEvents = filteredEvents.filter(e => e.changeType === 'PRICE_HIKE');
+    filteredEvents = events.filter(e => e.changeType === 'PRICE_HIKE');
     console.log(`[Filter] ONLY_HIKES enabled. Filtered ${events.length} events down to ${filteredEvents.length} hikes.`);
   }
 
   if (filteredEvents.length === 0) {
-    console.log('[Notice] No target events to notify after filtering.');
+    console.log('[Notice] No target events (hikes/drops/new models) to notify after filtering.');
     return;
   }
 
