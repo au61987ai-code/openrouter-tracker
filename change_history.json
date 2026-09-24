@@ -1,5 +1,20 @@
 [
   {
+    "id": "evt_1790252516374_jadet7",
+    "timestamp": 1790252516374,
+    "timeStr": "2026/9/24 12:21:56",
+    "modelId": "moonshotai/kimi-k2.7-code",
+    "modelName": "MoonshotAI: Kimi K2.7 Code",
+    "provider": "moonshotai",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.7062",
+    "newVal": "$0.6562",
+    "diffStr": "$-0.0500",
+    "percentStr": "-7.1%"
+  },
+  {
     "id": "evt_1790232637479_1d6r6s",
     "timestamp": 1790232637479,
     "timeStr": "2026/9/24 06:50:37",

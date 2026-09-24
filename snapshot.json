@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/24 06:50:37",
-  "timestamp": 1790232637479,
+  "savedAt": "2026/9/24 12:21:56",
+  "timestamp": 1790252516374,
   "models": {
     "fireworks/ember-1": {
       "id": "fireworks/ember-1",
@@ -918,7 +918,7 @@
       "created": 1787231561,
       "prompt_price": 7.4e-8,
       "completion_price": 2.95e-7,
-      "context_length": 32768,
+      "context_length": 8192,
       "modalities": "text->text",
       "description": "Hy-MT2-30B-A3B is Tencent's flagship translation model in the Hy-MT2 family. It supports 33 language pairs and five Chinese dialect and minority-language pairs, with workflows for structured, delimiter-based, contextual, glossary-based, and...",
       "last_updated": 1790165464834,
@@ -1938,14 +1938,14 @@
       "id": "moonshotai/kimi-k2.7-code",
       "name": "MoonshotAI: Kimi K2.7 Code",
       "created": 1781266361,
-      "prompt_price": 7.062e-7,
+      "prompt_price": 6.562e-7,
       "completion_price": 0.0000033,
       "context_length": 262144,
       "modalities": "text+image->text",
       "description": "MoonshotAI: Kimi K2.7 Code is a coding-focused model in Moonshot AI's Kimi K2 family, built to complete end-to-end programming tasks reliably over long contexts. It uses a native multimodal mixture-of-experts...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~anthropic/claude-fable-latest": {
