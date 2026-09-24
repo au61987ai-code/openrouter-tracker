@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/24 17:22:36",
-  "timestamp": 1790270556118,
+  "savedAt": "2026/9/24 20:34:40",
+  "timestamp": 1790282080966,
   "models": {
     "fireworks/ember-1": {
       "id": "fireworks/ember-1",
@@ -846,14 +846,14 @@
       "id": "z-ai/glm-5.3-flash",
       "name": "Z.ai: GLM 5.3 Flash",
       "created": 1787752741,
-      "prompt_price": 1.5e-7,
-      "completion_price": 5e-7,
+      "prompt_price": 4.5e-8,
+      "completion_price": 6e-7,
       "context_length": 1310720,
       "modalities": "text+image+video->text",
       "description": "GLM-5.3-Flash is a native multimodal model from Z.ai. It is suited for efficient coding and long-horizon agent tasks. Its hybrid sparse and linear attention architecture maintains accurate long-context behavior while...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3-flash:batch": {
@@ -2512,8 +2512,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 9.00798e-7,
-      "completion_price": 0.000001801596,
+      "prompt_price": 8.71914e-7,
+      "completion_price": 0.000001743828,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
@@ -2526,8 +2526,8 @@
       "id": "deepseek/deepseek-v4-flash",
       "name": "DeepSeek: DeepSeek V4 Flash 0423",
       "created": 1777000666,
-      "prompt_price": 8.092e-8,
-      "completion_price": 1.6184e-7,
+      "prompt_price": 6.86e-8,
+      "completion_price": 1.372e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and...",
