@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/24 20:34:40",
-  "timestamp": 1790282080966,
+  "savedAt": "2026/9/24 23:36:30",
+  "timestamp": 1790292990105,
   "models": {
     "fireworks/ember-1": {
       "id": "fireworks/ember-1",
@@ -2344,14 +2344,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 0.00000135,
-      "completion_price": 0.0000115,
+      "prompt_price": 0.0000013,
+      "completion_price": 0.0000114,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -2512,8 +2512,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 8.71914e-7,
-      "completion_price": 0.000001743828,
+      "prompt_price": 8.5173e-7,
+      "completion_price": 0.00000170346,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
@@ -2526,8 +2526,8 @@
       "id": "deepseek/deepseek-v4-flash",
       "name": "DeepSeek: DeepSeek V4 Flash 0423",
       "created": 1777000666,
-      "prompt_price": 6.86e-8,
-      "completion_price": 1.372e-7,
+      "prompt_price": 4.9e-8,
+      "completion_price": 9.8e-8,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and...",
@@ -3698,6 +3698,20 @@
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
     },
+    "mistralai/devstral-2512": {
+      "id": "mistralai/devstral-2512",
+      "name": "Mistral: Devstral 2 2512",
+      "created": 1765285419,
+      "prompt_price": 4e-7,
+      "completion_price": 0.000002,
+      "context_length": 262144,
+      "modalities": "text+file->text",
+      "description": "Devstral 2 is a state-of-the-art open-source model by Mistral AI specializing in agentic coding. It is a 123B-parameter dense transformer model supporting a 256K context window. Devstral 2 supports exploring...",
+      "last_updated": 1790292990105,
+      "last_updated_str": "2026/9/24 23:36:30",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1790292990105
+    },
     "relace/relace-search": {
       "id": "relace/relace-search",
       "name": "Relace: Relace Search",
@@ -3823,6 +3837,20 @@
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
+    },
+    "mistralai/mistral-large-2512": {
+      "id": "mistralai/mistral-large-2512",
+      "name": "Mistral: Mistral Large 3 2512",
+      "created": 1764624472,
+      "prompt_price": 5e-7,
+      "completion_price": 0.0000015,
+      "context_length": 262144,
+      "modalities": "text+image+file->text",
+      "description": "Mistral Large 3 2512 is Mistral’s most capable model to date, featuring a sparse mixture-of-experts architecture with 41B active parameters (675B total), and released under the Apache 2.0 license.",
+      "last_updated": 1790292990105,
+      "last_updated_str": "2026/9/24 23:36:30",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1790292990105
     },
     "mistralai/mistral-large-2512:batch": {
       "id": "mistralai/mistral-large-2512:batch",
