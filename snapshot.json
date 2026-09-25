@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/25 02:05:11",
-  "timestamp": 1790301911332,
+  "savedAt": "2026/9/25 07:59:17",
+  "timestamp": 1790323157492,
   "models": {
     "fireworks/ember-1": {
       "id": "fireworks/ember-1",
@@ -370,14 +370,14 @@
       "id": "~deepseek/deepseek-pro-latest",
       "name": "DeepSeek: DeepSeek Pro Latest",
       "created": 1789399174,
-      "prompt_price": 3.5e-7,
-      "completion_price": 0.0000029,
+      "prompt_price": 9.984e-8,
+      "completion_price": 0.00000288,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "This model always redirects to the latest model in the DeepSeek Pro family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~deepseek/deepseek-flash-latest": {
@@ -847,13 +847,13 @@
       "name": "Z.ai: GLM 5.3 Flash",
       "created": 1787752741,
       "prompt_price": 4.5e-8,
-      "completion_price": 6e-7,
+      "completion_price": 1.4e-7,
       "context_length": 1310720,
       "modalities": "text+image+video->text",
       "description": "GLM-5.3-Flash is a native multimodal model from Z.ai. It is suited for efficient coding and long-horizon agent tasks. Its hybrid sparse and linear attention architecture maintains accurate long-context behavior while...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3-flash:batch": {
@@ -1476,14 +1476,14 @@
       "id": "moonshotai/kimi-k3",
       "name": "MoonshotAI: Kimi K3",
       "created": 1784215858,
-      "prompt_price": 8.845e-7,
-      "completion_price": 0.0000105346,
+      "prompt_price": 0.000003,
+      "completion_price": 0.000015,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "Kimi K3 is a 2.8T parameter open-weight multimodal reasoning model from Moonshot AI. It is suited for complex coding, knowledge work, and long-horizon agentic workflows, and is particularly strong at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "moonshotai/kimi-k3:batch": {
@@ -2512,8 +2512,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 8.29806e-7,
-      "completion_price": 0.000001659612,
+      "prompt_price": 7.83e-7,
+      "completion_price": 0.000001566,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
