@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/26 03:20:04",
-  "timestamp": 1790392804278,
+  "savedAt": "2026/9/26 08:43:25",
+  "timestamp": 1790412205773,
   "models": {
     "typesafe/jev-router": {
       "id": "typesafe/jev-router",
@@ -552,14 +552,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 1.4e-7,
-      "completion_price": 4.2e-7,
+      "prompt_price": 3e-7,
+      "completion_price": 0.0000012,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -930,8 +930,8 @@
       "id": "~z-ai/glm-latest",
       "name": "Z.ai: GLM Latest",
       "created": 1787151053,
-      "prompt_price": 4.746e-7,
-      "completion_price": 0.0000014916,
+      "prompt_price": 3.794e-7,
+      "completion_price": 0.0000011924,
       "context_length": 1310720,
       "modalities": "text->text",
       "description": "This model always redirects to the latest GLM model from Z.ai.",
@@ -958,14 +958,14 @@
       "id": "z-ai/glm-5.3",
       "name": "Z.ai: GLM 5.3",
       "created": 1787086655,
-      "prompt_price": 0.0000014,
-      "completion_price": 0.0000044,
+      "prompt_price": 3.794e-7,
+      "completion_price": 0.0000011924,
       "context_length": 1310720,
       "modalities": "text->text",
       "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3:batch": {
