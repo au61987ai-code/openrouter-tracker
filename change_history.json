@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_1790443093911_tldisa",
+    "timestamp": 1790443093911,
+    "timeStr": "2026/9/26 17:18:13",
+    "modelId": "tencent/hy3",
+    "modelName": "Tencent: Hy3",
+    "provider": "tencent",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.1320",
+    "newVal": "$0.0825",
+    "diffStr": "$-0.0495",
+    "percentStr": "-37.5%"
+  },
+  {
+    "id": "evt_1790443093911_p62eml",
+    "timestamp": 1790443093911,
+    "timeStr": "2026/9/26 17:18:13",
+    "modelId": "tencent/hy3",
+    "modelName": "Tencent: Hy3",
+    "provider": "tencent",
+    "changeType": "PRICE_DROP",
+    "field": "completion_price",
+    "fieldName": "輸出價格 (Completion)",
+    "oldVal": "$0.5280",
+    "newVal": "$0.3300",
+    "diffStr": "$-0.1980",
+    "percentStr": "-37.5%"
+  },
+  {
     "id": "evt_1790429153945_eet7fi",
     "timestamp": 1790429153945,
     "timeStr": "2026/9/26 13:25:53",
