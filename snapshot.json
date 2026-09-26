@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/26 08:43:25",
-  "timestamp": 1790412205773,
+  "savedAt": "2026/9/26 13:25:53",
+  "timestamp": 1790429153945,
   "models": {
     "typesafe/jev-router": {
       "id": "typesafe/jev-router",
@@ -398,14 +398,14 @@
       "id": "~deepseek/deepseek-pro-latest",
       "name": "DeepSeek: DeepSeek Pro Latest",
       "created": 1789399174,
-      "prompt_price": 2.5e-7,
-      "completion_price": 0.0000035,
+      "prompt_price": 2.4948e-7,
+      "completion_price": 7.4844e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "This model always redirects to the latest model in the DeepSeek Pro family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~deepseek/deepseek-flash-latest": {
@@ -2498,8 +2498,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 4.18818e-7,
-      "completion_price": 8.37636e-7,
+      "prompt_price": 3.48e-7,
+      "completion_price": 6.96e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
