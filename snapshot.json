@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/26 17:18:13",
-  "timestamp": 1790443093911,
+  "savedAt": "2026/9/26 19:59:04",
+  "timestamp": 1790452744642,
   "models": {
     "typesafe/jev-router": {
       "id": "typesafe/jev-router",
@@ -552,14 +552,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 3e-7,
-      "completion_price": 0.0000012,
+      "prompt_price": 3.5e-8,
+      "completion_price": 2.9e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -2330,8 +2330,8 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 0.0000010301,
-      "completion_price": 0.000009043,
+      "prompt_price": 0.000001,
+      "completion_price": 0.000009,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
