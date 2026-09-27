@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/27 19:07:45",
-  "timestamp": 1790536065943,
+  "savedAt": "2026/9/27 22:23:23",
+  "timestamp": 1790547803114,
   "models": {
     "typesafe/jev-router": {
       "id": "typesafe/jev-router",
@@ -412,14 +412,14 @@
       "id": "~deepseek/deepseek-flash-latest",
       "name": "DeepSeek: DeepSeek Flash Latest",
       "created": 1789399150,
-      "prompt_price": 3.5e-8,
-      "completion_price": 2.9e-7,
+      "prompt_price": 3.483e-8,
+      "completion_price": 6e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "This model always redirects to the latest model in the DeepSeek Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "inference-net/schematron-v2-turbo": {
@@ -552,14 +552,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 3.5e-8,
-      "completion_price": 2.9e-7,
+      "prompt_price": 3.483e-8,
+      "completion_price": 6e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -930,8 +930,8 @@
       "id": "~z-ai/glm-latest",
       "name": "Z.ai: GLM Latest",
       "created": 1787151053,
-      "prompt_price": 3.557e-7,
-      "completion_price": 0.0000019404,
+      "prompt_price": 3.556e-7,
+      "completion_price": 0.0000011176,
       "context_length": 1310720,
       "modalities": "text->text",
       "description": "This model always redirects to the latest GLM model from Z.ai.",
