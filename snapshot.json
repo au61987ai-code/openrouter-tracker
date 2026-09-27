@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/9/27 10:56:13",
-  "timestamp": 1790506573540,
+  "savedAt": "2026/9/27 15:27:25",
+  "timestamp": 1790522845725,
   "models": {
     "typesafe/jev-router": {
       "id": "typesafe/jev-router",
@@ -930,7 +930,7 @@
       "id": "~z-ai/glm-latest",
       "name": "Z.ai: GLM Latest",
       "created": 1787151053,
-      "prompt_price": 2.737e-7,
+      "prompt_price": 3.032e-7,
       "completion_price": 0.000002574,
       "context_length": 1310720,
       "modalities": "text->text",
@@ -2330,14 +2330,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 0.000001,
-      "completion_price": 0.000009,
+      "prompt_price": 9.875e-7,
+      "completion_price": 0.00000553,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -4038,14 +4038,14 @@
       "id": "minimax/minimax-m2",
       "name": "MiniMax: MiniMax M2",
       "created": 1761252093,
-      "prompt_price": 2.55e-7,
-      "completion_price": 0.00000102,
+      "prompt_price": 3e-7,
+      "completion_price": 0.0000012,
       "context_length": 204800,
       "modalities": "text->text",
       "description": "MiniMax-M2 is a compact, high-efficiency large language model optimized for end-to-end coding and agentic workflows. With 10 billion activated parameters (230 billion total), it delivers near-frontier intelligence across general reasoning,...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "qwen/qwen3-vl-32b-instruct": {
@@ -5732,14 +5732,14 @@
       "id": "deepseek/deepseek-chat",
       "name": "DeepSeek: DeepSeek V3",
       "created": 1735241320,
-      "prompt_price": 3.2e-7,
-      "completion_price": 8.9e-7,
+      "prompt_price": 2.574e-7,
+      "completion_price": 0.0000010287,
       "context_length": 163840,
       "modalities": "text->text",
       "description": "DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "sao10k/l3.3-euryale-70b": {
