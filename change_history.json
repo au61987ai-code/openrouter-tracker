@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_1791056023190_6ayasl",
+    "timestamp": 1791056023190,
+    "timeStr": "2026/10/3 19:33:43",
+    "modelId": "moonshotai/kimi-k3",
+    "modelName": "MoonshotAI: Kimi K3",
+    "provider": "moonshotai",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.9900",
+    "newVal": "$0.7400",
+    "diffStr": "$-0.2500",
+    "percentStr": "-25.3%"
+  },
+  {
+    "id": "evt_1791056023190_z881o1",
+    "timestamp": 1791056023190,
+    "timeStr": "2026/10/3 19:33:43",
+    "modelId": "~moonshotai/kimi-latest",
+    "modelName": "MoonshotAI: Kimi Latest",
+    "provider": "~moonshotai",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.9895",
+    "newVal": "$0.7400",
+    "diffStr": "$-0.2495",
+    "percentStr": "-25.2%"
+  },
+  {
     "id": "evt_1791046145716_wlr6yd",
     "timestamp": 1791046145716,
     "timeStr": "2026/10/3 16:49:05",

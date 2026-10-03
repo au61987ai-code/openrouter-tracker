@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/3 16:49:05",
-  "timestamp": 1791046145716,
+  "savedAt": "2026/10/3 19:33:43",
+  "timestamp": 1791056023190,
   "models": {
     "inclusionai/ling-3.1-flash": {
       "id": "inclusionai/ling-3.1-flash",
@@ -1602,7 +1602,7 @@
       "id": "moonshotai/kimi-k3",
       "name": "MoonshotAI: Kimi K3",
       "created": 1784215858,
-      "prompt_price": 9.9e-7,
+      "prompt_price": 7.4e-7,
       "completion_price": 0.000013,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
@@ -2456,14 +2456,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 9.895e-7,
+      "prompt_price": 7.4e-7,
       "completion_price": 0.000013,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
