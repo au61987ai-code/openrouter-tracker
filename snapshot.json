@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/4 20:32:37",
-  "timestamp": 1791145957418,
+  "savedAt": "2026/10/4 23:38:58",
+  "timestamp": 1791157138549,
   "models": {
     "inclusionai/ling-3.1-flash": {
       "id": "inclusionai/ling-3.1-flash",
@@ -1603,7 +1603,7 @@
       "name": "MoonshotAI: Kimi K3",
       "created": 1784215858,
       "prompt_price": 7.2e-7,
-      "completion_price": 0.000013,
+      "completion_price": 0.000014,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "Kimi K3 is a 2.8T parameter open-weight multimodal reasoning model from Moonshot AI. It is suited for complex coding, knowledge work, and long-horizon agentic workflows, and is particularly strong at...",
@@ -2456,14 +2456,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 6.303e-7,
+      "prompt_price": 6.566e-7,
       "completion_price": 0.000013,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
