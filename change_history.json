@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_1791727998746_tl9el3",
+    "timestamp": 1791727998746,
+    "timeStr": "2026/10/11 14:13:18",
+    "modelId": "nvidia/nemotron-3-ultra-550b-a55b",
+    "modelName": "NVIDIA: Nemotron 3 Ultra",
+    "provider": "nvidia",
+    "changeType": "PRICE_HIKE",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.5000",
+    "newVal": "$0.6000",
+    "diffStr": "+$0.1000",
+    "percentStr": "+20.0%"
+  },
+  {
+    "id": "evt_1791727998746_zaalti",
+    "timestamp": 1791727998746,
+    "timeStr": "2026/10/11 14:13:18",
+    "modelId": "nvidia/nemotron-3-ultra-550b-a55b",
+    "modelName": "NVIDIA: Nemotron 3 Ultra",
+    "provider": "nvidia",
+    "changeType": "PRICE_HIKE",
+    "field": "completion_price",
+    "fieldName": "輸出價格 (Completion)",
+    "oldVal": "$2.2000",
+    "newVal": "$2.4000",
+    "diffStr": "+$0.2000",
+    "percentStr": "+9.1%"
+  },
+  {
     "id": "evt_1791703342301_dos3ep",
     "timestamp": 1791703342301,
     "timeStr": "2026/10/11 07:22:22",
