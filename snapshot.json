@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/11 14:13:18",
-  "timestamp": 1791727998746,
+  "savedAt": "2026/10/11 19:01:58",
+  "timestamp": 1791745318426,
   "models": {
     "stepfun/step-5-preview": {
       "id": "stepfun/step-5-preview",
@@ -1000,14 +1000,14 @@
       "id": "tencent/hy4-preview",
       "name": "Tencent: Hy4 preview",
       "created": 1787897375,
-      "prompt_price": 8.34e-7,
-      "completion_price": 0.000002501,
+      "prompt_price": 7.506e-7,
+      "completion_price": 0.0000022509,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "Tencent: Hy4 preview is a mixture-of-experts model from Tencent, with 49B active parameters out of 770B total. It is designed for coding agents, complex tool-use workflows, and productivity tasks that...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "inclusionai/ling-3.0-flash-fin": {
@@ -1673,13 +1673,13 @@
       "name": "MoonshotAI: Kimi K3",
       "created": 1784215858,
       "prompt_price": 8e-7,
-      "completion_price": 0.00001,
+      "completion_price": 0.0000135,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "Kimi K3 is a 2.8T parameter open-weight multimodal reasoning model from Moonshot AI. It is suited for complex coding, knowledge work, and long-horizon agentic workflows, and is particularly strong at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "moonshotai/kimi-k3:batch": {
@@ -1938,14 +1938,14 @@
       "id": "tencent/hy3",
       "name": "Tencent: Hy3",
       "created": 1783344048,
-      "prompt_price": 1.32e-7,
-      "completion_price": 5.28e-7,
+      "prompt_price": 8.25e-8,
+      "completion_price": 3.3e-7,
       "context_length": 262144,
       "modalities": "text->text",
       "description": "Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic workflows, and real-world production use. It supports a configurable reasoning effort:...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "poolside/laguna-xs-2.1": {
