@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/17 17:21:30",
-  "timestamp": 1792257690378,
+  "savedAt": "2026/10/17 19:32:54",
+  "timestamp": 1792265574678,
   "models": {
     "deepseek/deepseek-v4.1-flash-1017": {
       "id": "deepseek/deepseek-v4.1-flash-1017",
@@ -1588,7 +1588,7 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "created": 1785606009,
-      "prompt_price": 8.7e-9,
+      "prompt_price": 5.8e-9,
       "completion_price": 0.00000128,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -1602,7 +1602,7 @@
       "id": "deepseek/deepseek-v4-flash-0731",
       "name": "DeepSeek: DeepSeek V4 Flash 0731",
       "created": 1785478908,
-      "prompt_price": 8.7e-9,
+      "prompt_price": 5.8e-9,
       "completion_price": 0.00000128,
       "context_length": 1048576,
       "modalities": "text->text",
