@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/18 21:58:09",
-  "timestamp": 1792360689456,
+  "savedAt": "2026/10/18 23:52:07",
+  "timestamp": 1792367527786,
   "models": {
     "deepseek/deepseek-v4.1-flash-1017": {
       "id": "deepseek/deepseek-v4.1-flash-1017",
@@ -804,7 +804,7 @@
       "id": "~deepseek/deepseek-pro-latest",
       "name": "DeepSeek: DeepSeek Pro Latest",
       "created": 1789399174,
-      "prompt_price": 1.2e-7,
+      "prompt_price": 2.081e-7,
       "completion_price": 0.000008,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -958,14 +958,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 6e-8,
+      "prompt_price": 6.32e-8,
       "completion_price": 1.2e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -1602,7 +1602,7 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "created": 1785606009,
-      "prompt_price": 5.2e-9,
+      "prompt_price": 3.92e-9,
       "completion_price": 1.2e-7,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -1616,14 +1616,14 @@
       "id": "deepseek/deepseek-v4-flash-0731",
       "name": "DeepSeek: DeepSeek V4 Flash 0731",
       "created": 1785478908,
-      "prompt_price": 6.5e-9,
+      "prompt_price": 1.99e-8,
       "completion_price": 4.5e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows....",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "thinkingmachines/inkling-small": {
