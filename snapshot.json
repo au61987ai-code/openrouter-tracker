@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/18 01:42:59",
-  "timestamp": 1792287779174,
+  "savedAt": "2026/10/18 06:41:48",
+  "timestamp": 1792305708878,
   "models": {
     "deepseek/deepseek-v4.1-flash-1017": {
       "id": "deepseek/deepseek-v4.1-flash-1017",
@@ -818,14 +818,14 @@
       "id": "~deepseek/deepseek-flash-latest",
       "name": "DeepSeek: DeepSeek Flash Latest",
       "created": 1789399150,
-      "prompt_price": 8e-8,
-      "completion_price": 5e-7,
+      "prompt_price": 5e-8,
+      "completion_price": 6e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "This model always redirects to the latest model in the DeepSeek Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "inference-net/schematron-v2-turbo": {
@@ -958,14 +958,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 7.2e-8,
+      "prompt_price": 6.48e-8,
       "completion_price": 1.44e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -1351,13 +1351,13 @@
       "name": "Z.ai: GLM 5.3",
       "created": 1787086655,
       "prompt_price": 7.9e-8,
-      "completion_price": 0.0000032,
+      "completion_price": 0.0000048,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3:batch": {
@@ -1602,14 +1602,14 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "created": 1785606009,
-      "prompt_price": 1.14e-8,
-      "completion_price": 0.00000128,
+      "prompt_price": 9.12e-9,
+      "completion_price": 1.43616e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "This model always redirects to the latest model in the DeepSeek V4 Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4-flash-0731": {
