@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/22 17:22:27",
-  "timestamp": 1792689747898,
+  "savedAt": "2026/10/22 20:38:18",
+  "timestamp": 1792701498367,
   "models": {
     "recursive/flint-v1.0:free": {
       "id": "recursive/flint-v1.0:free",
@@ -2751,13 +2751,13 @@
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
       "prompt_price": 2.38e-7,
-      "completion_price": 0.000016,
+      "completion_price": 0.000024,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -3072,14 +3072,14 @@
       "id": "google/gemma-4-26b-a4b-it",
       "name": "Google: Gemma 4 26B A4B ",
       "created": 1775227989,
-      "prompt_price": 9e-8,
-      "completion_price": 3e-7,
+      "prompt_price": 7.65e-8,
+      "completion_price": 2.55e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it:free": {
@@ -3548,14 +3548,14 @@
       "id": "qwen/qwen3.5-122b-a10b",
       "name": "Qwen: Qwen3.5-122B-A10B",
       "created": 1772053789,
-      "prompt_price": 4e-7,
-      "completion_price": 0.0000032,
+      "prompt_price": 2.6e-7,
+      "completion_price": 0.00000208,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "The Qwen3.5 122B-A10B native vision-language model is built on a hybrid architecture that integrates a linear attention mechanism with a sparse mixture-of-experts model, achieving higher inference efficiency. In terms of...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "qwen/qwen3.5-flash-02-23": {
