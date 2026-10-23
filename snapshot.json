@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/23 20:42:10",
-  "timestamp": 1792788130770,
+  "savedAt": "2026/10/23 23:36:08",
+  "timestamp": 1792798568015,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -874,14 +874,14 @@
       "id": "~deepseek/deepseek-flash-latest",
       "name": "DeepSeek: DeepSeek Flash Latest",
       "created": 1789399150,
-      "prompt_price": 7e-8,
-      "completion_price": 5e-7,
+      "prompt_price": 2e-8,
+      "completion_price": 0.000001,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "This model always redirects to the latest model in the DeepSeek Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "inference-net/schematron-v2-turbo": {
@@ -1014,14 +1014,14 @@
       "id": "deepseek/deepseek-v4.1-flash",
       "name": "DeepSeek: DeepSeek V4.1 Flash",
       "created": 1789021285,
-      "prompt_price": 3e-7,
-      "completion_price": 0.0000012,
+      "prompt_price": 2e-8,
+      "completion_price": 0.000001,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "DeepSeek V4.1 Flash is a sparse mixture-of-experts model from DeepSeek, and the first built on the company's Causal Encoder-Decoder (CED) architecture. It activates 8B parameters on input and 16B on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "deepseek/deepseek-v4.1-flash:batch": {
@@ -1266,14 +1266,14 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 5.2e-9,
-      "completion_price": 1.985e-7,
+      "prompt_price": 3.04e-8,
+      "completion_price": 1.22e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the GLM Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "qwen/qwen3.8-flash": {
@@ -2918,8 +2918,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 7.5342e-7,
-      "completion_price": 0.00000150684,
+      "prompt_price": 6.72336e-7,
+      "completion_price": 0.000001344672,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
