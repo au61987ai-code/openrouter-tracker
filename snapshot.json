@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/24 16:06:31",
-  "timestamp": 1792857991795,
+  "savedAt": "2026/10/24 18:52:13",
+  "timestamp": 1792867933198,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -1266,7 +1266,7 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 5.11e-8,
+      "prompt_price": 5.07e-8,
       "completion_price": 7.02e-8,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
@@ -1406,14 +1406,14 @@
       "id": "z-ai/glm-5.3",
       "name": "Z.ai: GLM 5.3",
       "created": 1787086655,
-      "prompt_price": 7.9e-8,
-      "completion_price": 0.0000014,
+      "prompt_price": 9.08e-8,
+      "completion_price": 0.00000161,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3:batch": {
@@ -6456,20 +6456,6 @@
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
     },
-    "openai/gpt-3.5-turbo-instruct": {
-      "id": "openai/gpt-3.5-turbo-instruct",
-      "name": "OpenAI: GPT-3.5 Turbo Instruct",
-      "created": 1695859200,
-      "prompt_price": 0.0000015,
-      "completion_price": 0.000002,
-      "context_length": 4095,
-      "modalities": "text->text",
-      "description": "This model is a variant of GPT-3.5 Turbo tuned for instructional prompts and omitting chat-related optimizations. Training data: up to Sep 2021.",
-      "last_updated": 1790165464834,
-      "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
-      "first_seen": 1790165464834
-    },
     "openai/gpt-3.5-turbo-16k": {
       "id": "openai/gpt-3.5-turbo-16k",
       "name": "OpenAI: GPT-3.5 Turbo 16k",
@@ -6521,34 +6507,6 @@
       "context_length": 8192,
       "modalities": "text->text",
       "description": "One of the highest performing and most popular fine-tunes of Llama 2 13B, with rich descriptions and roleplay. #merge",
-      "last_updated": 1790165464834,
-      "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
-      "first_seen": 1790165464834
-    },
-    "openai/gpt-3.5-turbo": {
-      "id": "openai/gpt-3.5-turbo",
-      "name": "OpenAI: GPT-3.5 Turbo",
-      "created": 1685232000,
-      "prompt_price": 5e-7,
-      "completion_price": 0.0000015,
-      "context_length": 16385,
-      "modalities": "text->text",
-      "description": "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.\n\nTraining data up to Sep 2021.",
-      "last_updated": 1790165464834,
-      "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
-      "first_seen": 1790165464834
-    },
-    "openai/gpt-3.5-turbo:batch": {
-      "id": "openai/gpt-3.5-turbo:batch",
-      "name": "OpenAI: GPT-3.5 Turbo (batch)",
-      "created": 1685232000,
-      "prompt_price": 2.5e-7,
-      "completion_price": 7.5e-7,
-      "context_length": 16385,
-      "modalities": "text->text",
-      "description": "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.\n\nTraining data up to Sep 2021.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "新模型上架",
