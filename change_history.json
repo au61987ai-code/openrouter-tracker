@@ -1,5 +1,20 @@
 [
   {
+    "id": "evt_1792876600626_k6zrtu",
+    "timestamp": 1792876600626,
+    "timeStr": "2026/10/24 21:16:40",
+    "modelId": "~z-ai/glm-flash-latest",
+    "modelName": "Z.ai: GLM Flash Latest",
+    "provider": "~z-ai",
+    "changeType": "PRICE_DROP",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.0507",
+    "newVal": "$0.0504",
+    "diffStr": "$-0.0003",
+    "percentStr": "-0.6%"
+  },
+  {
     "id": "evt_1792867933198_gaqi3x",
     "timestamp": 1792867933198,
     "timeStr": "2026/10/24 18:52:13",

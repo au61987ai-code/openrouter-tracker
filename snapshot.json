@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/24 18:52:13",
-  "timestamp": 1792867933198,
+  "savedAt": "2026/10/24 21:16:40",
+  "timestamp": 1792876600626,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -1266,7 +1266,7 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 5.07e-8,
+      "prompt_price": 5.04e-8,
       "completion_price": 7.02e-8,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
