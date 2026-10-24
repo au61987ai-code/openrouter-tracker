@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/24 21:16:40",
-  "timestamp": 1792876600626,
+  "savedAt": "2026/10/24 23:26:25",
+  "timestamp": 1792884385137,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -1266,14 +1266,14 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 5.04e-8,
-      "completion_price": 7.02e-8,
+      "prompt_price": 5.02e-8,
+      "completion_price": 8.19e-8,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the GLM Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "qwen/qwen3.8-flash": {
@@ -1555,6 +1555,20 @@
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
+    },
+    "liquid/lfm-2.5-2.6b": {
+      "id": "liquid/lfm-2.5-2.6b",
+      "name": "LiquidAI: LFM2.5-2.6B",
+      "created": 1786470519,
+      "prompt_price": 3.5e-7,
+      "completion_price": 5e-7,
+      "context_length": 128000,
+      "modalities": "text->text",
+      "description": "LFM2.5-2.6B is a compact reasoning model from Liquid AI. It is suited for agent workflows, data extraction, RAG, and long-context processing. Liquid advises against using it for agentic coding or...",
+      "last_updated": 1792884385137,
+      "last_updated_str": "2026/10/24 23:26:25",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1792884385137
     },
     "liquid/lfm-2.5-2.6b:free": {
       "id": "liquid/lfm-2.5-2.6b:free",
@@ -2765,7 +2779,7 @@
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
       "prompt_price": 1.9e-7,
-      "completion_price": 0.00000894,
+      "completion_price": 0.0000085258,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
