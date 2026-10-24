@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/24 02:08:51",
-  "timestamp": 1792807731153,
+  "savedAt": "2026/10/24 07:26:58",
+  "timestamp": 1792826818139,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -1266,14 +1266,14 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 2.8847e-8,
-      "completion_price": 5.4046e-8,
+      "prompt_price": 1.75e-8,
+      "completion_price": 1.425e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the GLM Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "qwen/qwen3.8-flash": {
@@ -2765,13 +2765,13 @@
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
       "prompt_price": 2.38e-7,
-      "completion_price": 0.000016,
+      "completion_price": 0.000024,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -2918,8 +2918,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 6.52152e-7,
-      "completion_price": 0.000001304304,
+      "prompt_price": 4.69626e-7,
+      "completion_price": 9.39252e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
