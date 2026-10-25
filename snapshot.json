@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/25 21:02:18",
-  "timestamp": 1792962138438,
+  "savedAt": "2026/10/25 23:22:30",
+  "timestamp": 1792970550115,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -2778,8 +2778,8 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 1.814e-7,
-      "completion_price": 0.0000085226,
+      "prompt_price": 1.919e-7,
+      "completion_price": 0.0000081113,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
