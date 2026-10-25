@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/25 06:20:13",
-  "timestamp": 1792909213512,
+  "savedAt": "2026/10/25 11:49:27",
+  "timestamp": 1792928967807,
   "models": {
     "moonshotai/kimi-k3.1-pro": {
       "id": "moonshotai/kimi-k3.1-pro",
@@ -1266,8 +1266,8 @@
       "id": "~z-ai/glm-flash-latest",
       "name": "Z.ai: GLM Flash Latest",
       "created": 1787817633,
-      "prompt_price": 4.18e-8,
-      "completion_price": 7.7e-8,
+      "prompt_price": 5.13e-8,
+      "completion_price": 7.01e-8,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the GLM Flash family.",
@@ -1686,14 +1686,14 @@
       "id": "deepseek/deepseek-v4-flash-0731",
       "name": "DeepSeek: DeepSeek V4 Flash 0731",
       "created": 1785478908,
-      "prompt_price": 4.22e-8,
-      "completion_price": 1.694e-7,
+      "prompt_price": 4.444e-8,
+      "completion_price": 1.3332e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows....",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "thinkingmachines/inkling-small": {
@@ -2778,8 +2778,8 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 1.9e-7,
-      "completion_price": 0.00000894,
+      "prompt_price": 1.7e-7,
+      "completion_price": 0.000016,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
