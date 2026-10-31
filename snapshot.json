@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/10/31 16:23:09",
-  "timestamp": 1793463789262,
+  "savedAt": "2026/10/31 20:07:33",
+  "timestamp": 1793477253292,
   "models": {
     "particle-ai/particle-1": {
       "id": "particle-ai/particle-1",
@@ -930,14 +930,14 @@
       "id": "~deepseek/deepseek-flash-latest",
       "name": "DeepSeek: DeepSeek Flash Latest",
       "created": 1789399150,
-      "prompt_price": 1.41e-8,
+      "prompt_price": 1.55e-8,
       "completion_price": 1.44e-7,
       "context_length": 1048576,
       "modalities": "text+image->text",
       "description": "This model always redirects to the latest model in the DeepSeek Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "inference-net/schematron-v2-turbo": {
@@ -1588,14 +1588,14 @@
       "id": "deepseek/deepseek-v4-pro-0813",
       "name": "DeepSeek: DeepSeek V4 Pro 0813",
       "created": 1786549364,
-      "prompt_price": 6.6e-7,
-      "completion_price": 0.00000198,
+      "prompt_price": 1.15e-7,
+      "completion_price": 0.000004,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro 0813 is a large-scale mixture-of-experts model from DeepSeek. This is the GA release of DeepSeek V4 Pro.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "x-ai/grok-4.6": {
@@ -1728,8 +1728,8 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "created": 1785606009,
-      "prompt_price": 5.764e-8,
-      "completion_price": 1.7292e-7,
+      "prompt_price": 5.5e-8,
+      "completion_price": 1.65e-7,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "This model always redirects to the latest model in the DeepSeek V4 Flash family.",
@@ -3870,14 +3870,14 @@
       "id": "z-ai/glm-4.7",
       "name": "Z.ai: GLM 4.7",
       "created": 1766378014,
-      "prompt_price": 5.4e-7,
-      "completion_price": 0.00000198,
+      "prompt_price": 6e-7,
+      "completion_price": 0.0000022,
       "context_length": 204800,
       "modalities": "text->text",
       "description": "GLM-4.7 is Z.ai’s latest flagship model, featuring upgrades in two key areas: enhanced programming capabilities and more stable multi-step reasoning/execution. It demonstrates significant improvements in executing complex agent tasks while...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "google/gemini-3-flash-preview": {
