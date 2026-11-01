@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/1 20:38:33",
-  "timestamp": 1793565513088,
+  "savedAt": "2026/11/1 23:59:03",
+  "timestamp": 1793577543226,
   "models": {
     "particle-ai/particle-1": {
       "id": "particle-ai/particle-1",
@@ -1462,14 +1462,14 @@
       "id": "z-ai/glm-5.3",
       "name": "Z.ai: GLM 5.3",
       "created": 1787086655,
-      "prompt_price": 8e-8,
-      "completion_price": 0.0000036,
+      "prompt_price": 6.99e-8,
+      "completion_price": 0.0000014,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.3:batch": {
@@ -4752,14 +4752,14 @@
       "id": "openai/gpt-oss-120b",
       "name": "OpenAI: gpt-oss-120b",
       "created": 1754414231,
-      "prompt_price": 1.8e-8,
-      "completion_price": 6.5e-8,
+      "prompt_price": 1.5e-7,
+      "completion_price": 6e-7,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "gpt-oss-120b is an open-weight, 117B-parameter Mixture-of-Experts (MoE) language model from OpenAI designed for high-reasoning, agentic, and general-purpose production use cases. It activates 5.1B parameters per forward pass and is optimized...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "openai/gpt-oss-120b:batch": {
