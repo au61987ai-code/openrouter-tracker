@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/6 16:22:44",
-  "timestamp": 1793982164721,
+  "savedAt": "2026/11/6 21:39:26",
+  "timestamp": 1794001166929,
   "models": {
     "google/gemini-omni-1.2-flash": {
       "id": "google/gemini-omni-1.2-flash",
@@ -32,7 +32,7 @@
     },
     "ricursiveai/ripple-65b-preview": {
       "id": "ricursiveai/ripple-65b-preview",
-      "name": "ricursiveAI/Ripple-65B-Preview",
+      "name": "Ricursive: Ripple 65B Preview",
       "created": 1793818990,
       "prompt_price": 2e-7,
       "completion_price": 6e-7,
@@ -1598,6 +1598,20 @@
       "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
+    "qwen/qwen3.8-27b:batch": {
+      "id": "qwen/qwen3.8-27b:batch",
+      "name": "Qwen: Qwen3.8 27B (batch)",
+      "created": 1786722910,
+      "prompt_price": 1.6e-7,
+      "completion_price": 0.000002,
+      "context_length": 262144,
+      "modalities": "text+image+video->text",
+      "description": "Qwen3.8 27B is an open-weight dense vision-language model from Qwen. It is suited for coding, professional workflows, research, multimodal interaction, and long-running agent tasks, with flexible thinking that can be...",
+      "last_updated": 1794001166929,
+      "last_updated_str": "2026/11/6 21:39:26",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794001166929
+    },
     "dots-studio/dots-3-note-preview:free": {
       "id": "dots-studio/dots-3-note-preview:free",
       "name": "Dots Studio: Dots3-Note Preview (free)",
@@ -1822,6 +1836,20 @@
       "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
+    "meta/muse-glimmer-30b:batch": {
+      "id": "meta/muse-glimmer-30b:batch",
+      "name": "Meta: Muse Glimmer 30B (batch)",
+      "created": 1786302394,
+      "prompt_price": 2.4e-7,
+      "completion_price": 9.6e-7,
+      "context_length": 131072,
+      "modalities": "text+image->text",
+      "description": "Muse Glimmer 30B is a dense, open-weight multimodal model from Meta Superintelligence Labs, distilled from Muse Spark and optimized for autonomous agents on consumer hardware. It is suited for long-horizon...",
+      "last_updated": 1794001166929,
+      "last_updated_str": "2026/11/6 21:39:26",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794001166929
+    },
     "inclusionai/ling-3.0-tiny": {
       "id": "inclusionai/ling-3.0-tiny",
       "name": "inclusionAI: Ling 3.0 Tiny",
@@ -1854,7 +1882,7 @@
       "id": "~deepseek/deepseek-v4-flash-latest",
       "name": "DeepSeek: DeepSeek V4 Flash Latest",
       "created": 1785606009,
-      "prompt_price": 4.87e-8,
+      "prompt_price": 4.34e-8,
       "completion_price": 3e-7,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -1868,7 +1896,7 @@
       "id": "deepseek/deepseek-v4-flash-0731",
       "name": "DeepSeek: DeepSeek V4 Flash 0731",
       "created": 1785478908,
-      "prompt_price": 4.87e-8,
+      "prompt_price": 4.34e-8,
       "completion_price": 3e-7,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -1877,6 +1905,20 @@
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
+    },
+    "deepseek/deepseek-v4-flash-0731:batch": {
+      "id": "deepseek/deepseek-v4-flash-0731:batch",
+      "name": "DeepSeek: DeepSeek V4 Flash 0731 (batch)",
+      "created": 1785478908,
+      "prompt_price": 4.8e-8,
+      "completion_price": 1.44e-7,
+      "context_length": 1048576,
+      "modalities": "text->text",
+      "description": "DeepSeek V4 Flash 0731 is a sparse mixture-of-experts model from DeepSeek, with 13B active parameters out of 284B total. This re-post-trained revision is suited for coding, reasoning, and agent workflows....",
+      "last_updated": 1794001166929,
+      "last_updated_str": "2026/11/6 21:39:26",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794001166929
     },
     "thinkingmachines/inkling-small": {
       "id": "thinkingmachines/inkling-small",
@@ -1891,6 +1933,20 @@
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
+    },
+    "thinkingmachines/inkling-small:batch": {
+      "id": "thinkingmachines/inkling-small:batch",
+      "name": "Thinking Machines: Inkling Small (batch)",
+      "created": 1785443117,
+      "prompt_price": 3.6e-7,
+      "completion_price": 9.6e-7,
+      "context_length": 524288,
+      "modalities": "text+image+audio->text",
+      "description": "Inkling Small is an open-weight multimodal mixture-of-experts model from Thinking Machines Lab, with 12B active parameters out of 276B total. It is positioned as the smaller, more efficient member of...",
+      "last_updated": 1794001166929,
+      "last_updated_str": "2026/11/6 21:39:26",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794001166929
     },
     "qwen/qwen3.7-flash": {
       "id": "qwen/qwen3.7-flash",
@@ -2564,6 +2620,20 @@
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
     },
+    "minimax/minimax-m3:batch": {
+      "id": "minimax/minimax-m3:batch",
+      "name": "MiniMax: MiniMax M3 (batch)",
+      "created": 1780245374,
+      "prompt_price": 2.24e-7,
+      "completion_price": 8.8e-7,
+      "context_length": 524288,
+      "modalities": "text+image+video->text",
+      "description": "MiniMax-M3 is a multimodal foundation model from MiniMax. It supports text, image, and video inputs with text output, a 1M-token context window, and is suited for long-horizon agentic work, coding,...",
+      "last_updated": 1794001166929,
+      "last_updated_str": "2026/11/6 21:39:26",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794001166929
+    },
     "stepfun/step-3.7-flash": {
       "id": "stepfun/step-3.7-flash",
       "name": "StepFun: Step 3.7 Flash",
@@ -2834,7 +2904,7 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 1.824e-7,
+      "prompt_price": 1.539e-7,
       "completion_price": 0.0000093388,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
@@ -2988,8 +3058,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 8.51556e-7,
-      "completion_price": 0.000001703112,
+      "prompt_price": 7.40022e-7,
+      "completion_price": 0.000001480044,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
@@ -3142,14 +3212,14 @@
       "id": "google/gemma-4-26b-a4b-it",
       "name": "Google: Gemma 4 26B A4B ",
       "created": 1775227989,
-      "prompt_price": 9e-8,
-      "completion_price": 3e-7,
+      "prompt_price": 6.75e-8,
+      "completion_price": 2.25e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it:free": {
@@ -4794,8 +4864,8 @@
       "id": "openai/gpt-oss-120b",
       "name": "OpenAI: gpt-oss-120b",
       "created": 1754414231,
-      "prompt_price": 2.1e-8,
-      "completion_price": 7.9e-8,
+      "prompt_price": 2.3e-8,
+      "completion_price": 8.7e-8,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "gpt-oss-120b is an open-weight, 117B-parameter Mixture-of-Experts (MoE) language model from OpenAI designed for high-reasoning, agentic, and general-purpose production use cases. It activates 5.1B parameters per forward pass and is optimized...",
