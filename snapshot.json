@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/8 19:48:36",
-  "timestamp": 1794167316311,
+  "savedAt": "2026/11/8 23:14:28",
+  "timestamp": 1794179668075,
   "models": {
     "liquid/lfm-3-1.7b": {
       "id": "liquid/lfm-3-1.7b",
@@ -1588,14 +1588,14 @@
       "id": "z-ai/glm-5.3:batch",
       "name": "Z.ai: GLM 5.3 (batch)",
       "created": 1787086655,
-      "prompt_price": 3.14e-7,
+      "prompt_price": 3.88e-7,
       "completion_price": 0.000001271,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM-5.3 is a large-scale reasoning model from Z.ai, built for complex software engineering and long-horizon agent tasks. It supports text input and output with a 1M-token context window, and improves...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "qwen/qwen3.8-27b": {
@@ -2498,14 +2498,14 @@
       "id": "z-ai/glm-5.2:batch",
       "name": "Z.ai: GLM 5.2 (batch)",
       "created": 1781631930,
-      "prompt_price": 3.14e-7,
+      "prompt_price": 3.88e-7,
       "completion_price": 0.000001271,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM 5.2 is a large-scale reasoning model from Z.ai. It supports text input and output with a 1M-token context window, and is suited for long-horizon agent workflows, project-level software engineering,...",
       "last_updated": 1794125383699,
       "last_updated_str": "2026/11/8 08:09:43",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1794125383699
     },
     "moonshotai/kimi-k2.7-code": {
@@ -2932,14 +2932,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 1.51e-7,
-      "completion_price": 0.0000105634,
+      "prompt_price": 1.824e-7,
+      "completion_price": 0.0000093388,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -4878,14 +4878,14 @@
       "id": "openai/gpt-oss-120b",
       "name": "OpenAI: gpt-oss-120b",
       "created": 1754414231,
-      "prompt_price": 2.5e-8,
-      "completion_price": 9.3e-8,
+      "prompt_price": 1.5e-8,
+      "completion_price": 5.6e-8,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "gpt-oss-120b is an open-weight, 117B-parameter Mixture-of-Experts (MoE) language model from OpenAI designed for high-reasoning, agentic, and general-purpose production use cases. It activates 5.1B parameters per forward pass and is optimized...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "openai/gpt-oss-120b:batch": {
