@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/9 02:47:03",
-  "timestamp": 1794192423839,
+  "savedAt": "2026/11/9 10:29:00",
+  "timestamp": 1794220140676,
   "models": {
     "liquid/lfm-3-1.7b": {
       "id": "liquid/lfm-3-1.7b",
@@ -2498,7 +2498,7 @@
       "id": "z-ai/glm-5.2:batch",
       "name": "Z.ai: GLM 5.2 (batch)",
       "created": 1781631930,
-      "prompt_price": 5.6e-7,
+      "prompt_price": 6.23e-7,
       "completion_price": 0.000001271,
       "context_length": 1048576,
       "modalities": "text->text",
@@ -2932,14 +2932,14 @@
       "id": "~moonshotai/kimi-latest",
       "name": "MoonshotAI: Kimi Latest",
       "created": 1777318428,
-      "prompt_price": 1.824e-7,
+      "prompt_price": 1.539e-7,
       "completion_price": 0.0000101489,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "This model always redirects to the latest model in the Kimi family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~google/gemini-flash-latest": {
@@ -3240,14 +3240,14 @@
       "id": "google/gemma-4-26b-a4b-it",
       "name": "Google: Gemma 4 26B A4B ",
       "created": 1775227989,
-      "prompt_price": 6.75e-8,
-      "completion_price": 2.25e-7,
+      "prompt_price": 9e-8,
+      "completion_price": 3e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it:free": {
@@ -5018,14 +5018,14 @@
       "id": "z-ai/glm-4.5-air",
       "name": "Z.ai: GLM 4.5 Air",
       "created": 1753471258,
-      "prompt_price": 1.3e-7,
-      "completion_price": 8.5e-7,
+      "prompt_price": 2e-7,
+      "completion_price": 0.0000011,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "GLM-4.5-Air is the lightweight variant of our latest flagship model family, also purpose-built for agent-centric applications. Like GLM-4.5, it adopts the Mixture-of-Experts (MoE) architecture but with a more compact parameter...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "qwen/qwen3-235b-a22b-thinking-2507": {
@@ -5607,13 +5607,13 @@
       "name": "Google: Gemma 3 27B",
       "created": 1741756359,
       "prompt_price": 8e-8,
-      "completion_price": 3.5e-7,
+      "completion_price": 4.5e-7,
       "context_length": 131072,
       "modalities": "text+image->text",
       "description": "Gemma 3 introduces multimodality, supporting vision-language input and text outputs. It handles context windows up to 128k tokens, understands over 140 languages, and offers improved math, reasoning, and chat capabilities,...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "thedrummer/skyfall-36b-v2": {
