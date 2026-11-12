@@ -1,7 +1,35 @@
 {
-  "savedAt": "2026/11/12 16:57:35",
-  "timestamp": 1794502655925,
+  "savedAt": "2026/11/12 22:31:43",
+  "timestamp": 1794522703903,
   "models": {
+    "google/gemini-4-hydrogen": {
+      "id": "google/gemini-4-hydrogen",
+      "name": "Google: Gemini 4 Hydrogen",
+      "created": 1794506460,
+      "prompt_price": 0.0000015,
+      "completion_price": 0.0000075,
+      "context_length": 1048576,
+      "modalities": "text+image+file+audio+video->text",
+      "description": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
+    },
+    "google/gemini-4-hydrogen:batch": {
+      "id": "google/gemini-4-hydrogen:batch",
+      "name": "Google: Gemini 4 Hydrogen (batch)",
+      "created": 1794506460,
+      "prompt_price": 7.5e-7,
+      "completion_price": 0.00000375,
+      "context_length": 1048576,
+      "modalities": "text+image+file+audio+video->text",
+      "description": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
+    },
     "baidu/ernie-5.5-flash-preview:free": {
       "id": "baidu/ernie-5.5-flash-preview:free",
       "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
@@ -72,6 +100,20 @@
       "last_change_reason": "新模型上架",
       "first_seen": 1794309999203
     },
+    "thinkingmachines/inkling-2-small": {
+      "id": "thinkingmachines/inkling-2-small",
+      "name": "Thinking Machines: Inkling 2 Small",
+      "created": 1794261847,
+      "prompt_price": 3e-7,
+      "completion_price": 0.000001,
+      "context_length": 1048576,
+      "modalities": "text+image->text",
+      "description": "Inkling 2 Small is an open-weight multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B total. It is the first model in the second...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
+    },
     "thinkingmachines/inkling-2-small:free": {
       "id": "thinkingmachines/inkling-2-small:free",
       "name": "Thinking Machines: Inkling 2 Small (free)",
@@ -80,7 +122,7 @@
       "completion_price": 0,
       "context_length": 1048576,
       "modalities": "text+image->text",
-      "description": "Inkling 2 Small is a multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B total. It is the first model in the second Inkling...",
+      "description": "Inkling 2 Small is an open-weight multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B total. It is the first model in the second...",
       "last_updated": 1794279788588,
       "last_updated_str": "2026/11/10 03:03:08",
       "last_change_reason": "新模型上架",
@@ -268,6 +310,20 @@
       "last_change_reason": "價格調降 📉",
       "first_seen": 1793219864824
     },
+    "particle-ai/particle-1:free": {
+      "id": "particle-ai/particle-1:free",
+      "name": "Particle AI: Particle-1 (free)",
+      "created": 1793207893,
+      "prompt_price": 0,
+      "completion_price": 0,
+      "context_length": 1048576,
+      "modalities": "text+image->text",
+      "description": "Particle-1 is a token-efficient agentic coding model from Particle AI, post-trained on DeepSeek V4.1 Flash. It is suited for software engineering work such as terminal workflows, codebase changes, and data...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
+    },
     "openai/gpt-6.1-terra-pro": {
       "id": "openai/gpt-6.1-terra-pro",
       "name": "OpenAI: GPT-6.1 Terra Pro",
@@ -329,13 +385,13 @@
       "name": "MoonshotAI: Kimi K3.1 Pro",
       "created": 1792778188,
       "prompt_price": 2.375e-7,
-      "completion_price": 0.0000087856,
+      "completion_price": 0.0000084114,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context window. It is built for long-horizon coding, 3D...",
       "last_updated": 1792788130770,
       "last_updated_str": "2026/10/23 20:42:10",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1792788130770
     },
     "moonshotai/kimi-k3.1-pro:batch": {
@@ -729,6 +785,20 @@
       "last_updated_str": "2026/10/2 18:32:58",
       "last_change_reason": "價格調降 📉",
       "first_seen": 1790965978924
+    },
+    "apodex/apodex-1.1-mini:free": {
+      "id": "apodex/apodex-1.1-mini:free",
+      "name": "Apodex: Apodex 1.1 Mini (free)",
+      "created": 1790875335,
+      "prompt_price": 0,
+      "completion_price": 0,
+      "context_length": 262144,
+      "modalities": "text->text",
+      "description": "Apodex 1.1 Mini is a reasoning-first model from Apodex, built for complex, long-horizon research and forecasting tasks. It works directly with files, data, code, and tools to produce verifiable results,...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
     },
     "unbiased/pareto-26.10-preview": {
       "id": "unbiased/pareto-26.10-preview",
@@ -1458,6 +1528,20 @@
       "last_change_reason": "新模型上架",
       "first_seen": 1790165464834
     },
+    "inclusionai/ling-3.0-flash-sante": {
+      "id": "inclusionai/ling-3.0-flash-sante",
+      "name": "inclusionAI: Ling 3.0 Flash Sante",
+      "created": 1788545946,
+      "prompt_price": 4.2e-8,
+      "completion_price": 1.232e-7,
+      "context_length": 262144,
+      "modalities": "text->text",
+      "description": "Ling 3.0 Flash Sante is a health and medicine-focused mixture-of-experts model from InclusionAI, built on Ling 3.0 Flash with 5.1B active parameters out of 124B total. It is designed for...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
+    },
     "qwen/qwen3.8-max-0902": {
       "id": "qwen/qwen3.8-max-0902",
       "name": "Qwen: Qwen3.8 Max (0902)",
@@ -1597,6 +1681,20 @@
       "last_updated_str": "2026/9/23 20:11:04",
       "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
+    },
+    "inclusionai/ling-3.0-flash-fin": {
+      "id": "inclusionai/ling-3.0-flash-fin",
+      "name": "inclusionAI: Ling 3.0 Flash Fin",
+      "created": 1787846290,
+      "prompt_price": 4.2e-8,
+      "completion_price": 1.232e-7,
+      "context_length": 262144,
+      "modalities": "text->text",
+      "description": "Ling 3.0 Flash Fin is a finance-focused mixture-of-experts model from InclusionAI, built on Ling 3.0 Flash with 5.1B active parameters out of 124B total. It is designed for real-world investment...",
+      "last_updated": 1794522703903,
+      "last_updated_str": "2026/11/12 22:31:43",
+      "last_change_reason": "新模型上架",
+      "first_seen": 1794522703903
     },
     "~z-ai/glm-flash-latest": {
       "id": "~z-ai/glm-flash-latest",
@@ -3100,14 +3198,14 @@
       "id": "~google/gemini-flash-latest",
       "name": "Google: Gemini Flash Latest",
       "created": 1777318398,
-      "prompt_price": 7.5e-7,
-      "completion_price": 0.00000375,
+      "prompt_price": 0.0000015,
+      "completion_price": 0.0000075,
       "context_length": 1048576,
       "modalities": "text+image+file+audio+video->text",
       "description": "This model always redirects to the latest model in the Gemini Flash family.",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "新模型上架",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "~anthropic/claude-sonnet-latest": {
@@ -3240,8 +3338,8 @@
       "id": "deepseek/deepseek-v4-pro",
       "name": "DeepSeek: DeepSeek V4 Pro 0423",
       "created": 1777000679,
-      "prompt_price": 8.92272e-7,
-      "completion_price": 0.000001784544,
+      "prompt_price": 8.88966e-7,
+      "completion_price": 0.000001777932,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "DeepSeek V4 Pro is a large-scale Mixture-of-Experts model from DeepSeek with 1.6T total parameters and 49B activated parameters, supporting a 1M-token context window. It is designed for advanced reasoning, coding,...",
@@ -3394,14 +3492,14 @@
       "id": "google/gemma-4-26b-a4b-it",
       "name": "Google: Gemma 4 26B A4B ",
       "created": 1775227989,
-      "prompt_price": 9e-8,
-      "completion_price": 2.8e-7,
+      "prompt_price": 7.65e-8,
+      "completion_price": 2.55e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it:free": {
@@ -3674,8 +3772,8 @@
       "id": "qwen/qwen3.5-9b",
       "name": "Qwen: Qwen3.5-9B",
       "created": 1773152396,
-      "prompt_price": 1.11e-7,
-      "completion_price": 1.63e-7,
+      "prompt_price": 1.23e-7,
+      "completion_price": 1.81e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Qwen3.5-9B is a multimodal foundation model from the Qwen3.5 family, designed to deliver strong reasoning, coding, and visual understanding in an efficient 9B-parameter architecture. It uses a unified vision-language design...",
@@ -4052,14 +4150,14 @@
       "id": "moonshotai/kimi-k2.5",
       "name": "MoonshotAI: Kimi K2.5",
       "created": 1769487076,
-      "prompt_price": 5.32e-7,
-      "completion_price": 0.000003325,
+      "prompt_price": 5e-7,
+      "completion_price": 0.0000025,
       "context_length": 262144,
       "modalities": "text+image->text",
       "description": "Kimi K2.5 is Moonshot AI's native multimodal model, delivering state-of-the-art visual coding capability and a self-directed agent swarm paradigm. Built on Kimi K2 with continued pretraining over approximately 15T mixed...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "writer/palmyra-x5": {
