@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/14 17:13:30",
-  "timestamp": 1794676410992,
+  "savedAt": "2026/11/14 21:35:48",
+  "timestamp": 1794692148878,
   "models": {
     "inclusionai/ling-3.2-flash:free": {
       "id": "inclusionai/ling-3.2-flash:free",
@@ -3716,14 +3716,14 @@
       "id": "qwen/qwen3.5-9b",
       "name": "Qwen: Qwen3.5-9B",
       "created": 1773152396,
-      "prompt_price": 9.1e-8,
-      "completion_price": 1.33e-7,
+      "prompt_price": 1.09e-7,
+      "completion_price": 1.6e-7,
       "context_length": 262144,
       "modalities": "text+image+video->text",
       "description": "Qwen3.5-9B is a multimodal foundation model from the Qwen3.5 family, designed to deliver strong reasoning, coding, and visual understanding in an efficient 9B-parameter architecture. It uses a unified vision-language design...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "openai/gpt-5.4-pro": {

@@ -1,5 +1,35 @@
 [
   {
+    "id": "evt_1794692148878_eo2x6d",
+    "timestamp": 1794692148878,
+    "timeStr": "2026/11/14 21:35:48",
+    "modelId": "qwen/qwen3.5-9b",
+    "modelName": "Qwen: Qwen3.5-9B",
+    "provider": "qwen",
+    "changeType": "PRICE_HIKE",
+    "field": "prompt_price",
+    "fieldName": "輸入價格 (Prompt)",
+    "oldVal": "$0.0910",
+    "newVal": "$0.1090",
+    "diffStr": "+$0.0180",
+    "percentStr": "+19.8%"
+  },
+  {
+    "id": "evt_1794692148878_wm4oee",
+    "timestamp": 1794692148878,
+    "timeStr": "2026/11/14 21:35:48",
+    "modelId": "qwen/qwen3.5-9b",
+    "modelName": "Qwen: Qwen3.5-9B",
+    "provider": "qwen",
+    "changeType": "PRICE_HIKE",
+    "field": "completion_price",
+    "fieldName": "輸出價格 (Completion)",
+    "oldVal": "$0.1330",
+    "newVal": "$0.1600",
+    "diffStr": "+$0.0270",
+    "percentStr": "+20.3%"
+  },
+  {
     "id": "evt_1794676410992_9axjpa",
     "timestamp": 1794676410992,
     "timeStr": "2026/11/14 17:13:30",
