@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/21 07:27:47",
-  "timestamp": 1795246067756,
+  "savedAt": "2026/11/21 15:29:16",
+  "timestamp": 1795274956244,
   "models": {
     "thinkingmachines/inkling-2-mini": {
       "id": "thinkingmachines/inkling-2-mini",
@@ -636,14 +636,14 @@
       "id": "minimax/minimax-m3.1-flash",
       "name": "MiniMax: MiniMax M3.1 Flash",
       "created": 1792379569,
-      "prompt_price": 1.5e-7,
-      "completion_price": 6e-7,
+      "prompt_price": 7.5e-8,
+      "completion_price": 3e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
       "last_updated": 1792689747898,
       "last_updated_str": "2026/10/22 17:22:27",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1792689747898
     },
     "deepseek/deepseek-v4.1-flash-1017": {
@@ -3548,14 +3548,14 @@
       "id": "z-ai/glm-5.1",
       "name": "Z.ai: GLM 5.1",
       "created": 1775578025,
-      "prompt_price": 0.00000119,
-      "completion_price": 0.00000374,
+      "prompt_price": 0.0000014,
+      "completion_price": 0.0000044,
       "context_length": 204800,
       "modalities": "text->text",
       "description": "GLM-5.1 delivers a major leap in coding capability, with particularly significant gains in handling long-horizon tasks. Unlike previous models built around minute-level interactions, GLM-5.1 can work independently and continuously on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it": {
