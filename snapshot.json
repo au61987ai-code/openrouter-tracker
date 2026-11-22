@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/22 24:54:56",
-  "timestamp": 1795308896644,
+  "savedAt": "2026/11/22 07:34:28",
+  "timestamp": 1795332868942,
   "models": {
     "thinkingmachines/inkling-2-mini": {
       "id": "thinkingmachines/inkling-2-mini",
@@ -636,14 +636,14 @@
       "id": "minimax/minimax-m3.1-flash",
       "name": "MiniMax: MiniMax M3.1 Flash",
       "created": 1792379569,
-      "prompt_price": 7.5e-8,
-      "completion_price": 3e-7,
+      "prompt_price": 1.5e-7,
+      "completion_price": 6e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
       "last_updated": 1792689747898,
       "last_updated_str": "2026/10/22 17:22:27",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1792689747898
     },
     "deepseek/deepseek-v4.1-flash-1017": {
@@ -2036,8 +2036,8 @@
       "id": "qwen/qwen3.8-27b",
       "name": "Qwen: Qwen3.8 27B",
       "created": 1786722910,
-      "prompt_price": 6e-8,
-      "completion_price": 0.00000196,
+      "prompt_price": 3.5e-8,
+      "completion_price": 0.0000015,
       "context_length": 1024000,
       "modalities": "text+image+video->text",
       "description": "Qwen3.8 27B is an open-weight dense vision-language model from Qwen. It is suited for coding, professional workflows, research, multimodal interaction, and long-running agent tasks, with flexible thinking that can be...",
