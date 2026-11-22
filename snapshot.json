@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/22 07:34:28",
-  "timestamp": 1795332868942,
+  "savedAt": "2026/11/22 15:43:54",
+  "timestamp": 1795362234941,
   "models": {
     "thinkingmachines/inkling-2-mini": {
       "id": "thinkingmachines/inkling-2-mini",
@@ -594,14 +594,14 @@
       "id": "moonshotai/kimi-k3.1-pro",
       "name": "MoonshotAI: Kimi K3.1 Pro",
       "created": 1792778188,
-      "prompt_price": 2.53e-7,
-      "completion_price": 0.0000088,
+      "prompt_price": 2.403e-7,
+      "completion_price": 0.0000084023,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context window. It is built for long-horizon coding, 3D...",
       "last_updated": 1792788130770,
       "last_updated_str": "2026/10/23 20:42:10",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1792788130770
     },
     "moonshotai/kimi-k3.1-pro:batch": {
@@ -636,14 +636,14 @@
       "id": "minimax/minimax-m3.1-flash",
       "name": "MiniMax: MiniMax M3.1 Flash",
       "created": 1792379569,
-      "prompt_price": 1.5e-7,
-      "completion_price": 6e-7,
+      "prompt_price": 7.5e-8,
+      "completion_price": 3e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
       "last_updated": 1792689747898,
       "last_updated_str": "2026/10/22 17:22:27",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1792689747898
     },
     "deepseek/deepseek-v4.1-flash-1017": {
@@ -3548,14 +3548,14 @@
       "id": "z-ai/glm-5.1",
       "name": "Z.ai: GLM 5.1",
       "created": 1775578025,
-      "prompt_price": 0.00000119,
-      "completion_price": 0.00000374,
+      "prompt_price": 0.0000014,
+      "completion_price": 0.0000044,
       "context_length": 204800,
       "modalities": "text->text",
       "description": "GLM-5.1 delivers a major leap in coding capability, with particularly significant gains in handling long-horizon tasks. Unlike previous models built around minute-level interactions, GLM-5.1 can work independently and continuously on...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "google/gemma-4-26b-a4b-it": {
@@ -4290,14 +4290,14 @@
       "id": "z-ai/glm-4.7",
       "name": "Z.ai: GLM 4.7",
       "created": 1766378014,
-      "prompt_price": 4e-7,
-      "completion_price": 0.00000175,
+      "prompt_price": 6e-7,
+      "completion_price": 0.0000022,
       "context_length": 204800,
       "modalities": "text->text",
       "description": "GLM-4.7 is Z.ai’s latest flagship model, featuring upgrades in two key areas: enhanced programming capabilities and more stable multi-step reasoning/execution. It demonstrates significant improvements in executing complex agent tasks while...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "google/gemini-3-flash-preview": {
@@ -5172,14 +5172,14 @@
       "id": "openai/gpt-oss-20b",
       "name": "OpenAI: gpt-oss-20b",
       "created": 1754414229,
-      "prompt_price": 1.7e-8,
-      "completion_price": 8.5e-8,
+      "prompt_price": 7.5e-8,
+      "completion_price": 3e-7,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "gpt-oss-20b is an open-weight 21B parameter model released by OpenAI under the Apache 2.0 license. It uses a Mixture-of-Experts (MoE) architecture with 3.6B active parameters per forward pass, optimized for...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "openai/gpt-oss-20b:batch": {
