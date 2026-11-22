@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/22 15:43:54",
-  "timestamp": 1795362234941,
+  "savedAt": "2026/11/22 21:20:58",
+  "timestamp": 1795382458194,
   "models": {
     "thinkingmachines/inkling-2-mini": {
       "id": "thinkingmachines/inkling-2-mini",
@@ -1854,14 +1854,14 @@
       "id": "tencent/hy4-preview",
       "name": "Tencent: Hy4 preview",
       "created": 1787897375,
-      "prompt_price": 8.34e-7,
-      "completion_price": 0.000002501,
+      "prompt_price": 7.506e-7,
+      "completion_price": 0.0000022509,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "Tencent: Hy4 preview is a mixture-of-experts model from Tencent, with 49B active parameters out of 770B total. It is designed for coding agents, complex tool-use workflows, and productivity tasks that...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~z-ai/glm-flash-latest": {
@@ -5172,14 +5172,14 @@
       "id": "openai/gpt-oss-20b",
       "name": "OpenAI: gpt-oss-20b",
       "created": 1754414229,
-      "prompt_price": 7.5e-8,
-      "completion_price": 3e-7,
+      "prompt_price": 3e-8,
+      "completion_price": 1.3e-7,
       "context_length": 131072,
       "modalities": "text->text",
       "description": "gpt-oss-20b is an open-weight 21B parameter model released by OpenAI under the Apache 2.0 license. It uses a Mixture-of-Experts (MoE) architecture with 3.6B active parameters per forward pass, optimized for...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "openai/gpt-oss-20b:batch": {
