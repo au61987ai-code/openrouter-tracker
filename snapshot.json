@@ -1,6 +1,6 @@
 {
-  "savedAt": "2026/11/28 12:29:24",
-  "timestamp": 1795868964780,
+  "savedAt": "2026/11/28 20:27:04",
+  "timestamp": 1795897624448,
   "models": {
     "inclusionai/lingsante-3.1-air-vl": {
       "id": "inclusionai/lingsante-3.1-air-vl",
@@ -692,14 +692,14 @@
       "id": "minimax/minimax-m3.1-flash",
       "name": "MiniMax: MiniMax M3.1 Flash",
       "created": 1792379569,
-      "prompt_price": 1.5e-7,
-      "completion_price": 6e-7,
+      "prompt_price": 7.5e-8,
+      "completion_price": 3e-7,
       "context_length": 1048576,
       "modalities": "text+image+video->text",
       "description": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
       "last_updated": 1792689747898,
       "last_updated_str": "2026/10/22 17:22:27",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1792689747898
     },
     "deepseek/deepseek-v4.1-flash-1017": {
@@ -1868,14 +1868,14 @@
       "id": "tencent/hy4-preview",
       "name": "Tencent: Hy4 preview",
       "created": 1787897375,
-      "prompt_price": 8.34e-7,
-      "completion_price": 0.000002501,
+      "prompt_price": 7.506e-7,
+      "completion_price": 0.0000022509,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "Tencent: Hy4 preview is a mixture-of-experts model from Tencent, with 49B active parameters out of 770B total. It is designed for coding agents, complex tool-use workflows, and productivity tasks that...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "~z-ai/glm-flash-latest": {
@@ -2750,14 +2750,14 @@
       "id": "tencent/hy3",
       "name": "Tencent: Hy3",
       "created": 1783344048,
-      "prompt_price": 1.32e-7,
-      "completion_price": 5.28e-7,
+      "prompt_price": 8.25e-8,
+      "completion_price": 3.3e-7,
       "context_length": 262144,
       "modalities": "text->text",
       "description": "Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic workflows, and real-world production use. It supports a configurable reasoning effort:...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調漲 📈",
+      "last_change_reason": "價格調降 📉",
       "first_seen": 1790165464834
     },
     "anthropic/claude-sonnet-5": {
@@ -2848,14 +2848,14 @@
       "id": "z-ai/glm-5.2",
       "name": "Z.ai: GLM 5.2",
       "created": 1781631930,
-      "prompt_price": 6.2e-7,
-      "completion_price": 0.00000242,
+      "prompt_price": 7e-9,
+      "completion_price": 0.0000068,
       "context_length": 1048576,
       "modalities": "text->text",
       "description": "GLM 5.2 is a large-scale reasoning model from Z.ai. It supports text input and output with a 1M-token context window, and is suited for long-horizon agent workflows, project-level software engineering,...",
       "last_updated": 1790165464834,
       "last_updated_str": "2026/9/23 20:11:04",
-      "last_change_reason": "價格調降 📉",
+      "last_change_reason": "價格調漲 📈",
       "first_seen": 1790165464834
     },
     "z-ai/glm-5.2:batch": {
